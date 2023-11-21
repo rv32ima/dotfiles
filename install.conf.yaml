@@ -1,5 +1,19 @@
 - clean: ['~']
 
 - link:
+    ~/.config/fish:
+      path: fish
+      create: true
+    ~/.config/nvim:
+      path: nvim
+      create: true
+    ~/.config/starship.toml:
+      path: starship.toml
+      create: true
+    ~/bin:
+      path: bin
+      create: true
+    ~/.gitconfig: git/gitconfig
 
-
+- create:
+    - ~/work
