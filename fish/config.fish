@@ -18,13 +18,13 @@ set -gx VISUAL $EDITOR
 set -gx SUDO_EDITOR $EDITOR
 
 set -gx PAGER bat
-# set -gx MANPAGER sh -c 'col -bx | bat -l man -p'
+set -gx MANPAGER "sh -c 'col -bx | bat -l man'"
 
 set -gx XDG_CONFIG_HOME ~/.config
 set -gx XDG_DATA_HOME ~/.local/share
 
-set -gx GPG_TTY "$(tty)"
-set -gx SSH_AUTH_SOCK $(gpgconf --list-dirs agent-ssh-socket)
+set -gx GPG_TTY (tty)
+set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
 set -gx BUN_INSTALL "$HOME/.bun"
@@ -51,7 +51,7 @@ function idot
   while read line
     set graph_input $graph_input $line
   end
-  set rendered_graph $(echo $graph_input | dot -Efontsize=24 \
+  set rendered_graph (echo $graph_input | dot -Efontsize=24 \
                                                -Efontname="Berkeley Mono" \
                                                -Nfontname="Berkeley Mono" \
                                                -Tpng \
@@ -76,7 +76,13 @@ function idot
     imgcat
 end
 
-# setup homebrew
-/opt/homebrew/bin/brew shellenv | source
+if test -f /opt/homebrew/bin/brew
+  # setup homebrew
+  /opt/homebrew/bin/brew shellenv | source
+end
 # setup starship
-starship init fish | source
+if test -x (which starship)
+  starship init fish | source
+else
+  printf "Please install starship!"
+end
