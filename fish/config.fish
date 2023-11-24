@@ -23,14 +23,19 @@ set -gx MANPAGER "sh -c 'col -bx | bat -l man'"
 set -gx XDG_CONFIG_HOME ~/.config
 set -gx XDG_DATA_HOME ~/.local/share
 
-set -gx GPG_TTY (tty)
-set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
+if test -x (which gpgconf)
+  set -gx GPG_TTY (tty)
+  set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+  gpgconf --launch gpg-agent
+end
 
 set -gx BUN_INSTALL "$HOME/.bun"
 
 # disable that damn fish greeting 
 set -U fish_greeting
+
+# set the fish theme..
+fish_config theme choose "TokyoNight Night"
 
 # --- paths ---
 # homebrew binaries
