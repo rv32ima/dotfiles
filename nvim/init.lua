@@ -26,9 +26,9 @@ vim.cmd 'filetype plugin on'
 local keybinds = require('keybinds')
 keybinds.setup_keybinds()
 -- LSP configuration
-local lsp_config = require('lsp_config')
-lsp_config.setup()
-lsp_config.enable_format_on_save()
+-- local lsp_config = require('lsp_config')
+-- lsp_config.setup()
+-- lsp_config.enable_format_on_save()
 -- LuaLine configuration
 local lualine_config = require('lualine_config')
 lualine_config.setup()

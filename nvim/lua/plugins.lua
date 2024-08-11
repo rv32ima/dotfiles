@@ -11,9 +11,9 @@ return require('packer').startup(function()
   use 'folke/tokyonight.nvim'
 
   -- Collection of configurations for the built-in LSP server
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use 'neovim/nvim-lspconfig'
+  -- use 'williamboman/mason.nvim'
+  -- use 'williamboman/mason-lspconfig.nvim'
+  -- use 'neovim/nvim-lspconfig'
 
   -- Automatic LSP status bar
   use 'nvim-lua/lsp-status.nvim'
@@ -31,12 +31,12 @@ return require('packer').startup(function()
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
   -- Code completion support
-  use { 'ms-jpq/coq_nvim', as = 'coq' }
-  use 'ms-jpq/coq.artifacts'
-  use 'ms-jpq/coq.thirdparty'
+  -- use { 'ms-jpq/coq_nvim', as = 'coq' }
+  -- use 'ms-jpq/coq.artifacts'
+  -- use 'ms-jpq/coq.thirdparty'
 
   -- Fuzzy finder
-  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  -- use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
   -- Status line
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
