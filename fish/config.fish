@@ -18,38 +18,28 @@ set -gx VISUAL $EDITOR
 set -gx SUDO_EDITOR $EDITOR
 
 set -gx PAGER bat
-set -gx MANPAGER "sh -c 'col -bx | bat -l man'"
 
 set -gx XDG_CONFIG_HOME ~/.config
 set -gx XDG_DATA_HOME ~/.local/share
-
-if test -x (which gpgconf)
-  set -gx GPG_TTY (tty)
-  set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-  gpgconf --launch gpg-agent
-end
 
 set -gx BUN_INSTALL "$HOME/.bun"
 
 # disable that damn fish greeting 
 set -U fish_greeting
 
-# set the fish theme..
-fish_config theme choose "TokyoNight Night"
-
 # --- paths ---
 # homebrew binaries
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$BUN_INSTALL/bin"
-fish_add_path "$HOME/.aftman/bin"
-fish_add_path "/opt/homebrew/opt/llvm/bin"
+fish_add_path "/usr/local/go/bin"
+fish_add_path "$HOME/go/bin"
 
 # --- aliases ---
 alias ssh="TERM=xterm-256color command ssh"
 alias xssh='ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking no"'
 alias ls="eza"
-alias cat="bat"
+alias cat="bat -p"
 
 function idot
   set -l graph_input
@@ -81,13 +71,23 @@ function idot
     imgcat
 end
 
+# If /opt/homebrew/bin/brew exists, then we're on a Mac-based machine
 if test -f /opt/homebrew/bin/brew
-  # setup homebrew
   /opt/homebrew/bin/brew shellenv | source
+  fish_add_path "/opt/homebrew/opt/llvm/bin"
 end
+
 # setup starship
 if test -x (which starship)
   starship init fish | source
 else
   printf "Please install starship!"
+end
+
+if test -x (which gpgconf)
+  gpgconf --launch gpg-agent &>/dev/null
+  if test $status -eq 0;
+    set -gx GPG_TTY (tty)
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+  end
 end
