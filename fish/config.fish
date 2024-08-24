@@ -10,7 +10,7 @@ else
 end
 
 # TokyoNight Night
-fish_config theme choose "TokyoNight Night"
+fish_config theme choose "TokyoNight Night" 
 
 set -gx LANG 'en_US.UTF-8'
 set -gx LC_ALL $LANG
@@ -48,7 +48,6 @@ function vsc
     open -a "Visual Studio Code" $argv[1]
   else
     echo "couldn't find any way of opening in visual studio code :-("
-    exit 1
   end
 end
 
