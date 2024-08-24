@@ -1,0 +1,14 @@
+Host tombeau
+  HostName tombeau.tail09d5b.ts.net
+  User harrison
+  ForwardAgent yes
+
+Host frank
+  HostName frank.tail09d5b.ts.net
+  User harrison
+  ForwardAgent yes
+
+Host stardust
+  HostName stardust.tail09d5b.ts.net
+  User harrison
+  ForwardAgent yes

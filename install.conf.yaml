@@ -10,8 +10,17 @@
     ~/.config/starship.toml:
       path: starship.toml
       create: true
+    ~/.ssh:
+      path: ssh
+      create: true
     ~/bin:
       path: bin
+      create: true
+    ~/.config/wezterm:
+      path: wezterm
+      create: true
+    ~/.yabairc:
+      path: yabai/yabairc
       create: true
     ~/.gitconfig: git/gitconfig
 

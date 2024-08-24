@@ -43,16 +43,12 @@ case "$OS" in
     ;;
 esac
 
-CAN_ROOT=
 SUDO=
 if [ "$(id -u)" = 0 ]; then
-  CAN_ROOT=1
   SUDO=""
 elif type sudo >/dev/null; then
-  CAN_ROOT=1
   SUDO="sudo"
 elif type doas >/dev/null; then
-  CAN_ROOT=1
   SUDO="doas"
 fi
 
@@ -65,7 +61,7 @@ fi
 
 wait_for_program() {
   PID=$!
-  if [ ! -z "$QUIET" ]; then
+  if [ -n "$QUIET" ]; then
     while kill -0 $PID 2>/dev/null; do
       sleep .1
     done
@@ -73,7 +69,6 @@ wait_for_program() {
     return
   fi
 
-  spin="-\|/"
   # Some spacing just so we don't overwrite the contents written before us...
   err "  "
   # Wait for the forked program to finish
@@ -92,10 +87,10 @@ wait_for_program() {
 
 DIR=$(mktemp -d)
 trap "rm -r $DIR" EXIT
-pushd $DIR
+pushd "$DIR"
 
 URL="https://go.dev/dl/go$GOVERSION.$GOOS-$GOARCH.tar.gz"
-$CURL $URL >"go.tar.gz" &
+$CURL "$URL" >"go.tar.gz" &
 wait_for_program
 if [ $RC != 0 ]; then
   err "Couldn't download go from %s, got exit code %d\n" "$URL" "$RC"
