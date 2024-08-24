@@ -12,6 +12,7 @@ EXTENSIONS=(
   'tamasfe.even-better-toml'
   'rust-lang.rust-analyzer'
   'sumneko.lua'
+  'ms-vscode.makefile-tools'
 )
 
 if [ -x "$(which code)" ]; then
