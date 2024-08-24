@@ -42,7 +42,7 @@ alias ls="eza"
 alias cat="bat -p"
 
 function vsc
-  if [ -x "$(which code)" ]
+  if [ -x "(which code)" ]
     code $argv[1]
   else if [ -d "/Applications/Visual Studio Code.app" ]
     open -a "Visual Studio Code" $argv[1]
