@@ -46,6 +46,13 @@ function vsc
     code $argv[1]
   else if [ -d "/Applications/Visual Studio Code.app" ]
     open -a "Visual Studio Code" $argv[1]
+  else if [ -d "$HOME/.vscode-server" ]; then
+    pushd "$HOME/.vscode-server/cli/servers" 
+    set INSTALL (jq -r '.[0]' lru.json)
+    pushd "$INSTALL/server/bin/remote-cli" 
+    ./code $argv[1]
+    popd
+    popd
   else
     echo "couldn't find any way of opening in visual studio code :-("
   end
