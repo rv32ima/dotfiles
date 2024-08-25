@@ -153,9 +153,9 @@ if test -x (which starship)
   starship init fish | source
 end
 
-# If we don't already have an SSH_AUTH_SOCK,
+# If we don't already have an SSH_AUTH_SOCK, and we're not connected via SSH
 # then we should launch the gpg-agent so we can get one.
-if test -x (which gpgconf) -a -n $SSH_AUTH_SOCK
+if test -x (which gpgconf) -a -n $SSH_AUTH_SOCK -a -n $SSH_CONNECTION
   gpgconf --launch gpg-agent &>/dev/null
   if test $status -eq 0;
     set -gx GPG_TTY (tty)
