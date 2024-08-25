@@ -12,3 +12,21 @@ Host stardust
   HostName stardust.tail09d5b.ts.net
   User harrison
   ForwardAgent yes
+
+Host clh-01
+  HostName clh-01.tail09d5b.ts.net
+  User harrison
+  ForwardAgent yes
+
+Host dca-clh-01
+  HostName dca-clh-01.tail09d5b.ts.net
+  User harrison
+  ForwardAgent yes
+
+Host nyc01
+  HostName nyc01.tail09d5b.ts.net
+  User vyos
+
+Host sea01
+  HostName sea01.tail09d5b.ts.net
+  User vyos
