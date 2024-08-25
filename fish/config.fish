@@ -41,6 +41,45 @@ alias xssh='TERM=xterm-256color ssh -o "UserKnownHostsFile=/dev/null" -o "Strict
 alias ls="eza"
 alias cat="bat -p"
 
+# Git Branch Pull (create a new branch from what's on the main branch)
+function gbp
+  git symbolic-ref refs/remotes/origin/HEAD | read -d / -a PARTS
+  set MAIN_BRANCH $PARTS[4]
+  printf 'Detected main branch %s\n' "$MAIN_BRANCH"
+  # Check out the main branch
+  git checkout $MAIN_BRANCH
+  # See if we have any changes in the main branch
+  git diff-files --quiet
+  if test $status -eq 1;
+    git stash -m "Automatic stash at $(date)"
+  end
+  git pull --rebase
+  git branch -f $argv[1]
+  git checkout $argv[1]
+end
+
+# Git Stash Pop
+function gsp
+  git stash pop
+end
+
+# Git Branch Main (stash whatever's on our current branch, switch to the main branch, pull)
+function gbm
+  git symbolic-ref refs/remotes/origin/HEAD | read -d / -a PARTS
+  set MAIN_BRANCH $PARTS[4]
+  printf 'Detected main branch %s\n' "$MAIN_BRANCH"
+  # See if we have any changes in our current branch
+  # that we haven't committed - automatically stash if
+  # so.
+  git diff-files --quiet
+  if test $status -eq 1;
+    git stash -m "Automatic stash at $(date)"
+  end
+  # Check out the main branch
+  git checkout $MAIN_BRANCH
+  git pull --rebase
+end
+
 function vsc
   if [ -x "(which code)" ]
     code $argv[1]
