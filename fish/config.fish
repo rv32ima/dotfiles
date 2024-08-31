@@ -162,3 +162,7 @@ if test -x (which gpgconf) -a -z "$SSH_AUTH_SOCK" -a -z "$SSH_CONNECTION"
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
   end
 end
+
+if test -e {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish
+  source {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish 
+end

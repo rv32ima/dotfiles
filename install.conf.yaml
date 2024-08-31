@@ -23,22 +23,34 @@
       path: yabai/yabairc
       create: true
     ~/.gitconfig: git/gitconfig
+    ~/.iterm2:
+      path: iterm/bin
+      create: true
+    ~/.tmux/plugins/tpm:
+      path: tmux/tpm
+      create: true
+    ~/.tmux.conf:
+      path: oh-my-tmux/.tmux.conf
+      create: true
+    ~/.tmux.conf.local:
+      path: tmux/tmux.conf.local
+      create: true
 
 - create:
     - ~/work
     - ~/go
 
-- shell:
-    - [git pull, Pulling dotfiles]
-    - [git submodule update --init --recursive, Pulling submodules]
-    - [PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash', Installing nvm (Node.js)]
-    - [curl -sS https://starship.rs/install.sh | sh -s -- -b ~/bin -y, Installing starship]
-    - [curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y, Installing Rust]
-    - [curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash, Installing cargo binstall]
-    - [fish -c "cargo binstall -y eza", Installing eza]
-    - [fish -c "cargo binstall -y bat", Installing bat]
-    - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim || true, Installing packer]
-    - [./install-go.sh, Installing go]
-    - [fish -c "go install mvdan.cc/gofumpt@latest", Installing gofumpt]
-    - [curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $HOME/go/bin v1.59.1, Installing golangci-lint]
-    - [./install-vsc-extensions.sh, Installing VS Code extensions]
+# - shell:
+#     - [git pull, Pulling dotfiles]
+#     - [git submodule update --init --recursive, Pulling submodules]
+#     - [PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash', Installing nvm (Node.js)]
+#     - [curl -sS https://starship.rs/install.sh | sh -s -- -b ~/bin -y, Installing starship]
+#     - [curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y, Installing Rust]
+#     - [curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash, Installing cargo binstall]
+#     - [fish -c "cargo binstall -y eza", Installing eza]
+#     - [fish -c "cargo binstall -y bat", Installing bat]
+#     - [git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim || true, Installing packer]
+#     - [./install-go.sh, Installing go]
+#     - [fish -c "go install mvdan.cc/gofumpt@latest", Installing gofumpt]
+#     - [curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $HOME/go/bin v1.59.1, Installing golangci-lint]
+#     - [./install-vsc-extensions.sh, Installing VS Code extensions]
