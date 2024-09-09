@@ -28,6 +28,11 @@ Host dca-clh-02
   User harrison
   ForwardAgent yes
 
+Host machined-github
+  HostName machined-github.tail09d5b.ts.net
+  User harrison
+  ForwardAgent yes
+
 Host nyc01
   HostName nyc01.tail09d5b.ts.net
   User vyos
