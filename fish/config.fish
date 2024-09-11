@@ -51,7 +51,7 @@ function gbp
   # See if we have any changes in the main branch
   git diff-files --quiet
   if test $status -eq 1;
-    git stash -m "Automatic stash at $(date)"
+    git stash -m "Automatic stash at (date)"
   end
   git pull --rebase
   git branch -f $argv[1]
@@ -73,7 +73,7 @@ function gbm
   # so.
   git diff-files --quiet
   if test $status -eq 1;
-    git stash -m "Automatic stash at $(date)"
+    git stash -m "Automatic stash at (date)"
   end
   # Check out the main branch
   git checkout $MAIN_BRANCH
@@ -91,6 +91,17 @@ function vsc
   else
     echo "couldn't find any way of opening in visual studio code :-("
   end
+end
+
+function tailscale
+  if [ -x "(which tailscale)" ]
+    tailscale $argv
+  else if [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]
+    /Applications/Tailscale.app/Contents/MacOS/Tailscale $argv
+  else
+    echo "couldn't find a way to execute tailscale CLI"
+  end
+
 end
 
 function graph
