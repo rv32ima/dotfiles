@@ -40,3 +40,9 @@ Host nyc01
 Host sea01
   HostName sea01.tail09d5b.ts.net
   User vyos
+
+Host harrison-dz-on-dz
+  HostName 10.100.0.1
+  User devzero
+  ProxyJump dca-clh-02
+  ForwardAgent yes
