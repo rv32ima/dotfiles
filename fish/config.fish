@@ -166,7 +166,7 @@ end
 
 # If we aren't already connected via SSH
 # then we should launch the gpg-agent so we can get an SSH agent.
-if test -x (which gpgconf) -a -z "$SSH_CONNECTION"
+if test -x "$(which gpgconf)" -a -z "$SSH_CONNECTION"
   gpgconf --launch gpg-agent &>/dev/null
   if test $status -eq 0;
     set -gx GPG_TTY (tty)
