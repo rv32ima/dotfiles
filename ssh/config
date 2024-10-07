@@ -1,5 +1,5 @@
 Host tombeau
-  HostName tombeau.tail09d5b.ts.net
+  HostName tombeau
   User harrison
   ForwardAgent yes
 
@@ -7,7 +7,7 @@ Host stardust
   HostName stardust.tail09d5b.ts.net
   User ellie 
   ForwardAgent yes
-
+  
 Host clh-01
   HostName clh-01.tail09d5b.ts.net
   User harrison
@@ -35,3 +35,10 @@ Host nyc01
 Host sea01
   HostName sea01.tail09d5b.ts.net
   User vyos
+
+Host netbox
+  HostName netbox
+  User rocky
+  ForwardAgent yes
+
+Match host * exec "gpg-connect-agent updatestartuptty /bye"
