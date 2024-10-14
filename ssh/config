@@ -4,7 +4,7 @@ Host tombeau
   ForwardAgent yes
 
 Host stardust
-  HostName stardust.tail09d5b.ts.net
+  HostName stardust
   User ellie 
   ForwardAgent yes
   
@@ -14,17 +14,17 @@ Host clh-01
   ForwardAgent yes
 
 Host dca-clh-01
-  HostName dca-clh-01.tail09d5b.ts.net
+  HostName dca-clh-01
   User harrison
   ForwardAgent yes
 
 Host dca-clh-02
-  HostName dca-clh-02.tail09d5b.ts.net
+  HostName dca-clh-02
   User harrison
   ForwardAgent yes
 
 Host machined-github
-  HostName machined-github.tail09d5b.ts.net
+  HostName machined-github
   User harrison
   ForwardAgent yes
 
@@ -41,4 +41,3 @@ Host netbox
   User rocky
   ForwardAgent yes
 
-Match host * exec "gpg-connect-agent updatestartuptty /bye"

@@ -8,7 +8,9 @@ CONFIGURATION="
 extra-experimental-features = nix-command flakes repl-flake
 extra-trusted-users = ${USER}
 "
+TEMPCONF=$(mktemp)
+echo "$CONFIGURATION" > "$TEMPCONF"
 
 sh <(curl --location "${URL}") \
   --no-channel-add \
-  --nix-extra-conf-file <(<<< "${CONFIGURATION}")
+  --nix-extra-conf-file "$TEMPCONF"

@@ -10,7 +10,7 @@ else
 end
 
 # TokyoNight Night
-fish_config theme choose "TokyoNight Night" 
+# fish_config theme choose "TokyoNight Night" 
 
 set -gx LANG 'en_US.UTF-8'
 set -gx LC_ALL $LANG
@@ -84,6 +84,8 @@ function vsc
   if [ -x "(which code)" ]
     code $argv[1]
   else if [ -d "/Applications/Visual Studio Code.app" ]
+    open -a "Visual Studio Code" $argv[1]
+  else if [ -d "/Applications/Nix Apps/Visual Studio Code.app" ]
     open -a "Visual Studio Code" $argv[1]
   else if [ -d "$HOME/.vscode-server" ]
     set INSTALL (jq -r '.[0]' $HOME/.vscode-server/cli/servers/lru.json)
