@@ -22,14 +22,18 @@
     lib = nixpkgs.lib; 
     common = { pkgs, ... }: {
       nix.settings.experimental-features = "nix-command flakes repl-flake";
-      nix.settings.extra-sandbox-paths = [
-        "/etc/nix/github_pat"
-      ];
+
       nix.settings.trusted-users = [
         "ellie"
       ];
 
       system.configurationRevision = self.rev or self.dirtyRev or null;
+    };
+
+    stupidFuckingNixHack = { ... }: {
+      nix.settings.extra-sandbox-paths = [
+        "/etc/nix/github_pat"
+      ];
     };
 
     buildMachines = {...}: {
@@ -65,6 +69,7 @@
     darwinConfigurations."wallsocket" = nix-darwin.lib.darwinSystem {
       modules = [
         common
+        stupidFuckingNixHack
         buildMachines
         rustOverlay
         ./nix/wallsocket.nix
