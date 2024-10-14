@@ -1,9 +1,9 @@
-{ pkgs, lib, ... }: 
+{ pkgs, lib, modulesPath, ... }: 
 {
+  imports = ["${modulesPath}/virtualisation/amazon-image.nix"];
+
   config = {
-    environment.systemPackages = with pkgs; [
-      fish
-    ];
+    programs.fish.enable = true;
 
     users.users."ellie" = {
       isNormalUser = true;

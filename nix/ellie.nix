@@ -6,7 +6,6 @@
   programs.fish.shellInit = builtins.readFile ../fish/init.fish;
 
   home.username = "ellie";
-  home.homeDirectory = "/Users/ellie";
   home.packages = with pkgs; [
     nodejs_18
     go_1_23
