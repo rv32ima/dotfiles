@@ -78,7 +78,7 @@
       ];
     };
 
-    nixosConfigurations."ip-172-31-42-216" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."ip-172.31.33.110" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         common
