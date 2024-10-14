@@ -21,7 +21,6 @@
   let
     lib = nixpkgs.lib; 
     common = { pkgs, ... }: {
-      services.nix-daemon.enable = lib.mkDefault true;
       nix.settings.experimental-features = "nix-command flakes repl-flake";
       nix.settings.extra-sandbox-paths = [
         "/etc/nix/github_pat"
@@ -78,7 +77,7 @@
       ];
     };
 
-    nixosConfigurations."ip-172.31.33.110" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."ip-172-31-33-110.ec2.internal" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         common
