@@ -38,12 +38,12 @@
     buildMachines = {...}: {
       nix.buildMachines = [
         {
-          hostName = "192.168.64.2";
+          hostName = "imaginal-disk.net.ellie.fm";
           system = "aarch64-linux";
-          sshUser = "root";
-          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFoUXhMb0xpQU5VVlNyZkZWTkhYK2VURExlTjNxYy9lR0kwdytoZk8ybjQgcm9vdEBuaXhvcwo=";
+          sshUser = "nix";
+          publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhROHVGM1JpQ0k2cWErV1gzdGxrQi9jL2UwbzV1QWdCV2hTNi96QlZnSC8gcm9vdEBpbWFnaW5hbGRpc2sK";
           sshKey = "/etc/nix/id_ed25519";
-          maxJobs = 16;
+          maxJobs = 128;
           protocol = "ssh-ng";
         }
         {
@@ -87,6 +87,22 @@
         common
         rustOverlay
         ./nix/pvm-builder.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.ellie = import ./nix/ellie.nix;
+        }
+      ];
+    };
+
+    nixosConfigurations."imaginal-disk" = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        common
+        rustOverlay
+        buildMachines
+        ./nix/imaginal-disk/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

@@ -27,8 +27,17 @@
   users.users.ellie = {
      isNormalUser = true;
      extraGroups = [ "wheel" ];
+     shell = pkgs.fish;
   };
 
+  users.users.nix = {
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBltqZqpO2KCiO4f+rtsHUkOAF9RrJ0+RYTsBrGimDIw root@wallsocket.net.ellie.fm"
+    ];
+  };
+
+  programs.fish.enable = true;
   environment.systemPackages = with pkgs; [
     htop
     neofetch
