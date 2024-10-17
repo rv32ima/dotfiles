@@ -15,15 +15,20 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nix-darwin, nixpkgs, rust-overlay, home-manager, ... }:
+  outputs = { self, nix-darwin, nixpkgs, rust-overlay, home-manager, vscode-server, ... }:
   let
     lib = nixpkgs.lib; 
     common = { pkgs, ... }: {
       nix.settings.experimental-features = "nix-command flakes repl-flake";
       nix.settings.trusted-users = [
         "ellie"
+        "nix"
       ];
 
       system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -86,6 +91,7 @@
       modules = [
         common
         rustOverlay
+        vscode-server.nixosModules.default
         ./nix/pvm-builder.nix
         home-manager.nixosModules.home-manager
         {
@@ -102,6 +108,7 @@
         common
         rustOverlay
         buildMachines
+        vscode-server.nixosModules.default
         ./nix/imaginal-disk/configuration.nix
         home-manager.nixosModules.home-manager
         {

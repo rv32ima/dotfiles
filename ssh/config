@@ -41,3 +41,12 @@ Host netbox
   User rocky
   ForwardAgent yes
 
+Host pvm-builder
+  HostName 23.20.173.164
+  User ellie
+  ForwardAgent yes
+
+Host imaginal-disk
+  HostName imaginal-disk
+  User ellie
+  ForwardAgent yes

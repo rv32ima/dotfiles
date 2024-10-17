@@ -44,6 +44,7 @@
   ];
 
   services.openssh.enable = true;
+  services.vscode-server.enable = true;
 
   system.stateVersion = "24.05";
 }
