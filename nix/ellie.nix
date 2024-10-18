@@ -14,7 +14,7 @@
   programs.starship.enable = true;
   programs.starship.settings = builtins.fromTOML (builtins.readFile ../starship.toml);
 
-  home.username = "ellie";
+  home.username = lib.mkDefault "ellie";
   home.packages = with pkgs; [
     nodejs_18
     go_1_23

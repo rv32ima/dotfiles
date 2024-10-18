@@ -136,12 +136,23 @@
         ];
       };
 
-      homeConfigurations."ellie" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."devzero" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
+          config = {
+            allowUnfree = true;
+          };
         };
 
-        modules = [ ./nix/ellie.nix ];
+        modules = [
+          rustOverlay
+          vscode-server.nixosModules.default
+          ./nix/ellie.nix
+          {
+            home.username = "devzero";
+            home.homeDirectory = "/home/devzero";
+          }
+        ];
       };
     };
 }

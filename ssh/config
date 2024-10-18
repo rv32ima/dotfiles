@@ -53,5 +53,5 @@ Host imaginal-disk
 
 Host integral-bat-eife
   HostName integral-bat-eife
-  User devzero
+  User ellie
   ForwardAgent yes
