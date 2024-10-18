@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -12,10 +17,10 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.grub = {
-   enable = true;
-   efiSupport = true;
-   device = "/dev/nvme0n1p1";
-   efiInstallAsRemovable = true;
+    enable = true;
+    efiSupport = true;
+    device = "/dev/nvme0n1p1";
+    efiInstallAsRemovable = true;
   };
   # boot.loader.efi.canTouchEfiVariables = true;
 
@@ -25,9 +30,9 @@
   time.timeZone = "US/Eastern";
 
   users.users.ellie = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ];
-     shell = pkgs.fish;
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    shell = pkgs.fish;
   };
 
   users.users.nix = {
@@ -41,6 +46,7 @@
   environment.systemPackages = with pkgs; [
     htop
     neofetch
+    dmidecode
   ];
 
   services.openssh.enable = true;

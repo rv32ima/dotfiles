@@ -50,3 +50,8 @@ Host imaginal-disk
   HostName imaginal-disk
   User ellie
   ForwardAgent yes
+
+Host integral-bat-eife
+  HostName integral-bat-eife
+  User devzero
+  ForwardAgent yes

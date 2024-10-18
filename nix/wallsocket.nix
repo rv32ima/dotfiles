@@ -1,4 +1,10 @@
-{ pkgs, lib, inputs, home-manager, ... }: 
+{
+  pkgs,
+  lib,
+  inputs,
+  home-manager,
+  ...
+}:
 {
   config = {
     services.nix-daemon.enable = true;
@@ -19,13 +25,13 @@
       window_opacity = "off";
       window_opacity_duration = 0.0;
       active_window_opacity = 1.0;
-      normal_window_opacity = 0.90;
+      normal_window_opacity = 0.9;
       window_border = "off";
       window_border_width = 6;
       active_window_border_color = "0xff775759";
       normal_window_border_color = "0xff555555";
       insert_feedback_color = "0xffd75f5f";
-      split_ratio = 0.50;
+      split_ratio = 0.5;
       auto_balance = "off";
       mouse_modifier = "fn";
       mouse_action1 = "move";
@@ -67,7 +73,7 @@
       _1password
     ];
 
-    system.defaults.dock.autohide = true; 
+    system.defaults.dock.autohide = true;
     system.defaults.dock.mru-spaces = false;
     system.defaults.dock.show-recents = false;
     system.defaults.finder.AppleShowAllExtensions = true;

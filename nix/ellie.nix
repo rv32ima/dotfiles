@@ -1,4 +1,10 @@
-{config, pkgs, lib, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   programs.home-manager.enable = true;
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -21,7 +27,9 @@
     gnupg
     sccache
     nil
+    nixfmt-rfc-style
+    packer
   ];
-  
+
   home.stateVersion = "24.05";
 }
