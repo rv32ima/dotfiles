@@ -64,7 +64,7 @@
             inputs.rust-overlay.overlays.default
           ];
         };
-        extraSpecialArgs = common user;
+        extraSpecialArgs = (common user) // { stateVersion = "24.05"; };
         modules = [
           ./nix/home.nix
         ];
