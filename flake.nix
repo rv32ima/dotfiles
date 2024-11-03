@@ -77,7 +77,7 @@
       });
     } // 
     flake-utils.lib.eachSystem systems (system: {
-      homeConfigurations = builtins.listToAttrs(map (user: { name = user; value = mkUser { inherit user system; }; }) users);
+      packages.homeConfigurations = builtins.listToAttrs(map (user: { name = user; value = mkUser { inherit user system; }; }) users);
     })
   );
 }
