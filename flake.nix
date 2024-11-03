@@ -64,7 +64,7 @@
             inputs.rust-overlay.overlays.default
           ];
         };
-        extraSpecialArgs = (common user) // { stateVersion = "24.05"; };
+        extraSpecialArgs = (common user) // { stateVersion = "24.05"; inherit system; };
         modules = [
           ./nix/home.nix
         ];
