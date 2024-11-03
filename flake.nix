@@ -50,7 +50,7 @@
       ];
 
       common = user: {
-        inherit (nixpkgs) lib;
+        # inherit (nixpkgs) lib;
         inherit inputs nixpkgs home-manager nix-darwin hosts user;
       };
 
