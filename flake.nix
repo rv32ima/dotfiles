@@ -54,7 +54,7 @@
         inherit inputs nixpkgs home-manager nix-darwin hosts user;
       };
 
-      mkUser = { user, system, ... }: {
+      mkUser = { user, system, ... }: home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           inherit system;
           config = {
