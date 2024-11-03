@@ -19,6 +19,11 @@
       # TODO: don't do this anymore
       settings = builtins.fromTOML (builtins.readFile ../starship.toml);
     };
+
+    git = {
+      enable = true;
+      config = builtins.readFile ../git/gitconfig;
+    };
   };
 
   home = {
