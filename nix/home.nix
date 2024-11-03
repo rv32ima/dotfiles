@@ -22,7 +22,7 @@
 
     git = {
       enable = true;
-      config = builtins.readFile ../git/gitconfig;
+      extraConfig = builtins.readFile ../git/gitconfig;
     };
   };
 
