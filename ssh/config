@@ -4,7 +4,7 @@ Host tombeau
   ForwardAgent yes
 
 Host stardust
-  HostName stardust
+  HostName stardust.net.ellie.fm
   User ellie 
   ForwardAgent yes
   
@@ -47,11 +47,21 @@ Host pvm-builder
   ForwardAgent yes
 
 Host imaginal-disk
-  HostName imaginal-disk
+  HostName imaginal-disk.net.ellie.fm
   User ellie
   ForwardAgent yes
 
 Host integral-bat-eife
   HostName integral-bat-eife
-  User ellie
+  User devzero
+  ForwardAgent yes
+
+Host apt-ox-ybsp
+  HostName apt-ox-ybsp-tht6k78g
+  User devzero
+  ForwardAgent yes
+
+Host brash-angelfish-jepl
+  HostName brash-angelfish-jepl
+  User devzero
   ForwardAgent yes

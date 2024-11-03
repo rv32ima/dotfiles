@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,137 +23,61 @@
   };
 
   outputs =
-    {
+    inputs @ {
       self,
       nix-darwin,
       nixpkgs,
       rust-overlay,
       home-manager,
       vscode-server,
+      flake-utils,
       ...
     }:
     let
-      lib = nixpkgs.lib;
-      common =
-        { pkgs, ... }:
-        {
-          nix.settings.experimental-features = "nix-command flakes repl-flake";
-          nix.settings.trusted-users = [
-            "ellie"
-            "nix"
-          ];
+      users = [
+        "ellie"
+        "devzero"
+      ];
 
-          system.configurationRevision = self.rev or self.dirtyRev or null;
-        };
+      hosts = [
+        { name = "wallsocket"; system = "aarch64-darwin"; stateVersion = "24.05"; remote = false; }
+      ];
 
-      stupidFuckingNixHack =
-        { ... }:
-        {
-          nix.settings.extra-sandbox-paths = [
-            "/etc/nix/github_pat"
-          ];
-        };
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
 
-      buildMachines =
-        { ... }:
-        {
-          nix.buildMachines = [
-            {
-              hostName = "imaginal-disk.net.ellie.fm";
-              system = "aarch64-linux";
-              sshUser = "nix";
-              publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhROHVGM1JpQ0k2cWErV1gzdGxrQi9jL2UwbzV1QWdCV2hTNi96QlZnSC8gcm9vdEBpbWFnaW5hbGRpc2sK";
-              sshKey = "/etc/nix/id_ed25519";
-              maxJobs = 128;
-              protocol = "ssh-ng";
-            }
-            {
-              hostName = "stardust";
-              system = "x86_64-linux";
-              sshUser = "nix";
-              publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpMTGtJM2dET3dyWVREcWZwQ2hPOTRjV0dTWEF4czlTMjdpck8vZzdxaWIgCg==";
-              sshKey = "/etc/nix/id_ed25519";
-              maxJobs = 16;
-              protocol = "ssh-ng";
-            }
-          ];
-
-          nix.distributedBuilds = true;
-        };
-
-      rustOverlay =
-        { pkgs, ... }:
-        {
-          nixpkgs.overlays = [ rust-overlay.overlays.default ];
-        };
-    in
-    {
-      darwinConfigurations."wallsocket" = nix-darwin.lib.darwinSystem {
-        modules = [
-          common
-          stupidFuckingNixHack
-          buildMachines
-          rustOverlay
-          ./nix/wallsocket.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ellie = import ./nix/ellie.nix;
-          }
-        ];
+      common = user: {
+        inherit (nixpkgs) lib;
+        inherit inputs nixpkgs home-manager nix-darwin hosts user;
       };
 
-      nixosConfigurations."ip-172-31-33-110.ec2.internal" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          common
-          rustOverlay
-          vscode-server.nixosModules.default
-          ./nix/pvm-builder.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ellie = import ./nix/ellie.nix;
-          }
-        ];
-      };
-
-      nixosConfigurations."imaginal-disk" = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [
-          common
-          rustOverlay
-          buildMachines
-          vscode-server.nixosModules.default
-          ./nix/imaginal-disk/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ellie = import ./nix/ellie.nix;
-          }
-        ];
-      };
-
-      homeConfigurations."devzero" = home-manager.lib.homeManagerConfiguration {
+      mkUser = { user, system, ... }: {
         pkgs = import nixpkgs {
-          system = "x86_64-linux";
+          inherit system;
           config = {
             allowUnfree = true;
           };
+          overlays = [
+            inputs.rust-overlay.overlays.default
+          ];
         };
-
+        extraSpecialArgs = common user;
         modules = [
-          rustOverlay
-          vscode-server.nixosModules.default
-          ./nix/ellie.nix
-          {
-            home.username = "devzero";
-            home.homeDirectory = "/home/devzero";
-          }
+          ./nix/home.nix
         ];
       };
-    };
+        
+    in
+    ({
+      darwinConfigurations = import ./nix ( common "ellie" // {
+        isDarwin = true;
+      });
+    } // 
+    flake-utils.lib.eachSystem systems (system: {
+      homeConfigurations = builtins.listToAttrs(map (user: { name = user; value = mkUser { inherit user system; }; }) users);
+    })
+  );
 }

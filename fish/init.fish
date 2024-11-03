@@ -35,6 +35,8 @@ fish_add_path "$HOME/.cargo/bin"
 fish_add_path "/usr/local/go/bin"
 fish_add_path "$HOME/go/bin"
 
+
+
 # --- aliases ---
 alias ssh="TERM=xterm-256color command ssh"
 alias xssh='TERM=xterm-256color ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking no"'
@@ -179,3 +181,8 @@ end
 if test -e {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish
   source {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish 
 end
+
+set -Ux PYENV_ROOT "$HOME/.pyenv"
+fish_add_path "$PYENV_ROOT/bin"
+
+pyenv init - | source

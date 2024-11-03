@@ -9,9 +9,7 @@
   config = {
     services.nix-daemon.enable = true;
     system.stateVersion = 5;
-    nixpkgs.hostPlatform = "aarch64-darwin";
     nix.settings.max-jobs = 24;
-    nixpkgs.config.allowUnfree = true;
 
     programs.gnupg.agent.enable = true;
     programs.gnupg.agent.enableSSHSupport = true;
@@ -67,11 +65,11 @@
 
     programs.zsh.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      arc-browser
-      vscode
-      _1password
-    ];
+    # environment.systemPackages = with pkgs; [
+      # arc-browser
+      # vscode
+      # _1password
+    # ];
 
     system.defaults.dock.autohide = true;
     system.defaults.dock.mru-spaces = false;
