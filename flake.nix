@@ -42,6 +42,7 @@
 
       hosts = [
         { name = "wallsocket"; system = "aarch64-darwin"; stateVersion = "24.05"; remote = false; }
+        { name = "icedancer"; system = "aarch64-darwin"; stateVersion = "24.05"; remote = false; }
       ];
 
       systems = [
