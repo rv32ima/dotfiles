@@ -65,3 +65,7 @@ Host brash-angelfish-jepl
   HostName brash-angelfish-jepl
   User devzero
   ForwardAgent yes
+
+Host gpu1
+  User root
+  ForwardAgent yes

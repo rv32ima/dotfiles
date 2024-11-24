@@ -146,15 +146,15 @@ function idot
   graph_invert $graph_file
 
   set graph_fixed_file "$dir/graph.dot-fixed.png"
-  convert -trim \
+  magick convert -trim \
           -bordercolor black \
           -border 20 \
           -transparent black \
           -resize '50%' \
           $graph_out_file \
-          $graph_fixed_file
+          $graph_fixed_file 2>/dev/null
 
-  imgcat $graph_fixed_file
+  kitty icat --transfer-mode memory --align left $graph_fixed_file 2>/dev/null
 end
 
 # If /opt/homebrew/bin/brew exists, then we're on a Mac-based machine

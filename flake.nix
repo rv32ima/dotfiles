@@ -5,7 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      # TODO: when https://github.com/LnL7/nix-darwin/pull/1168 is merged, revert back
+      url = "github:talhaHavadar/nix-darwin/0a3df54053439f76c1d6ef1cf44b0df767b13c3e";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
@@ -50,7 +51,7 @@
       ];
 
       common = user: {
-        # inherit (nixpkgs) lib;
+        inherit (nixpkgs) lib;
         inherit inputs nixpkgs home-manager nix-darwin hosts user;
       };
 
