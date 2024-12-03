@@ -51,7 +51,7 @@
         on-window-detected = [
           {
             "if".app-id = "com.getcleanshot.app-setapp";
-            run = ["layout floating"];
+            run = [ "layout floating" ];
           }
         ];
       };
@@ -113,9 +113,9 @@
     programs.zsh.enable = true;
 
     # environment.systemPackages = with pkgs; [
-      # arc-browser
-      # vscode
-      # _1password
+    # arc-browser
+    # vscode
+    # _1password
     # ];
 
     system.defaults.dock.autohide = true;

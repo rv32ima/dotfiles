@@ -39,13 +39,12 @@ fish_add_path "$HOME/.cargo/bin"
 fish_add_path "/usr/local/go/bin"
 fish_add_path "$HOME/go/bin"
 
-
-
 # --- aliases ---
 alias ssh="TERM=xterm-256color command ssh"
 alias xssh='TERM=xterm-256color ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking no"'
 alias ls="eza"
 alias cat="bat -p"
+alias bazel="bazelisk"
 
 # Git Branch Pull (create a new branch from what's on the main branch)
 function gbp

@@ -21,10 +21,14 @@
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jujutsu = {
+      url = "github:martinvonz/jj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    inputs @ {
+    inputs@{
       self,
       nix-darwin,
       nixpkgs,
@@ -41,8 +45,18 @@
       ];
 
       hosts = [
-        { name = "wallsocket"; system = "aarch64-darwin"; stateVersion = "24.05"; remote = false; }
-        { name = "icedancer"; system = "aarch64-darwin"; stateVersion = "24.05"; remote = false; }
+        {
+          name = "wallsocket";
+          system = "aarch64-darwin";
+          stateVersion = "24.05";
+          remote = false;
+        }
+        {
+          name = "icedancer";
+          system = "aarch64-darwin";
+          stateVersion = "24.05";
+          remote = false;
+        }
       ];
 
       systems = [
@@ -53,33 +67,55 @@
 
       common = user: {
         # inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager nix-darwin hosts user;
+        inherit
+          inputs
+          nixpkgs
+          home-manager
+          nix-darwin
+          hosts
+          user
+          ;
       };
 
-      mkUser = { user, system, ... }: home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
+      mkUser =
+        { user, system, ... }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+            overlays = [
+              inputs.rust-overlay.overlays.default
+              inputs.jujutsu.overlays.default
+            ];
           };
-          overlays = [
-            inputs.rust-overlay.overlays.default
+          extraSpecialArgs = (common user) // {
+            stateVersion = "24.05";
+            inherit system;
+          };
+          modules = [
+            ./nix/home.nix
           ];
         };
-        extraSpecialArgs = (common user) // { stateVersion = "24.05"; inherit system; };
-        modules = [
-          ./nix/home.nix
-        ];
-      };
-        
+
     in
-    ({
-      darwinConfigurations = import ./nix ( common "ellie" // {
-        isDarwin = true;
-      });
-    } // 
-    flake-utils.lib.eachSystem systems (system: {
-      packages.homeConfigurations = builtins.listToAttrs(map (user: { name = user; value = mkUser { inherit user system; }; }) users);
-    })
-  );
+    (
+      {
+        darwinConfigurations = import ./nix (
+          common "ellie"
+          // {
+            isDarwin = true;
+          }
+        );
+      }
+      // flake-utils.lib.eachSystem systems (system: {
+        packages.homeConfigurations = builtins.listToAttrs (
+          map (user: {
+            name = user;
+            value = mkUser { inherit user system; };
+          }) users
+        );
+      })
+    );
 }
