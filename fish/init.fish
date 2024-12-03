@@ -1,4 +1,8 @@
 # exports
+if test -f "$HOME/.nix-profile/etc/profile.d/nix.fish"
+  source "$HOME/.nix-profile/etc/profile.d/nix.fish"
+end
+
 if ! infocmp iTerm2.app &> /dev/null
   if [ "$TERM" = 'iTerm2.app' ]
     set -gx TERM 'xterm-256color'
@@ -182,7 +186,9 @@ if test -e {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish
   source {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish 
 end
 
-set -Ux PYENV_ROOT "$HOME/.pyenv"
-fish_add_path "$PYENV_ROOT/bin"
+if test -x "$(which pyenv)"
+  set -Ux PYENV_ROOT "$HOME/.pyenv"
+  fish_add_path "$PYENV_ROOT/bin"
+  pyenv init - | source
+end
 
-pyenv init - | source

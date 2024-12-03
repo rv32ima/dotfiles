@@ -13,4 +13,5 @@ echo "$CONFIGURATION" > "$TEMPCONF"
 
 sh <(curl --location "${URL}") \
   --no-channel-add \
-  --nix-extra-conf-file "$TEMPCONF"
+  --nix-extra-conf-file "$TEMPCONF" \
+  --daemon
