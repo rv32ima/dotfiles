@@ -183,8 +183,8 @@ if test -x "$(which gpgconf 2>/dev/null)" -a -z "$SSH_CONNECTION"
   end
 end
 
-if test -e "${XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish"
-  source "${XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish"
+if test -e "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
+  source "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
 end
 
 if test -x "$(which pyenv 2>/dev/null)"
