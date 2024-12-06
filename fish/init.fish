@@ -34,6 +34,8 @@ set -U fish_greeting
 
 # --- paths ---
 # homebrew binaries
+fish_add_path "/usr/sbin"
+fish_add_path "/usr/local/sbin"
 fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "/usr/local/go/bin"
@@ -86,7 +88,7 @@ function gbm
 end
 
 function vsc
-  if [ -x "(which code)" ]
+  if [ -x "$(which code 2>/dev/null)" ]
     code $argv[1]
   else if [ -d "/Applications/Visual Studio Code.app" ]
     open -a "Visual Studio Code" $argv[1]
@@ -101,7 +103,7 @@ function vsc
 end
 
 function tailscale
-  if [ -x "(which tailscale)" ]
+  if [ -x "$(which tailscale 2>/dev/null)" ]
     tailscale $argv
   else if [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]
     /Applications/Tailscale.app/Contents/MacOS/Tailscale $argv
@@ -167,13 +169,13 @@ if test -f /opt/homebrew/bin/brew
 end
 
 # setup starship
-if test -x (which starship)
+if test -x "$(which starship 2>/dev/null)"
   starship init fish | source
 end
 
 # If we aren't already connected via SSH
 # then we should launch the gpg-agent so we can get an SSH agent.
-if test -x "$(which gpgconf)" -a -z "$SSH_CONNECTION"
+if test -x "$(which gpgconf 2>/dev/null)" -a -z "$SSH_CONNECTION"
   gpgconf --launch gpg-agent &>/dev/null
   if test $status -eq 0;
     set -gx GPG_TTY (tty)
@@ -181,11 +183,11 @@ if test -x "$(which gpgconf)" -a -z "$SSH_CONNECTION"
   end
 end
 
-if test -e {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish
-  source {$XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish 
+if test -e "${XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish"
+  source "${XDG_CONFIG_HOME}/fish/iterm2_shell_integration.fish"
 end
 
-if test -x "$(which pyenv)"
+if test -x "$(which pyenv 2>/dev/null)"
   set -Ux PYENV_ROOT "$HOME/.pyenv"
   fish_add_path "$PYENV_ROOT/bin"
   pyenv init - | source
