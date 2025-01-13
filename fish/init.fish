@@ -40,6 +40,7 @@ fish_add_path "$HOME/bin"
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "/usr/local/go/bin"
 fish_add_path "$HOME/go/bin"
+fish_add_path "$HOME/.ghcup/bin"
 
 # --- aliases ---
 alias ssh="TERM=xterm-256color command ssh"
