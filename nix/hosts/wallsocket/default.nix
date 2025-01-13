@@ -54,6 +54,9 @@
             run = [ "layout floating" ];
           }
         ];
+
+        on-focus-changed = [];
+        on-focused-monitor-changed = [];
       };
     };
     services.jankyborders = {

@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   hosts,
   nixpkgs,
@@ -19,7 +18,6 @@ let
       };
       overlays = [
         inputs.rust-overlay.overlays.default
-        inputs.jujutsu.overlays.default
       ];
     };
 
