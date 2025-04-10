@@ -104,14 +104,14 @@ function vsc
 end
 
 function tailscale
-  if [ -x "$(which tailscale 2>/dev/null)" ]
-    tailscale $argv
+  set TS "$(which 'tailscale' 2>/dev/null)" || set TS ""
+  if [ -n "$TS" ]
+    "$TS" $argv
   else if [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]
     /Applications/Tailscale.app/Contents/MacOS/Tailscale $argv
   else
     echo "couldn't find a way to execute tailscale CLI"
   end
-
 end
 
 function graph
