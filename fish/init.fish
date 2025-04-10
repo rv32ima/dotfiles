@@ -188,8 +188,8 @@ if test -e "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
   source "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
 end
 
-if test -x "$(which pyenv 2>/dev/null)"
-  set -Ux PYENV_ROOT "$HOME/.pyenv"
+set -Ux PYENV_ROOT "$HOME/.pyenv"
+if test -e "$PYENV_ROOT/bin"
   fish_add_path "$PYENV_ROOT/bin"
   pyenv init - | source
 end
