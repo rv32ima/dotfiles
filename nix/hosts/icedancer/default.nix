@@ -14,7 +14,7 @@
     programs.gnupg.agent.enable = true;
     programs.gnupg.agent.enableSSHSupport = true;
     services.aerospace = {
-      enable = true;
+      enable = false;
       settings = {
         gaps = {
           outer.left = 8;
