@@ -83,7 +83,6 @@
             };
             overlays = [
               inputs.rust-overlay.overlays.default
-              inputs.jujutsu.overlays.default
             ];
           };
           extraSpecialArgs = (common user) // {
