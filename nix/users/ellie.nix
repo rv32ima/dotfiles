@@ -25,7 +25,7 @@
 
       git = {
         enable = true;
-        extraConfig = builtins.readFile ../../git/gitconfig;
+        extraConfig = builtins.readFile ../../git/${primaryUser}.gitconfig;
       };
 
       tmux = {

@@ -1,0 +1,21 @@
+[user]
+  email = eford@tvscientific.com
+  name = Ellie Ford
+
+[alias]
+  logline = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" 
+	
+[user]
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN5rafpXXun2yui7173WNV1NOpfcVd5RIPbqqR5pmDAr
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+  
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
