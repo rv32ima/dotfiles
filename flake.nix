@@ -2,11 +2,10 @@
   description = "ellie's nix flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
-      # TODO: when https://github.com/LnL7/nix-darwin/pull/1168 is merged, revert back
-      url = "github:talhaHavadar/nix-darwin/0a3df54053439f76c1d6ef1cf44b0df767b13c3e";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
@@ -14,7 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server = {
@@ -28,6 +31,7 @@
       self,
       nix-darwin,
       nixpkgs,
+      lix-module,
       rust-overlay,
       home-manager,
       vscode-server,
@@ -67,6 +71,7 @@
           inputs
           nixpkgs
           home-manager
+          lix-module
           nix-darwin
           hosts
           user

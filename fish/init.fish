@@ -192,5 +192,19 @@ set -Ux PYENV_ROOT "$HOME/.pyenv"
 if test -e "$PYENV_ROOT/bin"
   fish_add_path "$PYENV_ROOT/bin"
   pyenv init - | source
+
+  status --is-interactive; and source (pyenv virtualenv-init -|psub)
+end
+
+if test -e "$HOME/.local/bin"
+  fish_add_path "$HOME/.local/bin"
+end
+
+if test -e "$HOME/Library/Application Support/Coursier/bin"
+  fish_add_path "$HOME/Library/Application Support/Coursier/bin"
+end
+
+if test -x "$(which jj 2>/dev/null)"
+  jj util completion fish | source
 end
 

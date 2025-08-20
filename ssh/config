@@ -1,3 +1,8 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
 Host tombeau
   HostName tombeau
   User harrison
@@ -27,14 +32,6 @@ Host machined-github
   HostName machined-github
   User harrison
   ForwardAgent yes
-
-Host nyc01
-  HostName nyc01.tail09d5b.ts.net
-  User vyos
-
-Host sea01
-  HostName sea01.tail09d5b.ts.net
-  User vyos
 
 Host netbox
   HostName netbox
@@ -69,5 +66,20 @@ Host brash-angelfish-jepl
 Host gpu1
   User root
   ForwardAgent yes
+
+Host homework
+  User ellie
+  ForwardAgent yes
+
+Host wallsocket
+  User ellie
+  ForwardAgent yes
+
+Host devzero-pod
+  User devzero
+  ForwardAgent yes
+
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
   

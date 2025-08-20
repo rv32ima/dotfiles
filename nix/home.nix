@@ -44,13 +44,6 @@
         vimAlias = true;
         vimdiffAlias = true;
         withNodeJs = true;
-        plugins = with pkgs.vimPlugins; [
-          lazy-nvim
-          LazyVim
-          vim-terraform
-          nerdtree
-          tokyonight-nvim
-        ];
         extraLuaConfig = ''
           -- Enable Lua syntax highlighting in the initialization files
           vim.api.nvim_set_var("vimsyn_embed", "l")
@@ -70,23 +63,6 @@
           -- No clue why we have to go through nvim_exec for these
           vim.cmd("syntax on")
           vim.cmd("filetype plugin on")
-          require("lazy").setup({
-            performance = {
-              reset_packpath = false,
-              rtp = {
-                reset = false,
-              },
-            },
-            spec = {
-              { import = "plugins" },
-            },
-            dev = {
-              path = "${pkgs.vimUtils.packDir config.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
-            },
-            install = {
-              missing = false,
-            },
-          })
         '';
       };
     };
@@ -95,12 +71,11 @@
       username = "${user}";
       homeDirectory = lib.mkDefault "/home/${user}";
       packages = with pkgs; [
-        nodejs_18
+        nodejs_20
         go_1_23
         git
-        # pkgs.rust-bin.stable.latest.default
-        (pkgs.rust-bin.nightly."2024-07-21".default.override {
-          extensions = [ "rust-src" ];
+        (rust-bin.stable.latest.default.override {
+          extensions = [ "rust-src" ]; 
         })
         eza
         bat

@@ -7,14 +7,14 @@
 }:
 {
   config = {
-    services.nix-daemon.enable = true;
-    system.stateVersion = 5;
+    system.primaryUser = "ellie";
+    system.stateVersion = 4;
     nix.settings.max-jobs = 24;
 
     programs.gnupg.agent.enable = true;
     programs.gnupg.agent.enableSSHSupport = true;
     services.aerospace = {
-      enable = true;
+      enable = false;
       settings = {
         gaps = {
           outer.left = 8;
@@ -53,6 +53,13 @@
             "if".app-id = "com.getcleanshot.app-setapp";
             run = [ "layout floating" ];
           }
+          {
+            "if" = {
+              app-id = "com.googlecode.iterm2";
+              window-title-regex-substring = "Hotkey Window";
+            };
+            run = [ "layout floating" ];
+          }
         ];
 
         on-focus-changed = [];
@@ -60,7 +67,7 @@
       };
     };
     services.jankyborders = {
-      enable = true;
+      enable = false;
       hidpi = true;
     };
     # services.yabai.enable = true;

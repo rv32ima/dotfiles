@@ -1,6 +1,7 @@
 {
   inputs,
   hosts,
+  lix-module,
   nixpkgs,
   home-manager,
   nix-darwin,
@@ -31,6 +32,7 @@ let
     let
       pkgs = nixpkgConf system;
       nixCommon = {
+        nix.package = pkgs.lix;
         nix.settings.experimental-features = "nix-command flakes";
         nix.settings.trusted-users = [
           "${user}"
@@ -53,6 +55,20 @@ let
                 maxJobs = 16;
                 protocol = "ssh-ng";
               }
+              {
+                hostName = "linux-builder";
+                system = "aarch64-linux";
+                sshUser = "builder";
+                publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo=";
+                sshKey = "/etc/nix/builder_ed25519";
+                maxJobs = 24;
+                protocol = "ssh-ng";
+                supportedFeatures = [
+                  "kvm"
+                  "benchmark"
+                  "big-parallel"
+                ];
+              }
             ];
         nix.distributedBuilds = !remote;
       };
@@ -71,6 +87,7 @@ let
         inherit system;
         specialArgs = extraArgs;
         modules = [
+          lix-module.nixosModules.default
           nixCommon
           ./hosts/${name}
           home-manager.darwinModules.home-manager
@@ -91,6 +108,7 @@ let
         inherit system;
         specialArgs = extraArgs;
         modules = [
+          lix-module.nixosModules.default
           nixCommon
           ./hosts/${name}
           home-manager.nixosModules.home-manager
