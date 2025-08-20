@@ -28,6 +28,16 @@
         extraConfig = builtins.readFile ../../git/${primaryUser}.gitconfig;
       };
 
+      jujutsu = {
+        enable = true;
+        settings = {
+          user = {
+            email = "me@ellie.fm";
+            name = "Ellie Ford";
+          };
+        };
+      };
+
       tmux = {
         enable = true;
         baseIndex = 1;

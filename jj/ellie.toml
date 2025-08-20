@@ -1,0 +1,9 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Ellie Ford"
+email = "me@ellie.fm"
+
+[ui]
+diff-editor = "diffedit3"
+merge-editor = "vscode"

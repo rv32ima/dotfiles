@@ -22,12 +22,22 @@ in
       starship = {
         enable = true;
         # TODO: don't do this anymore
-        settings = builtins.fromTOML (builtins.readFile ../../starship.toml);
+        settings = builtins.fromTOML (builtins.readFile ../../starship/starship.toml);
       };
 
       git = {
         enable = true;
         extraConfig = builtins.readFile ../../git/${primaryUser}.gitconfig;
+      };
+
+      jujutsu = {
+        enable = true;
+        settings = {
+          user = {
+            email = "eford@tvscientific.com";
+            name = "Ellie Ford";
+          };
+        };
       };
 
       tmux = {
