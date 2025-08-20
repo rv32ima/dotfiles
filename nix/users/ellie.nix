@@ -2,7 +2,7 @@
   lib,
   pkgs,
   config,
-  user,
+  primaryUser,
   stateVersion,
   ...
 }:
@@ -14,18 +14,18 @@
       fish = {
         enable = true;
         # TODO: don't do this anymore
-        shellInit = builtins.readFile ../fish/init.fish;
+        shellInit = builtins.readFile ../../fish/init.fish;
       };
 
       starship = {
         enable = true;
         # TODO: don't do this anymore
-        settings = builtins.fromTOML (builtins.readFile ../starship.toml);
+        settings = builtins.fromTOML (builtins.readFile ../../starship.toml);
       };
 
       git = {
         enable = true;
-        extraConfig = builtins.readFile ../git/gitconfig;
+        extraConfig = builtins.readFile ../../git/gitconfig;
       };
 
       tmux = {
@@ -68,8 +68,8 @@
     };
 
     home = {
-      username = "${user}";
-      homeDirectory = lib.mkDefault "/home/${user}";
+      username = "ellie";
+      homeDirectory = lib.mkDefault "/home/ellie";
       packages = with pkgs; [
         nodejs_20
         go_1_23
@@ -90,7 +90,7 @@
         jujutsu
       ];
 
-      stateVersion = "${stateVersion}";
+      stateVersion = "24.05";
     };
 
     xdg.configFile."nvim/lua" = {

@@ -39,33 +39,19 @@
       ...
     }:
     let
-      users = [
-        "ellie"
-        "devzero"
-      ];
+      lib = nixpkgs.lib;
 
-      hosts = [
-        {
-          name = "wallsocket";
-          system = "aarch64-darwin";
-          stateVersion = "24.05";
-          remote = false;
-        }
-        {
-          name = "icedancer";
-          system = "aarch64-darwin";
-          stateVersion = "24.05";
-          remote = false;
-        }
-      ];
+      machineDescriptorFiles = builtins.filter 
+        (path: (builtins.baseNameOf path) == "machine.nix")
+        (lib.filesystem.listFilesRecursive ./nix/machines);
+      
+      machines = builtins.map (path: import path {}) machineDescriptorFiles;
+      isDarwin = system: lib.strings.hasSuffix "darwin" system;
+      isLinux = system: lib.strings.hasSuffix "linux" system;
+      darwinMachines = builtins.filter (machineConf: (isDarwin machineConf.system)) machines;
+      linuxMachines = builtins.filter (machineConf: isLinux machineConf.system) machines;
 
-      systems = [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-
-      common = user: {
+      common = {
         # inherit (nixpkgs) lib;
         inherit
           inputs
@@ -73,9 +59,7 @@
           home-manager
           lix-module
           nix-darwin
-          hosts
-          user
-          ;
+          machines;
       };
 
       mkUser =
@@ -91,31 +75,16 @@
             ];
           };
           extraSpecialArgs = (common user) // {
-            stateVersion = "24.05";
             inherit system;
           };
           modules = [
             ./nix/home.nix
           ];
         };
-
     in
-    (
       {
-        darwinConfigurations = import ./nix (
-          common "ellie"
-          // {
-            isDarwin = true;
-          }
-        );
-      }
-      // flake-utils.lib.eachSystem systems (system: {
-        packages.homeConfigurations = builtins.listToAttrs (
-          map (user: {
-            name = user;
-            value = mkUser { inherit user system; };
-          }) users
-        );
-      })
-    );
+        darwinConfigurations = import ./nix/darwin.nix (inputs // {
+          machines = darwinMachines;
+        });
+      };
 }
