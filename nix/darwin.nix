@@ -2,6 +2,7 @@ inputs@{
   machines,
   lix-module,
   nixpkgs,
+  zig,
   home-manager,
   rust-overlay,
   nix-darwin,
@@ -21,7 +22,7 @@ let
     }: 
     let
       pkgs = import ./common/nixpkgs.nix {
-        inherit system rust-overlay nixpkgs;
+        inherit system rust-overlay nixpkgs zig;
       };
       specialArgs = (inputs // machine // {
         inherit pkgs;

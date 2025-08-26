@@ -4,6 +4,8 @@
   pkgs,
   primaryUser,
   stateVersion,
+  system,
+  zls,
   ...
 }:
 let 
@@ -89,6 +91,8 @@ in
         (rust-bin.stable.latest.default.override {
           extensions = [ "rust-src" ]; 
         })
+        zigpkgs."0.14.1"
+        zls.packages.${system}.default
         eza
         bat
         gnupg
@@ -100,6 +104,7 @@ in
         graphviz
         bazelisk
         jujutsu
+        duckdb
       ];
 
       stateVersion = "25.05";
