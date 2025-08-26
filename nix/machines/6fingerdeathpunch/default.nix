@@ -1,9 +1,6 @@
 {
-  lib,
-  inputs,
   pkgs,
   primaryUser,
-  home-manager,
   ...
 }:
 {
