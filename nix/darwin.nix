@@ -37,7 +37,7 @@ let
       inherit system specialArgs;
       modules = [
         lix-module.nixosModules.default
-        ./common/default.nix
+        ./common/machine/darwin.nix
         ./machines/${hostName}/default.nix
         home-manager.darwinModules.home-manager
         {
@@ -46,6 +46,7 @@ let
           home-manager.extraSpecialArgs = specialArgs;
           home-manager.users."${primaryUser}" = {
             imports = [
+              ./common/user.nix
               ./users/${primaryUser}.nix
             ];
           };
