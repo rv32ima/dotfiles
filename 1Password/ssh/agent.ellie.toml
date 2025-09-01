@@ -1,0 +1,3 @@
+[[ssh-keys]]
+item = "Primary SSH key"
+vault = "Employee"
