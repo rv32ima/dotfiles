@@ -78,6 +78,14 @@
 
     programs.zsh.enable = true;
 
+    homebrew = {
+      enable = true;
+      global.autoUpdate = false;
+      casks = [
+        "1password-cli"
+      ];
+    };
+
     system.defaults.dock.autohide = true;
     system.defaults.dock.mru-spaces = false;
     system.defaults.dock.show-recents = false;

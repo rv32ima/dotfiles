@@ -6,6 +6,10 @@ inputs@{
   home-manager,
   rust-overlay,
   nix-darwin,
+  nix-homebrew,
+  homebrew-core,
+  homebrew-cask,
+  homebrew-bundle,
   ...
 }:
 let
@@ -36,6 +40,20 @@ let
     nix-darwin.lib.darwinSystem {
       inherit system specialArgs;
       modules = [
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            enable = true;
+            enableRosetta = true;
+            user = primaryUser;
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+              "homebrew/homebrew-bundle" = homebrew-bundle;
+            };
+            mutableTaps = false;
+          };
+        }
         lix-module.nixosModules.default
         ./common/machine/darwin.nix
         ./machines/${hostName}/default.nix
