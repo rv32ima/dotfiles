@@ -52,24 +52,24 @@
 
   outputs =
     inputs@{
-      self,
       nix-darwin,
       nixpkgs,
       lix-module,
       rust-overlay,
       home-manager,
-      vscode-server,
-      flake-utils,
+      zig,
       ...
     }:
     let
       lib = nixpkgs.lib;
 
-      machineDescriptorFiles = builtins.filter 
-        (path: (builtins.baseNameOf path) == "machine.nix")
-        (lib.filesystem.listFilesRecursive ./nix/machines);
-      
-      machines = builtins.map (path: import path {}) machineDescriptorFiles;
+      machineDescriptorFiles = builtins.filter (path: (builtins.baseNameOf path) == "machine.nix") (
+        lib.filesystem.listFilesRecursive ./nix/machines
+      );
+
+      userFiles = lib.filesystem.listFilesRecursive ./nix/users;
+
+      machines = builtins.map (path: import path { }) machineDescriptorFiles;
       isDarwin = system: lib.strings.hasSuffix "darwin" system;
       isLinux = system: lib.strings.hasSuffix "linux" system;
       darwinMachines = builtins.filter (machineConf: (isDarwin machineConf.system)) machines;
@@ -83,33 +83,47 @@
           home-manager
           lix-module
           nix-darwin
-          machines;
+          machines
+          ;
       };
 
       mkUser =
-        { user, system, ... }:
+        { system, module, ... }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-            overlays = [
-              inputs.rust-overlay.overlays.default
-              inputs.zig.overlays.default
-            ];
+          pkgs = import ./nix/common/nixpkgs.nix {
+            inherit
+              system
+              nixpkgs
+              rust-overlay
+              zig
+              ;
           };
-          extraSpecialArgs = (common user) // {
+          extraSpecialArgs = common // {
             inherit system;
           };
           modules = [
-            ./nix/home.nix
+            ./nix/common/user.nix
+            module
           ];
         };
     in
-      {
-        darwinConfigurations = import ./nix/darwin.nix (inputs // {
+    {
+      darwinConfigurations = import ./nix/darwin.nix (
+        inputs
+        // {
           machines = darwinMachines;
-        });
-      };
+        }
+      );
+    };
+  # (
+  #   builtins.map (userFile:
+  #   let
+  #     user = lib.strings.removeSuffix ".nix" (builtins.baseNameOf userFile);
+  #   in {
+  #     homeConfigurations.${user} = mkUser inputs // {
+  #       inherit user;
+  #       module = userFile;
+  #     };
+  #   }) userFiles
+  # );
 }
