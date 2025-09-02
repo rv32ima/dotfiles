@@ -1,5 +1,6 @@
 {
   pkgs,
+  zls,
   ...
 }:
 let
@@ -14,6 +15,8 @@ in
       google-cloud-sdk
       awscli2
       rclone
+
+      tenv
     ];
   };
 

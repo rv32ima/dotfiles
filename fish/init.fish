@@ -137,6 +137,11 @@ if test -x "$(which starship 2>/dev/null)"
   starship init fish | source
 end
 
+# setup tenv
+if test -x "$(which tenv 2>/dev/null)"
+  tenv completion fish | source
+end
+
 # If we aren't already connected via SSH
 # then we should launch the gpg-agent so we can get an SSH agent.
 if test -x "$(which gpgconf 2>/dev/null)" -a -z "$SSH_CONNECTION"
