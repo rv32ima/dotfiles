@@ -7,6 +7,7 @@ let
 in
 {
   home = {
+    stateVersion = "25.05";
     packages = with pkgs; [
       zigpkgs."0.14.1"
       zls.packages.${system}.default

@@ -1,4 +1,4 @@
-{...}: {
+{
   hostName = "infohazard";
   stateVersion = "25.05";
   primaryUser = "ellie";

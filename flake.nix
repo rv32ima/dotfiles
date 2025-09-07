@@ -68,6 +68,7 @@
       );
 
       userFiles = lib.filesystem.listFilesRecursive ./nix/users;
+      users = builtins.map (file: lib.strings.removeSuffix ".nix" (builtins.baseNameOf file)) userFiles;
 
       machines = builtins.map (path: import path { }) machineDescriptorFiles;
       isDarwin = system: lib.strings.hasSuffix "darwin" system;
@@ -83,7 +84,6 @@
           home-manager
           lix-module
           nix-darwin
-          machines
           ;
       };
 
@@ -114,16 +114,18 @@
           machines = darwinMachines;
         }
       );
+
+      nixosConfigurations = import ./nix/nixos.nix (
+        inputs
+        // {
+          machines = linuxMachines;
+        }
+      );
+
+      homeConfigurations = import ./nix/users.nix (
+        inputs // {
+          inherit users;
+        }
+      );
     };
-  # (
-  #   builtins.map (userFile:
-  #   let
-  #     user = lib.strings.removeSuffix ".nix" (builtins.baseNameOf userFile);
-  #   in {
-  #     homeConfigurations.${user} = mkUser inputs // {
-  #       inherit user;
-  #       module = userFile;
-  #     };
-  #   }) userFiles
-  # );
 }
