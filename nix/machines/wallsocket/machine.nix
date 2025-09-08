@@ -1,3 +1,4 @@
+{ }:
 {
   hostName = "wallsocket";
   stateVersion = "25.05";

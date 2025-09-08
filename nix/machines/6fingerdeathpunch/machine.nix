@@ -1,3 +1,4 @@
+{ }:
 {
   hostName = "6fingerdeathpunch";
   stateVersion = "25.05";

@@ -1,3 +1,4 @@
+{ }:
 {
   hostName = "artpop";
   stateVersion = "25.05";

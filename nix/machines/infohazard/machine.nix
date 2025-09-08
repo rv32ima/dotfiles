@@ -1,3 +1,4 @@
+{ }:
 {
   hostName = "infohazard";
   stateVersion = "25.05";
