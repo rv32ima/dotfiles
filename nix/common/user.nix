@@ -96,6 +96,7 @@
       eza
       bat
       gnupg
+      diffedit3
       sccache
       nixfmt-rfc-style
       packer

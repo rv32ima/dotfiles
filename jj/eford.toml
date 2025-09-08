@@ -5,5 +5,4 @@ name = "Ellie Ford"
 email = "eford@tvscientific.com"
 
 [ui]
-diff-editor = "diffedit3"
 merge-editor = "vscode"
