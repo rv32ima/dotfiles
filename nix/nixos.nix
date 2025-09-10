@@ -1,5 +1,4 @@
-{
-  inputs,
+inputs@{
   machines,
   lix-module,
   nixpkgs,
@@ -13,7 +12,6 @@ let
     machine@{
       hostName,
       stateVersion,
-      primaryUser,
       system,
       ...
     }:
@@ -26,6 +24,7 @@ let
           zig
           ;
       };
+      lib = nixpkgs.lib;
 
       extraArgs = (
         inputs
@@ -34,11 +33,22 @@ let
           inherit
             pkgs
             inputs
-            primaryUser
             stateVersion
             ;
         }
       );
+
+      hmUser =
+        let
+          primaryUser = machine.primaryUser or null;
+        in
+        lib.optionalAttrs (primaryUser != null) {
+          home-manager.users."${primaryUser}" = {
+            imports = [
+              ./users/${primaryUser}.nix
+            ];
+          };
+        };
     in
     nixpkgs.lib.nixosSystem {
       inherit system;
@@ -52,12 +62,8 @@ let
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = extraArgs;
-          home-manager.users."${primaryUser}" = {
-            imports = [
-              ./users/${primaryUser}.nix
-            ];
-          };
         }
+        hmUser
       ];
     };
 in

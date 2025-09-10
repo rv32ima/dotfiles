@@ -3,17 +3,14 @@
   lib,
   system,
   isRemote,
-  primaryUser,
   ...
-}: {
-  system.primaryUser = "${primaryUser}";
-  
+}:
+{
   nix = {
     package = pkgs.lix;
     settings = {
       experimental-features = "nix-command flakes";
       trusted-users = [
-        "${primaryUser}"
         "nix"
       ];
     };
@@ -37,7 +34,7 @@
           }
         ]
       else
-        []
+        [ ]
     );
 
     distributedBuilds = !isRemote;

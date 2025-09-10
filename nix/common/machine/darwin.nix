@@ -9,6 +9,10 @@
   ];
 
   config = {
+    nix.settings.trusted-users = [
+      "${primaryUser}"
+    ];
+
     services.aerospace = {
       enable = false;
       settings = {
@@ -86,6 +90,7 @@
       ];
     };
 
+    system.primaryUser = "${primaryUser}";
     system.defaults.dock.autohide = true;
     system.defaults.dock.mru-spaces = false;
     system.defaults.dock.show-recents = false;

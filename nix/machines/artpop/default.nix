@@ -4,6 +4,7 @@
 }:
 {
   config = {
+    system.stateVersion = 6;
     programs.fish.enable = true;
 
     services.openssh = {
@@ -11,8 +12,6 @@
       settings.PasswordAuthentication = false;
       settings.KbdInteractiveAuthentication = false;
     };
-
-    services.vscode-server.enable = true;
 
     users.users."ellie" = {
       openssh.authorizedKeys.keys = [
@@ -27,7 +26,5 @@
       shell = pkgs.fish;
       createHome = true;
     };
-
-    system.stateVersion = "24.11";
   };
 }

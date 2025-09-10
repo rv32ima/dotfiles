@@ -2,11 +2,12 @@
   description = "ellie's nix flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
@@ -75,37 +76,6 @@
       isLinux = system: lib.strings.hasSuffix "linux" system;
       darwinMachines = builtins.filter (machineConf: (isDarwin machineConf.system)) machines;
       linuxMachines = builtins.filter (machineConf: isLinux machineConf.system) machines;
-
-      common = {
-        # inherit (nixpkgs) lib;
-        inherit
-          inputs
-          nixpkgs
-          home-manager
-          lix-module
-          nix-darwin
-          ;
-      };
-
-      mkUser =
-        { system, module, ... }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import ./nix/common/nixpkgs.nix {
-            inherit
-              system
-              nixpkgs
-              rust-overlay
-              zig
-              ;
-          };
-          extraSpecialArgs = common // {
-            inherit system;
-          };
-          modules = [
-            ./nix/common/user.nix
-            module
-          ];
-        };
     in
     {
       darwinConfigurations = import ./nix/darwin.nix (
