@@ -43,14 +43,12 @@ let
         }
       );
 
-      userFile = if isRemote then ./common/user/local.nix else ./common/user/remote.nix;
-
       hmUser =
         if (primaryUser != null) then
           {
             home-manager.users."${primaryUser}" = {
               imports = [
-                "${userFile}"
+                (if isRemote then ./common/user/local.nix else ./common/user/remote.nix)
                 ./users/${primaryUser}.nix
               ];
             };
