@@ -20,9 +20,11 @@ in
     home = "${homeDirectory}/ellie";
     createHome = true;
   }
-  // lib.optionalAttrs (builtins.hasAttr "isNormalUser" options.users.users.ellie) {
-    isNormalUser = true;
-  };
+  //
+    lib.optionalAttrs (builtins.hasAttr "isNormalUser" (options.users.users.type.getSubOptions { }))
+      {
+        isNormalUser = true;
+      };
 
   users.groups.wheel.members = [
     "ellie"
