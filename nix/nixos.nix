@@ -40,7 +40,7 @@ let
 
       hmUser =
         let
-          primaryUser = machine.primaryUser ? null;
+          primaryUser = machine.primaryUser or null;
         in
         if (primaryUser != null) then
           {
