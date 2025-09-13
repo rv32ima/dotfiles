@@ -20,19 +20,17 @@ in
     home = "${homeDirectory}/ellie";
     createHome = true;
   }
+  // lib.optionalAttrs (builtins.hasAttr "extraGroups" (options.users.users.type.getSubOptions { })) {
+    extraGroups = [
+      "wheel"
+      "trusted"
+    ];
+  }
   //
     lib.optionalAttrs (builtins.hasAttr "isNormalUser" (options.users.users.type.getSubOptions { }))
       {
         isNormalUser = true;
       };
-
-  users.groups.wheel.members = [
-    "ellie"
-  ];
-
-  users.groups.trusted.members = [
-    "ellie"
-  ];
 
   home-manager.users."ellie" = {
     imports = [
