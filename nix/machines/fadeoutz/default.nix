@@ -153,6 +153,8 @@ in
     services.tailscale.enable = true;
     services.tailscale.openFirewall = true;
 
+    services.prometheus.exporters.node.enable = true;
+    
     services.openssh.enable = true;
     services.openssh.openFirewall = false;
 
