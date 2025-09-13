@@ -46,10 +46,6 @@ in
         device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7";
         content.type = "gpt";
         content.partitions = {
-          boot = {
-            size = "1M";
-            type = "EF02"; # for grub MBR
-          };
           ESP = {
             size = "500M";
             type = "EF00";
@@ -82,10 +78,6 @@ in
         device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa3852291f2";
         content.type = "gpt";
         content.partitions = {
-          boot = {
-            size = "1M";
-            type = "EF02"; # for grub MBR
-          };
           ESP = {
             size = "500M";
             type = "EF00";
