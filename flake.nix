@@ -56,50 +56,36 @@
 
   outputs =
     inputs@{
-      nix-darwin,
       nixpkgs,
-      lix-module,
-      rust-overlay,
-      home-manager,
-      zig,
       ...
     }:
     let
       lib = nixpkgs.lib;
 
       machineDescriptorFiles = builtins.filter (path: (builtins.baseNameOf path) == "machine.nix") (
-        lib.filesystem.listFilesRecursive ./nix/machines
+        lib.filesystem.listFilesRecursive ./machines
       );
 
-      userFiles = lib.filesystem.listFilesRecursive ./nix/users;
-      users = builtins.map (file: lib.strings.removeSuffix ".nix" (builtins.baseNameOf file)) userFiles;
-
-      machines = builtins.map (path: import path { }) machineDescriptorFiles;
+      machines = builtins.map (path: import path { inherit inputs; }) machineDescriptorFiles;
       isDarwin = system: lib.strings.hasSuffix "darwin" system;
       isLinux = system: lib.strings.hasSuffix "linux" system;
       darwinMachines = builtins.filter (machineConf: (isDarwin machineConf.system)) machines;
       linuxMachines = builtins.filter (machineConf: isLinux machineConf.system) machines;
     in
     {
-      darwinConfigurations = import ./nix/darwin.nix (
+      darwinConfigurations = import ./darwin.nix (
         inputs
         // {
           machines = darwinMachines;
         }
       );
 
-      nixosConfigurations = import ./nix/nixos.nix (
+      nixosConfigurations = import ./nixos.nix (
         inputs
         // {
           machines = linuxMachines;
         }
       );
 
-      homeConfigurations = import ./nix/users.nix (
-        inputs
-        // {
-          inherit users;
-        }
-      );
     };
 }
