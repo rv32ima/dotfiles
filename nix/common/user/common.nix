@@ -1,5 +1,4 @@
-primaryUser:
-{
+primaryUser: {
   lib,
   pkgs,
   stateVersion,

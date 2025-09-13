@@ -18,6 +18,7 @@ let
       hostName,
       primaryUser,
       system,
+      isRemote,
       ...
     }:
     let
@@ -36,6 +37,7 @@ let
           inherit pkgs;
         }
       );
+      userFile = if isRemote then ./common/user/local.nix else ./common/user/remote.nix;
     in
     nix-darwin.lib.darwinSystem {
       inherit system specialArgs;
@@ -65,7 +67,7 @@ let
           home-manager.extraSpecialArgs = specialArgs;
           home-manager.users."${primaryUser}" = {
             imports = [
-              (import ./common/user.nix primaryUser)
+              (import ${userFile} primaryUser)
               ./users/${primaryUser}.nix
             ];
           };

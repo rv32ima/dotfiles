@@ -13,6 +13,8 @@
       trusted-users = [
         "nix"
       ];
+      # Don't cache tarballs so that we can pull updates to flakes quicker
+      tarball-ttl = 0;
     };
 
     buildMachines = lib.mkDefault (

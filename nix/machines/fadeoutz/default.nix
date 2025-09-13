@@ -13,9 +13,7 @@ in
   ];
 
   config = {
-    nix.settings = {
-      tarball-ttl = 0;
-    };
+
 
     boot = {
       loader.grub.enable = true;
@@ -154,7 +152,7 @@ in
     services.tailscale.openFirewall = true;
 
     services.prometheus.exporters.node.enable = true;
-    
+
     services.openssh.enable = true;
     services.openssh.openFirewall = false;
 

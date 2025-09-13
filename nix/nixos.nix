@@ -13,6 +13,7 @@ let
       hostName,
       stateVersion,
       system,
+      isRemote,
       ...
     }:
     let
@@ -38,6 +39,8 @@ let
         }
       );
 
+      userFile = if isRemote then ./common/user/local.nix else ./common/user/remote.nix;
+
       hmUser =
         let
           primaryUser = machine.primaryUser or null;
@@ -46,7 +49,7 @@ let
           {
             home-manager.users."${primaryUser}" = {
               imports = [
-                (import ./common/user.nix primaryUser)
+                (import ${userFile} primaryUser)
                 ./users/${primaryUser}.nix
               ];
             };
