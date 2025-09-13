@@ -67,7 +67,7 @@ let
           home-manager.extraSpecialArgs = specialArgs;
           home-manager.users."${primaryUser}" = {
             imports = [
-              (import "${userFile}" primaryUser)
+              "${userFile}"
               ./users/${primaryUser}.nix
             ];
           };

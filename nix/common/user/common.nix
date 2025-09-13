@@ -2,7 +2,7 @@
   lib,
   pkgs,
   stateVersion,
-  primaryUser ? null,
+  primaryUser,
   ...
 }:
 {

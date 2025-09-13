@@ -30,12 +30,14 @@ let
 
       extraArgs = (
         inputs
-        // machine
         // {
           inherit
             pkgs
             inputs
             stateVersion
+            hostName
+            system
+            isRemote
             primaryUser
             ;
         }
@@ -48,7 +50,7 @@ let
           {
             home-manager.users."${primaryUser}" = {
               imports = [
-                (import "${userFile}" primaryUser)
+                "${userFile}"
                 ./users/${primaryUser}.nix
               ];
             };
