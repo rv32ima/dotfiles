@@ -58,7 +58,7 @@ in
             size = "100%";
             content = {
               type = "zfs";
-              name = "zroot";
+              pool = "zroot";
             };
           };
         };
@@ -92,7 +92,7 @@ in
             size = "100%";
             content = {
               type = "zfs";
-              name = "zroot";
+              pool = "zroot";
             };
           };
         };
