@@ -154,6 +154,7 @@ in
     services.tailscale.openFirewall = true;
 
     services.openssh.enable = true;
+    services.openssh.openFirewall = false;
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
