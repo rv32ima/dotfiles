@@ -23,7 +23,6 @@ let
       };
 
       extraArgs = {
-        inherit (nixpkgs) lib;
         inherit
           pkgs
           inputs
@@ -37,13 +36,13 @@ let
       specialArgs = extraArgs;
       modules = [
         lix-module.nixosModules.default
-        ./machines/${hostName}/default.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = extraArgs;
         }
+        ./machines/${hostName}/default.nix
       ];
     };
 in

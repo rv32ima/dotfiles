@@ -13,150 +13,148 @@ in
     disko.nixosModules.disko
   ];
 
-  config = {
-    boot.loader.grub.enable = true;
-    boot.loader.grub.efiSupport = true;
-    boot.loader.grub.mirroredBoots = [
-      {
-        devices = [ "nodev" ];
-        path = "/boot1";
-      }
-      {
-        devices = [ "nodev" ];
-        path = "/boot2";
-      }
-    ];
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.initrd.availableKernelModules = [
-      "ahci"
-      "xhci_pci"
-      "megaraid_sas"
-      "usbhid"
-      "usb_storage"
-      "sd_mod"
-      "sr_mod"
-    ];
-    boot.initrd.kernelModules = [ ];
-    boot.kernelModules = [ "kvm-intel" ];
-    boot.extraModulePackages = [ ];
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.mirroredBoots = [
+    {
+      devices = [ "nodev" ];
+      path = "/boot1";
+    }
+    {
+      devices = [ "nodev" ];
+      path = "/boot2";
+    }
+  ];
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "xhci_pci"
+    "megaraid_sas"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "sr_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
-    disko.devices = {
-      disk.disk1 = {
-        type = "disk";
-        device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7";
-        content.type = "gpt";
-        content.partitions = {
-          ESP = {
-            size = "500M";
-            type = "EF00";
-            content = {
-              type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot1";
-              mountOptions = [ "umask=0077" ];
-            };
-          };
-          swap = {
-            size = "16G";
-            content = {
-              type = "swap";
-              discardPolicy = "both";
-            };
-          };
-          root = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "zroot";
-            };
+  disko.devices = {
+    disk.disk1 = {
+      type = "disk";
+      device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7";
+      content.type = "gpt";
+      content.partitions = {
+        ESP = {
+          size = "500M";
+          type = "EF00";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot1";
+            mountOptions = [ "umask=0077" ];
           };
         };
-      };
-
-      disk.disk2 = {
-        type = "disk";
-        device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa3852291f2";
-        content.type = "gpt";
-        content.partitions = {
-          ESP = {
-            size = "500M";
-            type = "EF00";
-            content = {
-              type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot2";
-              mountOptions = [ "umask=0077" ];
-            };
-          };
-          swap = {
-            size = "16G";
-            content = {
-              type = "swap";
-              discardPolicy = "both";
-            };
-          };
-          root = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "zroot";
-            };
+        swap = {
+          size = "16G";
+          content = {
+            type = "swap";
+            discardPolicy = "both";
           };
         };
-      };
-
-      zpool.zroot = {
-        type = "zpool";
-        mode = "mirror";
-        options.cachefile = "none";
-        rootFsOptions = {
-          compression = "zstd";
-          "com.sun:auto-snapshot" = "false";
+        root = {
+          size = "100%";
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
         };
-        mountpoint = "/";
       };
     };
 
-    networking.hostId = "669097ce";
-    networking.hostName = "fadeoutz";
-    networking.useDHCP = lib.mkDefault false;
-
-    systemd.network.networks.ethernet = {
-      enable = true;
-      matchConfig = {
-        PermanentMACAddress = "B0:26:28:C2:C7:20";
+    disk.disk2 = {
+      type = "disk";
+      device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa3852291f2";
+      content.type = "gpt";
+      content.partitions = {
+        ESP = {
+          size = "500M";
+          type = "EF00";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot2";
+            mountOptions = [ "umask=0077" ];
+          };
+        };
+        swap = {
+          size = "16G";
+          content = {
+            type = "swap";
+            discardPolicy = "both";
+          };
+        };
+        root = {
+          size = "100%";
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
+        };
       };
-
-      dns = [
-        "1.1.1.1"
-        "1.0.0.1"
-      ];
-
-      routes = [
-        {
-          Gateway = "108.62.157.254";
-        }
-      ];
-
-      addresses = [
-        {
-          Address = "108.62.157.229/27";
-        }
-      ];
     };
 
-    services.tailscale.enable = true;
-    services.tailscale.openFirewall = true;
-
-    services.prometheus.exporters.node.enable = true;
-
-    services.openssh.enable = true;
-    services.openssh.openFirewall = false;
-
-    programs.fish.enable = true;
-    programs.fish.useBabelfish = true;
-
-    networking.useNetworkd = true;
-    networking.firewall.allowedTCPPorts = [ ];
+    zpool.zroot = {
+      type = "zpool";
+      mode = "mirror";
+      options.cachefile = "none";
+      rootFsOptions = {
+        compression = "zstd";
+        "com.sun:auto-snapshot" = "false";
+      };
+      mountpoint = "/";
+    };
   };
+
+  networking.hostId = "669097ce";
+  networking.hostName = "fadeoutz";
+  networking.useDHCP = lib.mkDefault false;
+
+  systemd.network.networks.ethernet = {
+    enable = true;
+    matchConfig = {
+      PermanentMACAddress = "B0:26:28:C2:C7:20";
+    };
+
+    dns = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
+
+    routes = [
+      {
+        Gateway = "108.62.157.254";
+      }
+    ];
+
+    addresses = [
+      {
+        Address = "108.62.157.229/27";
+      }
+    ];
+  };
+
+  services.tailscale.enable = true;
+  services.tailscale.openFirewall = true;
+
+  services.prometheus.exporters.node.enable = true;
+
+  services.openssh.enable = true;
+  services.openssh.openFirewall = false;
+
+  programs.fish.enable = true;
+  programs.fish.useBabelfish = true;
+
+  networking.useNetworkd = true;
+  networking.firewall.allowedTCPPorts = [ ];
 }
