@@ -40,12 +40,13 @@ let
 
       hmUser =
         let
-          primaryUser = machine.primaryUser or null;
+          primaryUser = machine.primaryUser ? null;
         in
         if (primaryUser != null) then
           {
             home-manager.users."${primaryUser}" = {
               imports = [
+                ./common/user.nix
                 ./users/${primaryUser}.nix
               ];
             };
