@@ -16,7 +16,16 @@ in
       loader.grub.enable = true;
       loader.grub.efiSupport = true;
       loader.grub.device = "nodev";
-      # loader.efi.canTouchEfiVariables = true;
+      loader.grub.mirroredBoots = [
+        {
+          devices = [ "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7-part2" ];
+          path = "/boot1";
+        }
+        {
+          devices = [ ""]
+        }
+      ];
+      loader.efi.canTouchEfiVariables = true;
       initrd.availableKernelModules = [
         "ahci"
         "xhci_pci"
@@ -45,8 +54,8 @@ in
             size = "500M";
             type = "EF00";
             content = {
-              type = "mdraid";
-              name = "raid1-esp";
+              type = "filesystem";
+              format = "vfat";
             };
           };
           swap = {
@@ -79,8 +88,8 @@ in
             size = "500M";
             type = "EF00";
             content = {
-              type = "mdraid";
-              name = "raid1-esp";
+              type = "filesystem";
+              format = "vfat";
             };
           };
           swap = {
@@ -97,18 +106,6 @@ in
               pool = "zroot";
             };
           };
-        };
-      };
-
-      mdadm.raid1-esp = {
-        type = "mdadm";
-        level = 1;
-        metadata = "1.0";
-        content = {
-          type = "filesystem";
-          format = "vfat";
-          mountpoint = "/boot";
-          mountOptions = [ "umask=0077" ];
         };
       };
 
