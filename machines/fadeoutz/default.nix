@@ -9,8 +9,8 @@ let
 in
 {
   imports = [
-    "${inputs.self}/modules/nixos/default.nix"
     disko.nixosModules.disko
+    "${inputs.self}/modules/nixos/default.nix"
   ];
 
   boot.loader.grub.enable = true;
