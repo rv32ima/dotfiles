@@ -14,6 +14,7 @@ let
       stateVersion,
       system,
       isRemote,
+      primaryUser ? null,
       ...
     }:
     let
@@ -35,6 +36,7 @@ let
             pkgs
             inputs
             stateVersion
+            primaryUser
             ;
         }
       );
@@ -42,9 +44,6 @@ let
       userFile = if isRemote then ./common/user/local.nix else ./common/user/remote.nix;
 
       hmUser =
-        let
-          primaryUser = machine.primaryUser or null;
-        in
         if (primaryUser != null) then
           {
             home-manager.users."${primaryUser}" = {

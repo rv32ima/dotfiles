@@ -1,4 +1,3 @@
-primaryUser:
 {
   lib,
   pkgs,
@@ -7,6 +6,6 @@ primaryUser:
 }:
 {
   imports = [
-    (import ./common.nix primaryUser)
+    ./common.nix
   ];
 }

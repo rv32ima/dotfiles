@@ -1,13 +1,13 @@
-primaryUser:
 {
   lib,
   pkgs,
   stateVersion,
+  primaryUser,
   ...
 }:
 {
   imports = [
-    (import ./common.nix primaryUser)
+    ./common.nix
   ];
 
   config = {
