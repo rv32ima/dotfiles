@@ -49,7 +49,7 @@ let
           {
             home-manager.users."${primaryUser}" = {
               imports = [
-                (import ${userFile} primaryUser)
+                (import "${userFile}" primaryUser)
                 ./users/${primaryUser}.nix
               ];
             };
