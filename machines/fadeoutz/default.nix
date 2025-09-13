@@ -1,6 +1,5 @@
 {
   nixpkgs,
-  disko,
   inputs,
   ...
 }:
@@ -9,7 +8,7 @@ let
 in
 {
   imports = [
-    disko.nixosModules.disko
+    inputs.disko.nixosModules.disko
     "${inputs.self}/modules/nixos/default.nix"
   ];
 
