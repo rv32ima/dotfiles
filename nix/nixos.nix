@@ -48,7 +48,7 @@ let
           {
             home-manager.users."${primaryUser}" = {
               imports = [
-                (if isRemote then ./common/user/local.nix else ./common/user/remote.nix)
+                (if isRemote then ./common/user/remote.nix else ./common/user/local.nix)
                 ./users/${primaryUser}.nix
               ];
             };

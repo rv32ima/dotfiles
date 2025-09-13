@@ -38,7 +38,7 @@ let
         inherit system;
       };
       modules = [
-        ./common/user.nix
+        ./common/user/remote.nix
         ./users/${user}.nix
       ];
     };
