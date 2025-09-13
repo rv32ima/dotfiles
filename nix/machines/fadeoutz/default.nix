@@ -17,11 +17,11 @@ in
       loader.grub.efiSupport = true;
       loader.grub.mirroredBoots = [
         {
-          devices = [ "nodev" ];
+          devices = [ "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7-part2" ];
           path = "/boot1";
         }
         {
-          devices = [ "nodev" ];
+          devices = [ "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa3852291f2-part2" ];
           path = "/boot2";
         }
       ];
