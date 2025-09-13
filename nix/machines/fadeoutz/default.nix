@@ -15,14 +15,14 @@ in
     boot = {
       loader.grub.enable = true;
       loader.grub.efiSupport = true;
-      loader.grub.device = "nodev";
       loader.grub.mirroredBoots = [
         {
-          devices = [ "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7-part2" ];
+          devices = [ "nodev" ];
           path = "/boot1";
         }
         {
-          devices = [ ""]
+          devices = [ "nodev" ];
+          path = "/boot2";
         }
       ];
       loader.efi.canTouchEfiVariables = true;
@@ -56,6 +56,8 @@ in
             content = {
               type = "filesystem";
               format = "vfat";
+              mountpoint = "/boot1";
+              mountOptions = [ "umask=0077" ];
             };
           };
           swap = {
@@ -90,6 +92,8 @@ in
             content = {
               type = "filesystem";
               format = "vfat";
+              mountpoint = "/boot2";
+              mountOptions = [ "umask=0077" ];
             };
           };
           swap = {
