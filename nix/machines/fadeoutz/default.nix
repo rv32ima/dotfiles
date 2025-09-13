@@ -16,7 +16,7 @@ in
       loader.grub.enable = true;
       loader.grub.efiSupport = true;
       loader.grub.device = "nodev";
-      loader.efi.canTouchEfiVariables = true;
+      # loader.efi.canTouchEfiVariables = true;
       initrd.availableKernelModules = [
         "ahci"
         "xhci_pci"
