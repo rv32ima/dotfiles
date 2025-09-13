@@ -15,9 +15,6 @@ in
     boot = {
       loader.grub.enable = true;
       loader.grub.efiSupport = true;
-      loader.grub.devices = [
-        "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7-part2"
-      ];
       loader.efi.canTouchEfiVariables = true;
       initrd.availableKernelModules = [
         "ahci"
