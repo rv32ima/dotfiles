@@ -20,7 +20,7 @@ in
     home = "${homeDirectory}/ellie";
     createHome = true;
   }
-  // lib.optionalAttrs (builtins.hasAttr "isNormalUser" options.users.users) {
+  // lib.optionalAttrs (builtins.hasAttr "isNormalUser" options.users.users.ellie) {
     isNormalUser = true;
   };
 
