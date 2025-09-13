@@ -1,10 +1,9 @@
 {
-  nixpkgs,
   inputs,
   ...
 }:
 let
-  lib = nixpkgs.lib;
+  lib = inputs.nixpkgs.lib;
 in
 {
   imports = [
