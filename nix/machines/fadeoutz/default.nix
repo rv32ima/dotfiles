@@ -15,6 +15,7 @@ in
     boot = {
       loader.grub.enable = true;
       loader.grub.efiSupport = true;
+      loader.grub.device = "nodev";
       loader.efi.canTouchEfiVariables = true;
       initrd.availableKernelModules = [
         "ahci"
@@ -102,6 +103,7 @@ in
       mdadm.raid1-esp = {
         type = "mdadm";
         level = 1;
+        metadata = "1.0";
         content = {
           type = "filesystem";
           format = "vfat";
