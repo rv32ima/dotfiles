@@ -17,9 +17,6 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPUAs4RQBUriBrp7rv2cepCve5eIo6uqFfgs7oPqV9Q" # 1Password -> 'Primary SSH key'
     ];
 
-    services.cloud-init.enable = true;
-    services.cloud-init.network.enable = true;
-
     networking.useNetworkd = true;
     networking.firewall.allowedTCPPorts = [
       22

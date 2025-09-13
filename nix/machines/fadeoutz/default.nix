@@ -1,0 +1,159 @@
+{
+  nixpkgs,
+  disko,
+  ...
+}:
+let
+  lib = nixpkgs.lib;
+in
+{
+  imports = [
+    disko.nixosModules.disko
+  ];
+
+  config = {
+    boot = {
+      loader.systemd-boot.enable = true;
+      loader.efi.canTouchEfiVariables = true;
+      initrd.availableKernelModules = [
+        "ahci"
+        "xhci_pci"
+        "megaraid_sas"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+        "sr_mod"
+      ];
+      initrd.kernelModules = [ ];
+      kernelModules = [ "kvm-intel" ];
+      extraModulePackages = [ ];
+    };
+
+    disko.devices = {
+      disk.disk1 = {
+        type = "disk";
+        device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa2831b8ed7";
+        content.type = "gpt";
+        content.partitions = {
+          boot = {
+            size = "1M";
+            type = "EF02"; # for grub MBR
+          };
+          ESP = {
+            size = "500M";
+            type = "EF00";
+            content = {
+              type = "mdraid";
+              name = "raid1-esp";
+            };
+          };
+          swap = {
+            size = "16G";
+            content = {
+              type = "swap";
+              discardPolicy = "both";
+            };
+          };
+          root = {
+            size = "100%";
+            content = {
+              type = "zfs";
+              name = "zroot";
+            };
+          };
+        };
+      };
+
+      disk.disk2 = {
+        type = "disk";
+        device = "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa3852291f2";
+        content.type = "gpt";
+        content.partitions = {
+          boot = {
+            size = "1M";
+            type = "EF02"; # for grub MBR
+          };
+          ESP = {
+            size = "500M";
+            type = "EF00";
+            content = {
+              type = "mdraid";
+              name = "raid1-esp";
+            };
+          };
+          swap = {
+            size = "16G";
+            content = {
+              type = "swap";
+              discardPolicy = "both";
+            };
+          };
+          root = {
+            size = "100%";
+            content = {
+              type = "zfs";
+              name = "zroot";
+            };
+          };
+        };
+      };
+
+      mdadm.raid1-esp = {
+        type = "mdadm";
+        level = 1;
+        content = {
+          type = "filesystem";
+          format = "vfat";
+          mountpoint = "/boot";
+          mountOptions = [ "umask=0077" ];
+        };
+      };
+
+      zpool.zroot = {
+        type = "zpool";
+        mode = "mirror";
+        options.cachefile = "none";
+        rootFsOptions = {
+          compression = "zstd";
+          "com.sun:auto-snapshot" = "false";
+        };
+        mountpoint = "/";
+      };
+    };
+
+    networking.useDHCP = lib.mkDefault false;
+    systemd.network.networks.ethernet = {
+      enable = true;
+      matchConfig = {
+        Name = "eno1np0";
+      };
+
+      dns = [
+        "1.1.1.1"
+        "1.0.0.1"
+      ];
+
+      routes = [
+        {
+          Gateway = "108.62.157.254";
+        }
+      ];
+
+      addresses = [
+        {
+          Address = "108.62.157.229/27";
+        }
+      ];
+    };
+
+    services.openssh.enable = true;
+    users.users.root.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPUAs4RQBUriBrp7rv2cepCve5eIo6uqFfgs7oPqV9Q" # 1Password -> 'Primary SSH key'
+    ];
+
+    networking.useNetworkd = true;
+    networking.firewall.allowedTCPPorts = [
+      22
+    ];
+  };
+}

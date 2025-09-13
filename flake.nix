@@ -49,6 +49,9 @@
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+    };
   };
 
   outputs =
@@ -93,7 +96,8 @@
       );
 
       homeConfigurations = import ./nix/users.nix (
-        inputs // {
+        inputs
+        // {
           inherit users;
         }
       );
