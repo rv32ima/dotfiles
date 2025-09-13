@@ -12,6 +12,10 @@ in
   ];
 
   config = {
+    nix.settings = {
+      tarball-ttl = 0;
+    };
+
     boot = {
       loader.grub.enable = true;
       loader.grub.efiSupport = true;
@@ -120,6 +124,7 @@ in
     networking.hostId = "669097ce";
     networking.hostName = "fadeoutz";
     networking.useDHCP = lib.mkDefault false;
+
     systemd.network.networks.ethernet = {
       enable = true;
       matchConfig = {
@@ -143,6 +148,9 @@ in
         }
       ];
     };
+
+    services.tailscale.enable = true;
+    services.tailscale.openFirewall = true;
 
     services.openssh.enable = true;
     users.users.root.openssh.authorizedKeys.keys = [
