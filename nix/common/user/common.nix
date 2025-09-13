@@ -11,23 +11,23 @@ primaryUser: {
     fish = {
       enable = true;
       # TODO: don't do this anymore
-      shellInit = builtins.readFile ../../fish/init.fish;
+      shellInit = builtins.readFile ../../../fish/init.fish;
     };
 
     starship = {
       enable = true;
       # TODO: don't do this anymore
-      settings = builtins.fromTOML (builtins.readFile ../../starship/starship.toml);
+      settings = builtins.fromTOML (builtins.readFile ../../../starship/starship.toml);
     };
 
     git = {
       enable = true;
-      extraConfig = builtins.readFile ../../git/${primaryUser}.gitconfig;
+      extraConfig = builtins.readFile ../../../git/${primaryUser}.gitconfig;
     };
 
     jujutsu = {
       enable = true;
-      settings = builtins.fromTOML (builtins.readFile ../../jj/${primaryUser}.toml);
+      settings = builtins.fromTOML (builtins.readFile ../../../jj/${primaryUser}.toml);
     };
 
     direnv = {
@@ -75,7 +75,7 @@ primaryUser: {
 
   xdg.configFile."nvim/lua" = {
     recursive = true;
-    source = ../../nvim/lua;
+    source = ../../../nvim/lua;
   };
 
   home = {
@@ -104,17 +104,5 @@ primaryUser: {
       bazelisk
       jujutsu
     ];
-
-    file.".ssh" = {
-      enable = true;
-      recursive = true;
-      source = ../../ssh;
-    };
-
-    file.".config/1Password/ssh/agent.toml" = {
-      enable = true;
-      recursive = true;
-      source = ../../1Password/ssh/agent.${primaryUser}.toml;
-    };
   };
 }
