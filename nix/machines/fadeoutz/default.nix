@@ -121,6 +121,8 @@ in
       };
     };
 
+    networking.hostId = "669097ce";
+    networking.hostName = "fadeoutz";
     networking.useDHCP = lib.mkDefault false;
     systemd.network.networks.ethernet = {
       enable = true;
