@@ -42,13 +42,16 @@ let
         let
           primaryUser = machine.primaryUser or null;
         in
-        lib.optionalAttrs (primaryUser != null) {
-          home-manager.users."${primaryUser}" = {
-            imports = [
-              ./users/${primaryUser}.nix
-            ];
-          };
-        };
+        if (primaryUser != null) then
+          {
+            home-manager.users."${primaryUser}" = {
+              imports = [
+                ./users/${primaryUser}.nix
+              ];
+            };
+          }
+        else
+          { };
     in
     nixpkgs.lib.nixosSystem {
       inherit system;
