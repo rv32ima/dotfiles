@@ -1,7 +1,7 @@
+primaryUser:
 {
   lib,
   pkgs,
-  primaryUser,
   stateVersion,
   ...
 }:
