@@ -1,13 +1,12 @@
 {
   nixpkgs,
+  modulesPath,
+  lib,
   ...
 }:
-let
-  lib = nixpkgs.lib;
-in
 {
   imports = [
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   config = {
