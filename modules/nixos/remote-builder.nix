@@ -33,12 +33,12 @@ in
 
   config.nix.settings.trusted-users = [ "nix" ];
 
-  users.users.nix = {
+  config.users.users.nix = {
     isNormalUser = true;
     group = "nix";
     home = "/var/lib/nix";
     createHome = true;
   };
 
-  users.groups.nix = { };
+  config.users.groups.nix = { };
 }
