@@ -35,6 +35,10 @@ let
       inherit system;
       specialArgs = extraArgs;
       modules = [
+        nixpkgs.nixosModules.readOnlyPkgs
+        {
+          nixpkgs.pkgs = pkgs;
+        }
         lix-module.nixosModules.default
         home-manager.nixosModules.home-manager
         {
