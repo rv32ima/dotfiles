@@ -9,6 +9,7 @@ in
   imports = [
     inputs.disko.nixosModules.disko
     "${inputs.self}/modules/nixos/default.nix"
+    "${inputs.self}/modules/nixos/remote-builder.nix"
   ];
 
   boot.loader.grub.enable = true;
@@ -120,9 +121,7 @@ in
 
   systemd.network.networks.ethernet = {
     enable = true;
-    matchConfig = {
-      PermanentMACAddress = "B0:26:28:C2:C7:20";
-    };
+    matchConfig.PermanentMACAddress = "B0:26:28:C2:C7:20";
 
     dns = [
       "1.1.1.1"

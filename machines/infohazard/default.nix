@@ -11,13 +11,13 @@
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
       {
-        hostName = "artpop";
+        hostName = "fadeoutz";
         system = "x86_64-linux";
-        sshUser = "ellie";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUx2RE95ZXJzZzJSVFhGRWpEanZoaXkzNTN0cG9mL2Z4cVU2VlcwNzFhYVE=";
+        sshUser = "nix";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVAvSkNYMTlaSkpjQTNmTmhXaXdEd1ltZ3R4L3gwWlFtS1RaUGFMM1ZPNmY=";
         sshKey = "/etc/nix/builder_ed25519";
-        maxJobs = 96;
-        protocol = "ssh";
+        maxJobs = 48;
+        protocol = "ssh-ng";
         supportedFeatures = [
           "kvm"
           "benchmark"

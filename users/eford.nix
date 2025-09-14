@@ -17,17 +17,17 @@ in
     home = "${homeDirectory}/eford";
     createHome = true;
   }
-  // lib.optionalAttrs (builtins.hasAttr "isNormalUser" options.users.users) {
-    isNormalUser = true;
-  };
-
-  users.groups.wheel.members = [
-    "eford"
-  ];
-
-  users.groups.trusted.members = [
-    "eford"
-  ];
+  // lib.optionalAttrs (builtins.hasAttr "extraGroups" (options.users.users.type.getSubOptions { })) {
+    extraGroups = [
+      "wheel"
+      "trusted"
+    ];
+  }
+  //
+    lib.optionalAttrs (builtins.hasAttr "isNormalUser" (options.users.users.type.getSubOptions { }))
+      {
+        isNormalUser = true;
+      };
 
   home-manager.users."eford" = {
     imports = [
