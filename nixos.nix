@@ -35,7 +35,6 @@ let
       inherit system;
       specialArgs = extraArgs;
       modules = [
-        pkgs.nixosModules.readOnlyPkgs
         {
           nixpkgs.pkgs = pkgs;
         }
