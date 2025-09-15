@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -142,9 +143,17 @@ in
     };
   };
 
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r zroot/root@blank
-  '';
+  boot.initrd.systemd.services.zfs-rollback = {
+    enable = true;
+    before = [ "zfs-mount.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      ${pkgs.zfs} rollback -r zroot/root@blank
+    '';
+  };
 
   networking.hostId = "669097ce";
   networking.hostName = "fadeoutz";
@@ -193,8 +202,8 @@ in
 
   systemd.tmpfiles.rules = [
     "d /persist/etc/ssh 0644 root root"
-    "d /persist/var/lib/tailscale 0644 root root"
-    "L /var/lib/tailscale - - - - /persist/var/lib/tailscale"
+    "d /persist/var/lib 0644 root root"
+    "L /var/lib - - - - /persist/var/lib"
   ];
 
   users.users.root.hashedPassword = "$y$j9T$AzqHjpKC7ASuqPl2pSKiC.$PxcdFS64lUJlsu4ogapeSbi/W9OMQK7qTNLBL8WPoeA";
