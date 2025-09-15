@@ -292,7 +292,7 @@ in
     matchConfig.Name = "vm-*";
     networkConfig.Bridge = "virbr0";
   };
-  networking.firewall.interfaces.virbr0.allowedUDPPorts = [ 53 ];
+  networking.firewall.interfaces.virbr0.allowedUDPPorts = [ 67 ];
 
   networking.nat.enable = true;
   networking.nat.enableIPv6 = true;
