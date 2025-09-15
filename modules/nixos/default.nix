@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ../shared/nix-config.nix
     ./users.nix
   ];
 
