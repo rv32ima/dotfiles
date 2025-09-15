@@ -106,12 +106,24 @@ in
     zpool.zroot = {
       type = "zpool";
       mode = "mirror";
-      options.cachefile = "none";
+      options = {
+        ashift = "12";
+      };
       rootFsOptions = {
+        acltype = "posixacl";
+        atime = "off";
         compression = "zstd";
+        mountpoint = "none";
+        xattr = "sa";
         "com.sun:auto-snapshot" = "false";
       };
-      mountpoint = "/";
+      datasets = {
+        root = {
+          type = "zfs_fs";
+          mountpoint = "/";
+          options.mountpoint = "legacy";
+        };
+      };
     };
   };
 
