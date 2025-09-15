@@ -255,6 +255,14 @@ in
               id = "vm-tuwunel";
             }
           ];
+
+        shares = [
+          {
+            tag = "ro-store";
+            source = "/nix/store";
+            mountPoint = "/nix/.ro-store";
+          }
+        ];
       };
 
       systemd.network.enable = true;
