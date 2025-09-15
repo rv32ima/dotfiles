@@ -123,6 +123,16 @@ in
           mountpoint = "/";
           options.mountpoint = "legacy";
         };
+        home = {
+          type = "zfs_fs";
+          mountpoint = "/home";
+          options.mountpoint = "legacy";
+        };
+        persist = {
+          type = "zfs_fs";
+          mountpoint = "/persist";
+          options.mountpoint = "legacy";
+        };
         nix = {
           type = "zfs_fs";
           mountpoint = "/nix";
@@ -132,11 +142,15 @@ in
     };
   };
 
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zfs rollback -r zroot/root@blank
+  '';
+
   networking.hostId = "669097ce";
   networking.hostName = "fadeoutz";
   networking.useDHCP = lib.mkDefault false;
 
-  systemd.network.networks.ethernet = {
+  systemd.network.networks."01-ethernet" = {
     enable = true;
     matchConfig.PermanentMACAddress = "B0:26:28:C2:C7:20";
 
@@ -165,10 +179,27 @@ in
 
   services.openssh.enable = true;
   services.openssh.openFirewall = false;
+  services.openssh.hostKeys = [
+    {
+      path = "/persist/etc/ssh/ssh_host_ed25519_key";
+      type = "ed25519";
+    }
+    {
+      path = "/persist/etc/ssh/ssh_host_rsa_key";
+      type = "rsa";
+      bits = 4096;
+    }
+  ];
+
+  systemd.tmpfiles.rules = [
+    "d /persist/etc/ssh 0644 root root"
+    "d /persist/var/lib/tailscale 0644 root root"
+    "L /var/lib/tailscale - - - - /persist/var/lib/tailscale"
+  ];
 
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
 
   networking.useNetworkd = true;
-  networking.firewall.allowedTCPPorts = [ ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
 }

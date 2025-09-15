@@ -101,6 +101,10 @@ function graph_invert
       -O $argv[1]
 end
 
+function ssh_key 
+  ssh-keyscan -q $argv[1] | grep -oE 'ssh-ed25519.*' | base64 -w0
+end
+
 function idot
   set -l graph_input
   while read line

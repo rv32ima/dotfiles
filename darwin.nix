@@ -1,15 +1,6 @@
-inputs@{
+{
   machines,
-  lix-module,
-  nixpkgs-darwin,
-  zig,
-  home-manager,
-  rust-overlay,
-  nix-darwin,
-  nix-homebrew,
-  homebrew-core,
-  homebrew-cask,
-  homebrew-bundle,
+  inputs,
   ...
 }:
 let
@@ -22,7 +13,7 @@ let
     }:
     let
       pkgs = import ./modules/shared/nixpkgs.nix {
-        nixpkgs = nixpkgs-darwin;
+        nixpkgs = inputs.nixpkgs-darwin;
         inherit
           system
           inputs
@@ -37,10 +28,10 @@ let
           ;
       };
     in
-    nix-darwin.lib.darwinSystem {
+    inputs.nix-darwin.lib.darwinSystem {
       inherit system specialArgs;
       modules = [
-        nix-homebrew.darwinModules.nix-homebrew
+        inputs.nix-homebrew.darwinModules.nix-homebrew
         {
           nix-homebrew = {
             autoMigrate = true;
@@ -48,15 +39,15 @@ let
             enableRosetta = true;
             user = primaryUser;
             taps = {
-              "homebrew/homebrew-core" = homebrew-core;
-              "homebrew/homebrew-cask" = homebrew-cask;
-              "homebrew/homebrew-bundle" = homebrew-bundle;
+              "homebrew/homebrew-core" = inputs.homebrew-core;
+              "homebrew/homebrew-cask" = inputs.homebrew-cask;
+              "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
             };
             mutableTaps = false;
           };
         }
-        lix-module.nixosModules.default
-        home-manager.darwinModules.home-manager
+        inputs.lix-module.nixosModules.default
+        inputs.home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

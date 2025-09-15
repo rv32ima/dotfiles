@@ -1,6 +1,7 @@
 {
-  nixpkgs,
   modulesPath,
+  inputs,
+  system,
   lib,
   ...
 }:
@@ -10,6 +11,10 @@
   ];
 
   config = {
+    environment.systemPackages = [
+      inputs.disko.packages.${system}.default
+    ];
+
     isoImage.squashfsCompression = "gzip -Xcompression-level 1";
     systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
     users.users.root.openssh.authorizedKeys.keys = [

@@ -73,19 +73,15 @@
       linuxMachines = builtins.filter (machineConf: isLinux machineConf.system) machines;
     in
     {
-      darwinConfigurations = import ./darwin.nix (
-        inputs
-        // {
-          machines = darwinMachines;
-        }
-      );
+      darwinConfigurations = import ./darwin.nix {
+        inherit inputs;
+        machines = darwinMachines;
+      };
 
-      nixosConfigurations = import ./nixos.nix (
-        inputs
-        // {
-          machines = linuxMachines;
-        }
-      );
+      nixosConfigurations = import ./nixos.nix {
+        inherit inputs;
+        machines = linuxMachines;
+      };
 
     };
 }
