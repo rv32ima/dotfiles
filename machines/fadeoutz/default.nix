@@ -213,17 +213,17 @@ in
     "L /var/lib - - - - /persist/var/lib"
   ];
 
-  sops.secrets.root-passwd = {
+  sops.secrets.root_passwd = {
     neededForUsers = true;
-    sopsFile = ./secrets/root_passwd;
+    sopsFile = ./secrets/user_passwords.yaml;
   };
-  users.users.root.hashedPasswordFile = config.sops.secrets.root-passwd.path;
+  users.users.root.hashedPasswordFile = config.sops.secrets.root_passwd.path;
 
-  sops.secrets.ellie-passwd = {
+  sops.secrets.ellie_passwd = {
     neededForUsers = true;
-    sopsFile = ./secrets/ellie_passwd;
+    sopsFile = ./secrets/user_passwords.yaml;
   };
-  users.users.ellie.hashedPasswordFile = config.sops.secrets.ellie-passwd.path;
+  users.users.ellie.hashedPasswordFile = config.sops.secrets.ellie_passwd.path;
 
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
