@@ -209,7 +209,7 @@ in
 
   systemd.tmpfiles.rules = [
     "d /persist/etc/ssh 0644 root root"
-    "d /persist/var/lib 0644 root root"
+    "d /persist/var/lib 0755 root root"
     "L /var/lib - - - - /persist/var/lib"
   ];
 
@@ -229,5 +229,5 @@ in
   programs.fish.useBabelfish = true;
 
   networking.useNetworkd = true;
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ ];
 }
