@@ -32,6 +32,7 @@ let
       inherit system;
       specialArgs = extraArgs;
       modules = [
+        inputs.sops-nix.nixosModules.sops
         inputs.lix-module.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         {

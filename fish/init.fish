@@ -105,6 +105,10 @@ function ssh_key
   ssh-keyscan -q $argv[1] | grep -oE 'ssh-ed25519.*' | base64 -w0
 end
 
+function ssh_age_key
+  nix-shell -p ssh-to-age --run "ssh-keyscan -q $argv[1] | grep -oE 'ssh-ed25519.*' | ssh-to-age"
+end
+
 function idot
   set -l graph_input
   while read line

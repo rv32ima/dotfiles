@@ -1,0 +1,8 @@
+keys:
+  - &1password age187zlwuajhnq3f3j4f3jxe7sgndpslrw7acuwxe42h93qp7gaegpqdmlccp
+  - &fadeoutz age1yrl4dtlwefhgfrardfwyyj6g6csxzt2yl86hg3q6492cqwg5j3lsjgll8w
+creation_rules:
+  - path_regex: machines/fadeoutz/secrets/.*$
+    key_groups:
+    - age:
+      - *fadeoutz

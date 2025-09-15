@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
 let
@@ -212,7 +213,17 @@ in
     "L /var/lib - - - - /persist/var/lib"
   ];
 
-  users.users.root.hashedPassword = "$y$j9T$AzqHjpKC7ASuqPl2pSKiC.$PxcdFS64lUJlsu4ogapeSbi/W9OMQK7qTNLBL8WPoeA";
+  sops.secrets.root-passwd = {
+    neededForUsers = true;
+    sopsFile = ./secrets/root_passwd;
+  };
+  users.users.root.hashedPasswordFile = config.sops.secrets.root-passwd.path;
+
+  sops.secrets.ellie-passwd = {
+    neededForUsers = true;
+    sopsFile = ./secrets/ellie_passwd;
+  };
+  users.users.ellie.hashedPasswordFile = config.sops.secrets.ellie-passwd.path;
 
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
