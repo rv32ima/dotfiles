@@ -10,6 +10,7 @@ in
 {
   imports = [
     inputs.disko.nixosModules.disko
+    inputs.microvm.nixosModules.host
     "${inputs.self}/modules/nixos/default.nix"
     "${inputs.self}/modules/nixos/remote-builder.nix"
   ];
@@ -230,4 +231,62 @@ in
 
   networking.useNetworkd = true;
   networking.firewall.allowedTCPPorts = [ ];
+
+  microvm.host.enable = true;
+  microvm.vms.tuwunel.config = {
+    system.stateVersion = lib.trivial.release;
+    networking.hostName = "tuwunel";
+    microvm = {
+      hypervisor = "cloud-hypervisor";
+      mem = 4096;
+      vcpu = 2;
+      interfaces =
+        let
+          hash = builtins.hashString "sha256" "tuwunel";
+          c = off: builtins.substring off 2 hash;
+          mac = "${builtins.substring 0 1 hash}2:${c 2}:${c 4}:${c 6}:${c 8}:${c 10}";
+        in
+        [
+          {
+            inherit mac;
+            type = "tap";
+            id = "vm-tuwunel";
+          }
+        ];
+    };
+    systemd.network.enable = true;
+
+    users.users.root.password = "toor";
+    services.openssh = {
+      enable = true;
+      settings.PermitRootLogin = "yes";
+    };
+  };
+
+  systemd.network.netdevs.virbr0.netdevConfig = {
+    Kind = "bridge";
+    Name = "virbr0";
+  };
+
+  systemd.network.networks.virbr0 = {
+    matchConfig.Name = "virbr0";
+    addresses = [
+      {
+        Address = "10.0.0.1/24";
+      }
+    ];
+
+    networkConfig = {
+      DHCPServer = true;
+    };
+  };
+
+  systemd.network.networks.microvm = {
+    matchConfig.Name = "vm-*";
+    networkConfig.Bridge = "virbr0";
+  };
+
+  networking.nat.enable = true;
+  networking.nat.enableIPv6 = true;
+  networking.nat.internalInterfaces = [ "virbr0" ];
 }
