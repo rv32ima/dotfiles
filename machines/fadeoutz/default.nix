@@ -197,6 +197,8 @@ in
     "L /var/lib/tailscale - - - - /persist/var/lib/tailscale"
   ];
 
+  users.users.root.hashedPassword = "$y$j9T$AzqHjpKC7ASuqPl2pSKiC.$PxcdFS64lUJlsu4ogapeSbi/W9OMQK7qTNLBL8WPoeA";
+
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
 
