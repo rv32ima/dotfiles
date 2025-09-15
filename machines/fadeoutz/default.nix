@@ -145,13 +145,19 @@ in
 
   boot.initrd.systemd.services.zfs-rollback = {
     enable = true;
-    before = [ "zfs-mount.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
+    after = [
+      "zfs-import-zroot.service"
+    ];
+    wantedBy = [
+      "initrd.target"
+    ];
+    before = [
+      "sysroot.mount"
+    ];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig.Type = "oneshot";
     script = ''
-      ${pkgs.zfs} rollback -r zroot/root@blank
+      ${pkgs.zfs} rollback -r zroot/root@blank && echo "zfs rollback complete"
     '';
   };
 
