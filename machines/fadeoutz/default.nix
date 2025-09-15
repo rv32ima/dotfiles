@@ -123,6 +123,11 @@ in
           mountpoint = "/";
           options.mountpoint = "legacy";
         };
+        nix = {
+          type = "zfs_fs";
+          mountpoint = "/nix";
+          options.mountpoint = "legacy";
+        };
       };
     };
   };

@@ -16,9 +16,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPUAs4RQBUriBrp7rv2cepCve5eIo6uqFfgs7oPqV9Q" # 1Password -> 'Primary SSH key'
     ];
 
-    systemd.network.networks.ethernet = {
+    systemd.network.networks."01-ethernet" = {
       enable = true;
-      matchConfig.PermanentMACAddress = "B4:83:51:0F:2B:52";
+      matchConfig.PermanentMACAddress = "B0:26:28:C2:C7:20";
 
       dns = [
         "1.1.1.1"
@@ -27,13 +27,13 @@
 
       routes = [
         {
-          Gateway = "23.82.194.126";
+          Gateway = "108.62.157.254";
         }
       ];
 
       addresses = [
         {
-          Address = "23.82.194.70/26";
+          Address = "108.62.157.229/27";
         }
       ];
     };
