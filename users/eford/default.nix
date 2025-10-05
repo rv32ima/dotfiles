@@ -2,13 +2,15 @@
   pkgs,
   machine,
   options,
+  config,
   lib,
+  inputs,
   ...
 }:
 let
   homeDirectory = if (lib.hasSuffix "darwin" machine.system) then "/Users" else "/home";
 in
-{
+lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
 
@@ -31,7 +33,12 @@ in
 
   home-manager.users."eford" = {
     imports = [
-      (if machine.isRemote then ../modules/home-manager/remote.nix else ../modules/home-manager/local.nix)
+      (
+        if config.rv32ima.machine.isRemote then
+          "${inputs.self}/modules/home-manager/remote.nix"
+        else
+          "${inputs.self}/modules/home-manager/local.nix"
+      )
     ];
 
     home.username = "eford";

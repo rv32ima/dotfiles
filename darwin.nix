@@ -5,57 +5,51 @@
 }:
 let
   mkMachine =
-    machine@{
+    {
       hostName,
-      primaryUser,
-      system,
+      file,
       ...
     }:
     let
-      pkgs = import ./modules/shared/nixpkgs.nix {
-        nixpkgs = inputs.nixpkgs-darwin;
-        inherit
-          system
-          inputs
-          ;
-      };
       specialArgs = {
-        inherit (pkgs) lib;
         inherit
-          pkgs
-          machine
           inputs
           ;
       };
     in
     inputs.nix-darwin.lib.darwinSystem {
-      inherit system specialArgs;
+      inherit specialArgs;
       modules = [
+        inputs.sops-nix.darwinModules.sops
         inputs.nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            autoMigrate = true;
-            enable = true;
-            enableRosetta = true;
-            user = primaryUser;
-            taps = {
-              "homebrew/homebrew-core" = inputs.homebrew-core;
-              "homebrew/homebrew-cask" = inputs.homebrew-cask;
-              "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+        (
+          { config, ... }:
+          {
+            nix-homebrew = {
+              autoMigrate = true;
+              enable = true;
+              enableRosetta = true;
+              user = config.rv32ima.machine.primaryUser;
+              taps = {
+                "homebrew/homebrew-core" = inputs.homebrew-core;
+                "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+              };
+              mutableTaps = false;
             };
-            mutableTaps = false;
-          };
-        }
+          }
+        )
         inputs.lix-module.nixosModules.default
         inputs.home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
-            inherit pkgs machine inputs;
+            inherit inputs;
           };
         }
-        ./machines/${hostName}/default.nix
+        ./modules/darwin/default.nix
+        file
       ];
     };
 in

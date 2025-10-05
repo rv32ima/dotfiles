@@ -20,25 +20,28 @@ let
   '';
 in
 {
-  options.nix.remote-builder.key = lib.mkOption {
+  options.rv32ima.machine.remote-builder.enable = lib.mkEnableOption "Remote Builder";
+  options.rv32ima.machine.remote-builder.key = lib.mkOption {
     type = lib.types.singleLineStr;
     default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7LMYuJpon+g+BLC95GIbzt9k0AJcEeIsHLC3rxvii3 builder@localhost";
     description = "ssh public key for the remote build user";
   };
 
-  config.users.users.nix.openssh.authorizedKeys.keys = [
-    # use nix-store for hydra which doesn't support ssh-ng
-    ''restrict,command="${nix-ssh-wrapper}" ${config.nix.remote-builder.key}''
-  ];
+  config = lib.mkIf config.rv32ima.machine.remote-builder.enable {
+    users.users.nix.openssh.authorizedKeys.keys = [
+      # use nix-store for hydra which doesn't support ssh-ng
+      ''restrict,command="${nix-ssh-wrapper}" ${config.nix.remote-builder.key}''
+    ];
 
-  config.nix.settings.trusted-users = [ "nix" ];
+    nix.settings.trusted-users = [ "nix" ];
 
-  config.users.users.nix = {
-    isNormalUser = true;
-    group = "nix";
-    home = "/var/lib/nix";
-    createHome = true;
+    users.users.nix = {
+      isNormalUser = true;
+      group = "nix";
+      home = "/var/lib/nix";
+      createHome = true;
+    };
+
+    users.groups.nix = { };
   };
-
-  config.users.groups.nix = { };
 }

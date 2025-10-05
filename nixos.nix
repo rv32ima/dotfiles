@@ -4,13 +4,16 @@
   ...
 }:
 let
-  mkMachine =
+  mkCommon =
     machine@{
       system,
       hostName,
+      configType,
       ...
     }:
     let
+      configFile = if configType == "machine" then "default.nix" else "installer.nix";
+
       pkgs = import ./modules/shared/nixpkgs.nix {
         inherit
           system
@@ -40,7 +43,8 @@ let
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = extraArgs;
         }
-        ./machines/${hostName}/default.nix
+        ./modules/nixos/base.nix
+        ./machines/${hostName}/${configFile}
       ];
     };
 in
@@ -49,7 +53,20 @@ builtins.listToAttrs (
     mI@{ hostName, ... }:
     {
       name = hostName;
-      value = mkMachine mI;
+      value = {
+        machine = mkCommon (
+          mI
+          // {
+            configType = "machine";
+          }
+        );
+        installer = mkCommon (
+          mI
+          // {
+            configType = "installer";
+          }
+        );
+      };
     }
   ) machines
 )

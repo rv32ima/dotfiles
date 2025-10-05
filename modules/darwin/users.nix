@@ -1,8 +1,18 @@
-{ machine, ... }:
 {
-  imports = machine.users;
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = builtins.map (user: "${inputs.self}/users/${user}/default.nix")           (
+            builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir "${inputs.self}/users"))
+          );
 
-  users.groups.trusted = { };
-  # users in trusted group are trusted by the nix-daemon
-  nix.settings.trusted-users = [ "@trusted" ];
+  config = {
+    users.groups.trusted = { };
+    # users in trusted group are trusted by the nix-daemon
+    nix.settings.trusted-users = [ "@trusted" ];
+  };
 }

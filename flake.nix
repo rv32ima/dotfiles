@@ -66,25 +66,28 @@
     let
       lib = nixpkgs.lib;
 
-      machineDescriptorFiles = builtins.filter (path: (builtins.baseNameOf path) == "machine.nix") (
-        lib.filesystem.listFilesRecursive ./machines
-      );
-
-      machines = builtins.map (path: import path { inherit inputs; }) machineDescriptorFiles;
-      isDarwin = system: lib.strings.hasSuffix "darwin" system;
-      isLinux = system: lib.strings.hasSuffix "linux" system;
-      darwinMachines = builtins.filter (machineConf: (isDarwin machineConf.system)) machines;
-      linuxMachines = builtins.filter (machineConf: isLinux machineConf.system) machines;
+      getMachineFiles =
+        type:
+        builtins.map
+          (hostName: {
+            inherit hostName;
+            file = ./machines/${type}/${hostName}/default.nix;
+          })
+          (
+            builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./machines/${type}))
+          );
+      nixosMachineFiles = getMachineFiles "nixos";
+      darwinMachineFiles = getMachineFiles "darwin";
     in
     {
       darwinConfigurations = import ./darwin.nix {
         inherit inputs;
-        machines = darwinMachines;
+        machines = darwinMachineFiles;
       };
 
       nixosConfigurations = import ./nixos.nix {
         inherit inputs;
-        machines = linuxMachines;
+        machines = nixosMachineFiles;
       };
 
     };

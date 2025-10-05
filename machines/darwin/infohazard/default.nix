@@ -1,13 +1,20 @@
 {
-  inputs,
   ...
 }:
 {
-  imports = [
-    "${inputs.self}/modules/darwin/workstation.nix"
-  ];
 
   config = {
+    rv32ima.machine.enable = true;
+    rv32ima.machine.hostName = "infohazard";
+    rv32ima.machine.stateVersion = 6;
+    rv32ima.machine.primaryUser = "ellie";
+    rv32ima.machine.platform = "aarch64-darwin";
+    rv32ima.machine.users = [
+      "ellie"
+    ];
+    rv32ima.machine.isRemote = false;
+    rv32ima.machine.workstation.enable = true;
+
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
       {

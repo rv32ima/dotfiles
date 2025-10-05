@@ -1,12 +1,12 @@
 {
-  machine,
   ...
 }:
 {
   imports = [
-    ../shared/nix-config.nix
+    ./base.nix
     ./users.nix
+    ./remote-builder.nix
+    ./zfs-mirror.nix
+    ./impermanence.nix
   ];
-
-  system.stateVersion = machine.stateVersion;
 }
