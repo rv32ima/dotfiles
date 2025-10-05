@@ -48,6 +48,7 @@ in
       kubectx
       step-cli
       awscli2
+      cargo-mommy
     ];
   };
 }
