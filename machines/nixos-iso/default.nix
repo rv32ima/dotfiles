@@ -2,6 +2,7 @@
   modulesPath,
   inputs,
   system,
+  pkgs,
   lib,
   ...
 }:
@@ -15,35 +16,33 @@
       inputs.disko.packages.${system}.default
     ];
 
+    networking.hostName = "foundry-receipt-printer";
+    networking.domain = "int.devhack.net";
     isoImage.squashfsCompression = "gzip -Xcompression-level 1";
     systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
     users.users.root.openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPUAs4RQBUriBrp7rv2cepCve5eIo6uqFfgs7oPqV9Q" # 1Password -> 'Primary SSH key'
     ];
 
-    systemd.network.networks."01-ethernet" = {
-      enable = true;
-      matchConfig.PermanentMACAddress = "B0:26:28:C2:C7:20";
+    environment.etc."NetworkManager/system-connections/wifi.nmconnection" = {
+      mode = "0400";
+      source = pkgs.writeText "wifi.nmconnection" ''
+        [connection]
+        id=wifi
+        type=wifi
 
-      dns = [
-        "1.1.1.1"
-        "1.0.0.1"
-      ];
+        [wifi]
+        ssid=wlan0
 
-      routes = [
-        {
-          Gateway = "108.62.157.254";
-        }
-      ];
-
-      addresses = [
-        {
-          Address = "108.62.157.229/27";
-        }
-      ];
+        [wifi-security]
+        key-mgmt=wpa-psk
+        psk=/dev/hack
+      '';
     };
 
-    networking.useNetworkd = true;
+    networking.networkmanager.enable = true;
+    networking.wireless.enable = false;
+
     networking.firewall.allowedTCPPorts = [
       22
     ];

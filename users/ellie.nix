@@ -43,6 +43,11 @@ in
       p7zip-rar
       age
       sops
+      typst
+      tinymist
+      kubectx
+      step-cli
+      awscli2
     ];
   };
 }
