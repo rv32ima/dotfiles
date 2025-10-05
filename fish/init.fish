@@ -50,6 +50,8 @@ alias xssh="command ssh -o \"UserKnownHostsFile=/dev/null\" -o \"StrictHostKeyCh
 alias ls="eza"
 alias cat="bat -p"
 alias bazel="bazelisk"
+# ^w^
+alias nix="lix-mommy"
 
 function vsc
   if [ -x "$(which code 2>/dev/null)" ]

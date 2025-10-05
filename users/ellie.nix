@@ -37,6 +37,15 @@ in
       (if machine.isRemote then ../modules/home-manager/remote.nix else ../modules/home-manager/local.nix)
     ];
 
+    home.file."bin" = {
+      source = ../bin;
+      recursive = true;
+    };
+
+    home.sessionPath = [
+      "${homeDirectory}/ellie/bin"
+    ];
+
     home.username = "ellie";
     home.stateVersion = "25.05";
     home.packages = with pkgs; [
