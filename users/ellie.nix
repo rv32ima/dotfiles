@@ -58,6 +58,7 @@ in
       step-cli
       awscli2
       cargo-mommy
+      lixPackageSets.stable.lix
     ];
   };
 }

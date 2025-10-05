@@ -9,6 +9,5 @@ import inputs.nixpkgs {
   overlays = [
     inputs.rust-overlay.overlays.default
     inputs.zig.overlays.default
-    inputs.lix-module.overlays.default
   ];
 }
