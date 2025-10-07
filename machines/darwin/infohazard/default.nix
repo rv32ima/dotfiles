@@ -15,6 +15,7 @@
     rv32ima.machine.isRemote = false;
     rv32ima.machine.workstation.enable = true;
 
+    nix.distributedBuilds = true;
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
       {
