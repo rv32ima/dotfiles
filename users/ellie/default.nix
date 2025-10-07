@@ -82,6 +82,7 @@ lib.mkIf (builtins.elem "ellie" config.rv32ima.machine.users) {
       awscli2
       cargo-mommy
       lixPackageSets.stable.lix
+      nix-your-shell
     ];
   };
 
