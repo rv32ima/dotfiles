@@ -8,7 +8,13 @@
   ...
 }:
 let
-  homeDirectory = if (lib.hasSuffix "darwin" machine.system) then "/Users" else "/home";
+  homeDirectory =
+    user:
+    if (lib.hasSuffix "darwin" config.nixpkgs.hostPlatform.config) then
+      "/Users/${user}"
+    else
+      "/home/${user}";
+
 in
 lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
   programs.fish.enable = true;
@@ -16,7 +22,7 @@ lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
 
   users.users."eford" = {
     shell = pkgs.fish;
-    home = "${homeDirectory}/eford";
+    home = homeDirectory "eford";
     createHome = true;
   }
   // lib.optionalAttrs (builtins.hasAttr "extraGroups" (options.users.users.type.getSubOptions { })) {
@@ -44,8 +50,8 @@ lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
     home.username = "eford";
     home.stateVersion = "25.05";
     home.packages = with pkgs; [
-      zigpkgs."0.14.1"
-      zls.packages.${system}.default
+      zigpkgs."0.15.1"
+      inputs.zls.packages.${system}.default
 
       duckdb
       google-cloud-sdk
@@ -53,8 +59,8 @@ lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
       rclone
 
       tenv
+      nix-your-shell
     ];
-
   };
 
 }

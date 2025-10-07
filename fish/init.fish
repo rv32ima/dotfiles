@@ -143,13 +143,17 @@ if test -f /opt/homebrew/bin/brew
 end
 
 # setup starship
-if test -x "$(which starship 2>/dev/null)"
+if command -q starship
   starship init fish | source
 end
 
 # setup tenv
-if test -x "$(which tenv 2>/dev/null)"
+if command -q tenv
   tenv completion fish | source
+end
+
+if command -q nix-your-shell
+  nix-your-shell fish | source
 end
 
 # If we aren't already connected via SSH

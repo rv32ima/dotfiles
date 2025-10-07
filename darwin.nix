@@ -39,7 +39,6 @@ let
             };
           }
         )
-        inputs.lix-module.nixosModules.default
         inputs.home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
