@@ -10,8 +10,12 @@
 
   config = lib.mkIf config.rv32ima.machine.workstation.enable {
     services.aerospace = {
-      enable = false;
+      enable = true;
       settings = {
+        enable-normalization-flatten-containers = true;
+        enable-normalization-opposite-orientation-for-nested-containers = true;
+        default-root-container-layout = "tiles";
+        default-root-container-orientation = "auto";
         gaps = {
           outer.left = 8;
           outer.right = 8;
@@ -20,6 +24,7 @@
           inner.horizontal = 8;
           inner.vertical = 8;
         };
+        key-mapping.preset = "qwerty";
         mode.main.binding = {
           cmd-1 = "workspace 1";
           cmd-2 = "workspace 2";
@@ -40,9 +45,29 @@
           cmd-shift-7 = "move-node-to-workspace 7";
           cmd-shift-8 = "move-node-to-workspace 8";
           cmd-shift-9 = "move-node-to-workspace 9";
+          cmd-shift-semicolon = "mode service";
 
           cmd-right = "workspace next";
           cmd-left = "workspace prev";
+        };
+        mode.service.binding = {
+          esc = [
+            "reload-config"
+            "mode main"
+          ];
+          r = [
+            "flatten-workspace-tree"
+            "mode main"
+          ];
+          f = [
+            "layout floating tiling"
+            "mode main"
+          ];
+          backspace = [
+            "close-all-windows-but-current"
+            "mode main"
+          ];
+
         };
         on-window-detected = [
           {
@@ -55,6 +80,12 @@
               window-title-regex-substring = "Hotkey Window";
             };
             run = [ "layout floating" ];
+          }
+          {
+            "if" = {
+              app-id = "com.mitchellh.ghostty";
+            };
+            run = [ "layout tiling" ];
           }
         ];
 
@@ -75,6 +106,7 @@
       global.autoUpdate = false;
       casks = [
         "1password-cli"
+        "ghostty"
       ];
     };
 
