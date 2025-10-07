@@ -50,8 +50,6 @@ alias xssh="command ssh -o \"UserKnownHostsFile=/dev/null\" -o \"StrictHostKeyCh
 alias ls="eza"
 alias cat="bat -p"
 alias bazel="bazelisk"
-# ^w^
-alias nix="lix-mommy"
 
 function vsc
   if [ -x "$(which code 2>/dev/null)" ]
@@ -152,8 +150,12 @@ if command -q tenv
   tenv completion fish | source
 end
 
-if command -q nix-your-shell
-  nix-your-shell fish | source
+function nix-shell --description "Start an interactive shell based on a Nix expression"
+    nix-your-shell fish nix-shell -- $argv
+end
+
+function nix --description "Reproducible and declarative configuration management"
+    nix-your-shell fish nix -- $argv
 end
 
 # If we aren't already connected via SSH

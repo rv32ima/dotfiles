@@ -47,11 +47,21 @@ lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
       )
     ];
 
+    home.file."bin" = {
+      source = "${inputs.self}/bin";
+      recursive = true;
+    };
+
+    home.sessionPath = [
+      "${homeDirectory "eford"}/bin"
+    ];
+
     home.username = "eford";
     home.stateVersion = "25.05";
     home.packages = with pkgs; [
       zigpkgs."0.15.1"
       inputs.zls.packages.${system}.default
+      cargo-mommy
 
       duckdb
       google-cloud-sdk
