@@ -12,6 +12,10 @@
     services.aerospace = {
       enable = true;
       settings = {
+        # TODO(ellie): wtf????
+        after-startup-command = [
+          "layout h_tiles"
+        ];
         enable-normalization-flatten-containers = true;
         enable-normalization-opposite-orientation-for-nested-containers = true;
         default-root-container-layout = "tiles";
@@ -67,7 +71,6 @@
             "close-all-windows-but-current"
             "mode main"
           ];
-
         };
         on-window-detected = [
           {
