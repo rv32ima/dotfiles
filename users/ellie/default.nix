@@ -83,6 +83,8 @@ lib.mkIf (builtins.elem "ellie" config.rv32ima.machine.users) {
       cargo-mommy
       lixPackageSets.stable.lix
       nix-your-shell
+      fluxcd
+      doctl
     ];
   };
 
