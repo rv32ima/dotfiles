@@ -8,7 +8,7 @@
 
   config = {
     rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "fadeoutz";
+    rv32ima.machine.hostName = "zephyr";
     rv32ima.machine.stateVersion = "25.05";
     rv32ima.machine.platform = "x86_64-linux";
     rv32ima.machine.users = [
@@ -42,5 +42,8 @@
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
+
+    networking.useNetworkd = true;
+    networking.firewall.allowedTCPPorts = [ ];
   };
 }

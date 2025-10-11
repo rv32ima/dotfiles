@@ -32,9 +32,15 @@
       default = false;
       description = "Is this machine located locally or in a datacenter?";
     };
+    rv32ima.machine.platform = lib.mkOption {
+      type = lib.types.str;
+      default = "x86_64-linux";
+      description = "The platform that this machine runs";
+    };
   };
 
   config = lib.mkIf config.rv32ima.machine.enable {
+    nixpkgs.hostPlatform = config.rv32ima.machine.platform;
     system.stateVersion = config.rv32ima.machine.stateVersion;
     networking.hostName = config.rv32ima.machine.hostName;
     networking.domain = config.rv32ima.machine.domainName;

@@ -6,7 +6,6 @@
 let
   mkCommon =
     machine@{
-      system,
       hostName,
       configType,
       ...
@@ -14,25 +13,15 @@ let
     let
       configFile = if configType == "machine" then "default.nix" else "installer.nix";
 
-      pkgs = import ./modules/shared/nixpkgs.nix {
-        inherit
-          system
-          inputs
-          ;
-      };
-
       extraArgs = {
         inherit
-          pkgs
           inputs
           machine
-          system
           ;
       };
 
     in
     inputs.nixpkgs.lib.nixosSystem {
-      inherit system;
       specialArgs = extraArgs;
       modules = [
         inputs.sops-nix.nixosModules.sops
@@ -43,7 +32,7 @@ let
           home-manager.extraSpecialArgs = extraArgs;
         }
         ./modules/nixos/base.nix
-        ./machines/${hostName}/${configFile}
+        ./machines/nixos/${hostName}/${configFile}
       ];
     };
 in
