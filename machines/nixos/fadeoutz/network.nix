@@ -2,6 +2,7 @@
 {
   networking.useDHCP = lib.mkDefault false;
   networking.useNetworkd = true;
+  services.resolved.enable = false;
 
   systemd.network.networks."01-ethernet" = {
     enable = true;
