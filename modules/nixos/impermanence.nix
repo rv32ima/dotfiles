@@ -64,7 +64,7 @@
           "d /persist/${path} ${mode} ${owner} ${group}"
           "L ${path} - - - - /persist/${path}"
         ]
-      ))
+      ) config.rv32ima.machine.impermanence.extraPersistDirectories)
     );
 
     boot.initrd.systemd.services.zfs-rollback = {
