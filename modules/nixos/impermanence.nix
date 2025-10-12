@@ -13,6 +13,7 @@
           options = {
             type = lib.mkOption {
               type = lib.types.str;
+              default = null;
             };
             path = lib.mkOption {
               type = lib.types.str;
@@ -92,7 +93,7 @@
           group,
         }:
         [
-          "${type} /persist/${path} ${mode} ${owner} ${group}"
+          "${opt.type} /persist/${path} ${mode} ${owner} ${group}"
           "L ${path} - - - - /persist/${path}"
         ]
       ) config.rv32ima.machine.impermanence.extraPersistDirectories)
