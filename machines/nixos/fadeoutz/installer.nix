@@ -15,9 +15,6 @@
     rv32ima.machine.hostName = "zephyr";
     rv32ima.machine.stateVersion = "25.05";
     rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.users = [
-      "root"
-    ];
     rv32ima.machine.isRemote = true;
 
     environment.systemPackages = [
