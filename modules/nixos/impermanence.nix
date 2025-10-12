@@ -8,7 +8,7 @@
   options = {
     rv32ima.machine.impermanence.enable = lib.mkEnableOption "impermanence";
     rv32ima.machine.impermanence.extraPersistDirectories = lib.mkOption {
-      type = lib.types.attrs lib.types.submodule {
+      type = lib.types.listOf lib.types.submodule {
         options = {
           path = lib.mkOption {
             type = lib.types.str;
