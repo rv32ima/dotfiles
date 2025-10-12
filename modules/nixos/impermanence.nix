@@ -87,6 +87,7 @@
       ) config.rv32ima.machine.impermanence.extraPersistDirectories)
     );
 
+    boot.initrd.systemd.enable = true;
     boot.initrd.systemd.services.zfs-rollback = {
       enable = true;
       after = [
