@@ -28,8 +28,26 @@
       );
       default = [
         {
-          path = "/var/lib";
-          mode = "0755";
+          path = "/var/log";
+          mode = "0644";
+          owner = "root";
+          group = "root";
+        }
+        {
+          path = "/var/lib/nixos";
+          mode = "0644";
+          owner = "root";
+          group = "root";
+        }
+        {
+          path = "/var/lib/systemd/coredump";
+          mode = "0644";
+          owner = "root";
+          group = "root";
+        }
+        {
+          path = "/var/lib/systemd/timers";
+          mode = "0644";
           owner = "root";
           group = "root";
         }
