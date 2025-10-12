@@ -23,6 +23,8 @@
       "/dev/disk/by-id/scsi-364cd98f0bbd0f40030574fa3852291f2"
     ];
 
+    services.getty.autologinUser = "root";
+
     boot.initrd.availableKernelModules = [
       "ahci"
       "xhci_pci"
