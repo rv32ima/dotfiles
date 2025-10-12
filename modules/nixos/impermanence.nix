@@ -53,7 +53,7 @@
         "d /persist/etc/ssh 0644 root root"
         "d /persist/var/lib 0755 root root"
       ]
-      ++ builtins.map (
+      ++ (builtins.map (
         {
           path,
           mode,
@@ -64,7 +64,7 @@
           "d /persist/${path} ${mode} ${owner} ${group}"
           "L ${path} - - - - /persist/${path}"
         ]
-      )
+      ))
     );
 
     boot.initrd.systemd.services.zfs-rollback = {

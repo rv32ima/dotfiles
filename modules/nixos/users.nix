@@ -5,9 +5,11 @@
   ...
 }:
 {
-  imports = builtins.map (user: "${inputs.self}/users/${user}/default.nix") (
-    builtins.attrNames (
-      lib.filterAttrs (_: v: v == "directory") (builtins.readDir "${inputs.self}/users")
+  imports = (
+    builtins.map (user: "${inputs.self}/users/${user}/default.nix") (
+      builtins.attrNames (
+        lib.filterAttrs (_: v: v == "directory") (builtins.readDir "${inputs.self}/users")
+      )
     )
   );
 
