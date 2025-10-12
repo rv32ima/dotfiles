@@ -46,7 +46,7 @@
     services.prometheus.exporters.node.enable = true;
 
     services.openssh.enable = true;
-    services.openssh.openFirewall = false;
+    services.openssh.openFirewall = true;
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
