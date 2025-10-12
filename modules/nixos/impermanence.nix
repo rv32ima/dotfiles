@@ -102,7 +102,7 @@
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
       script = ''
-        ${pkgs.zfs} rollback -r zroot/root@blank && echo "zfs rollback complete"
+        ${pkgs.zfs}/bin/zfs rollback -r zroot/root@blank && echo "zfs rollback complete"
       '';
     };
   };
