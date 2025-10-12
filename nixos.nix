@@ -36,29 +36,31 @@ let
       ];
     };
 in
-builtins.listToAttrs builtins.concatLists (
-  map (
-    mI@{ hostName, ... }:
-    [
-      {
-        name = "${hostName}-machine";
-        value = mkCommon (
-          mI
-          // {
-            configType = "machine";
-          }
-        );
-      }
-      {
-        name = "${hostName}-installer";
-        value = mkCommon (
-          mI
-          // {
-            configType = "installer";
-          }
-        );
+builtins.listToAttrs (
+  builtins.concatLists (
+    map (
+      mI@{ hostName, ... }:
+      [
+        {
+          name = "${hostName}-machine";
+          value = mkCommon (
+            mI
+            // {
+              configType = "machine";
+            }
+          );
+        }
+        {
+          name = "${hostName}-installer";
+          value = mkCommon (
+            mI
+            // {
+              configType = "installer";
+            }
+          );
 
-      }
-    ]
-  ) machines
+        }
+      ]
+    ) machines
+  )
 )
