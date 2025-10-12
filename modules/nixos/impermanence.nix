@@ -8,22 +8,24 @@
   options = {
     rv32ima.machine.impermanence.enable = lib.mkEnableOption "impermanence";
     rv32ima.machine.impermanence.extraPersistDirectories = lib.mkOption {
-      type = lib.types.listOf lib.types.submodule {
-        options = {
-          path = lib.mkOption {
-            type = lib.types.str;
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            path = lib.mkOption {
+              type = lib.types.str;
+            };
+            mode = lib.mkOption {
+              type = lib.types.str;
+            };
+            owner = lib.mkOption {
+              type = lib.types.str;
+            };
+            group = lib.mkOption {
+              type = lib.types.str;
+            };
           };
-          mode = lib.mkOption {
-            type = lib.types.str;
-          };
-          owner = lib.mkOption {
-            type = lib.types.str;
-          };
-          group = lib.mkOption {
-            type = lib.types.str;
-          };
-        };
-      };
+        }
+      );
       default = [
         {
           path = "/var/lib";
