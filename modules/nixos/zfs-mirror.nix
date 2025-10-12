@@ -119,7 +119,7 @@
       };
     };
 
-    filesystems."/persist".neededForBoot = true;
+    fileSystems."/persist".neededForBoot = true;
 
     boot.loader.grub.enable = true;
     boot.loader.grub.efiSupport = true;
