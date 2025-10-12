@@ -16,7 +16,7 @@
     };
   };
 
-  config = lib.mkIf config.rv32ima.machine.enableDiskoZfsMirror {
+  config = lib.mkIf config.rv32ima.machine.enableZfsMirror {
     disko.devices.disk.disk1 = {
       type = "disk";
       device = builtins.elemAt config.rv32ima.machine.zfsMirrorDisks 0;
