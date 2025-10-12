@@ -36,25 +36,29 @@ let
       ];
     };
 in
-builtins.listToAttrs (
+builtins.listToAttrs builtins.concatLists (
   map (
     mI@{ hostName, ... }:
-    {
-      name = hostName;
-      value = {
-        machine = mkCommon (
+    [
+      {
+        name = "${hostName}-machine";
+        value = mkCommon (
           mI
           // {
             configType = "machine";
           }
         );
-        installer = mkCommon (
+      }
+      {
+        name = "${hostName}-installer";
+        value = mkCommon (
           mI
           // {
             configType = "installer";
           }
         );
-      };
-    }
+
+      }
+    ]
   ) machines
 )
