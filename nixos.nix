@@ -31,7 +31,7 @@ let
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = extraArgs;
         }
-        ./modules/nixos/base.nix
+        ./modules/nixos/default.nix
         ./machines/nixos/${hostName}/${configFile}
       ];
     };
