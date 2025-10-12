@@ -11,6 +11,9 @@
       type = lib.types.listOf (
         lib.types.submodule {
           options = {
+            type = lib.mkOption {
+              type = lib.types.str;
+            };
             path = lib.mkOption {
               type = lib.types.str;
             };
@@ -51,6 +54,13 @@
           owner = "root";
           group = "root";
         }
+        {
+          type = "f";
+          path = "/var/lib/tailscale/tailscaled.state";
+          mode = "0600";
+          owner = "root";
+          group = "root";
+        }
       ];
     };
   };
@@ -75,13 +85,14 @@
       ]
       ++ (builtins.map (
         {
+          type ? "d",
           path,
           mode,
           owner,
           group,
         }:
         [
-          "d /persist/${path} ${mode} ${owner} ${group}"
+          "${type} /persist/${path} ${mode} ${owner} ${group}"
           "L ${path} - - - - /persist/${path}"
         ]
       ) config.rv32ima.machine.impermanence.extraPersistDirectories)
