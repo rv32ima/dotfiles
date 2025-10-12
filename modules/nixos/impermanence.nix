@@ -13,7 +13,7 @@
           options = {
             type = lib.mkOption {
               type = lib.types.str;
-              default = null;
+              default = "d";
             };
             path = lib.mkOption {
               type = lib.types.str;
