@@ -6,6 +6,8 @@ creation_rules:
     key_groups:
     - age:
       - *1password
+    - age:
+      - *fadeoutz
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:
