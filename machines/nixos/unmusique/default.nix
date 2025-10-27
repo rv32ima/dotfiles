@@ -38,6 +38,11 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.grub.efiSupport = true;
+    boot.loader.grub.efiInstallAsRemovable = true;
+    boot.loader.grub.device = "nodev";
+
     networking.hostId = "669097ce";
 
     services.tailscale.enable = true;

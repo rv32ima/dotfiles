@@ -2,6 +2,8 @@
   modulesPath,
   inputs,
   lib,
+  pkgs,
+  config,
   ...
 }:
 {
@@ -19,6 +21,20 @@
       "root"
     ];
     rv32ima.machine.isRemote = true;
+
+    system.build.netboot = pkgs.symlinkJoin {
+      name = "netboot";
+      paths = with config.system.build; [
+        netbootRamdisk
+        kernel
+        (pkgs.runCommand "kernel-params" { } ''
+          mkdir -p $out
+          ln -s "${config.system.build.toplevel}/kernel-params" $out/kernel-params
+          ln -s "${config.system.build.toplevel}/init" $out/init
+        '')
+      ];
+      preferLocalBuild = true;
+    };
 
     environment.systemPackages = [
       inputs.disko.packages.x86_64-linux.default
