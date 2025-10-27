@@ -39,7 +39,6 @@
     boot.extraModulePackages = [ ];
 
     boot.loader.grub.efiSupport = true;
-    boot.loader.grub.device = "nodev";
 
     networking.hostId = "669097ce";
 
