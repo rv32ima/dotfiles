@@ -16,6 +16,12 @@
       "ellie"
     ];
     rv32ima.machine.isRemote = true;
+    rv32ima.machine.impermanence.enable = true;
+    rv32ima.machine.enableZfsMirror = true;
+    rv32ima.machine.zfsMirrorDisks = [
+      "/dev/disk/by-id/ata-MK000480GZXRA_S6M8NE0RC00250"
+      "/dev/disk/by-id/ata-MK000480GZXRA_S6M8NE0T100628"
+    ];
 
     services.getty.autologinUser = "root";
 
