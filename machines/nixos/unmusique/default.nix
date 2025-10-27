@@ -38,8 +38,6 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    boot.loader.grub.efiSupport = true;
-
     networking.hostId = "669097ce";
 
     services.tailscale.enable = true;
