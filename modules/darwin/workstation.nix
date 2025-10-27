@@ -113,6 +113,8 @@
       ];
     };
 
+    services.tailscale.enable = true;
+
     system.defaults.dock.autohide = true;
     system.defaults.dock.mru-spaces = false;
     system.defaults.dock.show-recents = false;
