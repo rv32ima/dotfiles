@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    "${modulesPath}/installer/netboot/netboot-minimal.nix"
     ./network.nix
   ];
 
