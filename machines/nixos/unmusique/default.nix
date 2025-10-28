@@ -38,7 +38,7 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    networking.hostId = "669097ce";
+    networking.hostId = "b89ce780";
 
     services.tailscale.enable = true;
     services.tailscale.openFirewall = true;
