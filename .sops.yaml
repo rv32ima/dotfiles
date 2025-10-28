@@ -3,6 +3,7 @@ keys:
   - &fadeoutz age1yrl4dtlwefhgfrardfwyyj6g6csxzt2yl86hg3q6492cqwg5j3lsjgll8w
   - &unmusique age1qjsa6xq4lercw4jxm5afhc8apwzdsnumqpv5u3a5wy6c0ec9kfmqvqrh34
   - &zephyr age1wjtpgteqny7schmrzpsqcja6luxescntl42etrk2sy25zy6snyjs5cy5y7
+  - &sisterhood age1x6z9tjpx8t39wr7pusxv70yheefy3uk63levgrr24gfr70pln5ys8f43ep
 creation_rules:
   - path_regex: users/.*/secrets/.*$
     key_groups:
@@ -11,6 +12,7 @@ creation_rules:
       - *fadeoutz
       - *unmusique
       - *zephyr
+      - *sisterhood
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:
