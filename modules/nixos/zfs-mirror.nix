@@ -35,7 +35,7 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot${i}";
+                mountpoint = "/boot${builtins.toString i}";
                 mountOptions = [ "umask=0077" ];
               };
             };
