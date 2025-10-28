@@ -42,7 +42,7 @@ builtins.listToAttrs (
       mI@{ hostName, ... }:
       [
         {
-          name = "${hostName}-machine";
+          name = hostName;
           value = mkCommon (
             mI
             // {
