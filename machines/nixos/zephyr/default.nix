@@ -39,7 +39,7 @@
     boot.extraModulePackages = [ ];
 
     # head -c4 /dev/urandom | od -A none -t x4
-    networking.hostId = "669097ce";
+    networking.hostId = "a76f6c36";
 
     services.tailscale.enable = true;
     services.tailscale.openFirewall = true;
