@@ -38,6 +38,7 @@
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
+    # head -c4 /dev/urandom | od -A none -t x4
     networking.hostId = "669097ce";
 
     services.tailscale.enable = true;
@@ -46,7 +47,7 @@
     services.prometheus.exporters.node.enable = true;
 
     services.openssh.enable = true;
-    services.openssh.openFirewall = false;
+    services.openssh.openFirewall = true;
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
