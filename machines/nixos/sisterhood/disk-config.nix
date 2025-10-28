@@ -24,7 +24,7 @@
           discardPolicy = "both";
         };
       };
-      root = {
+      zfs = {
         size = "100%";
         content = {
           type = "zfs";
@@ -56,7 +56,7 @@
           discardPolicy = "both";
         };
       };
-      root = {
+      zfs = {
         size = "100%";
         content = {
           type = "zfs";
@@ -88,7 +88,7 @@
           discardPolicy = "both";
         };
       };
-      root = {
+      zfs = {
         size = "100%";
         content = {
           type = "zfs";
@@ -120,7 +120,7 @@
           discardPolicy = "both";
         };
       };
-      root = {
+      zfs = {
         size = "100%";
         content = {
           type = "zfs";
