@@ -8,7 +8,7 @@
 
 ## Installing a new machine from flake
 ```
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format --flake github:rv32ima/dotfiles#fadeoutz
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --flake github:rv32ima/dotfiles#fadeoutz
 
 sudo nixos-install --flake github:rv32ima/dotfiles#fadeoutz
 ```

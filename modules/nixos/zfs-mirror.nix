@@ -23,7 +23,7 @@
   config = lib.mkIf config.rv32ima.machine.enableZfsMirror {
     disko.devices.disk = builtins.listToAttrs (
       lib.imap (i: disk: {
-        name = "disk${i}";
+        name = "disk${builtins.toString i}";
         value = {
           type = "disk";
           device = disk;
@@ -102,7 +102,7 @@
     boot.loader.grub.efiSupport = true;
     boot.loader.grub.mirroredBoots = lib.imap (i: _: {
       devices = [ "nodev" ];
-      path = "/boot${i}";
+      path = "/boot${builtins.toString i}";
     }) config.rv32ima.machine.zfsMirrorDisks;
 
     boot.loader.efi.canTouchEfiVariables = true;
