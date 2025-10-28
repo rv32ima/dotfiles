@@ -4,6 +4,7 @@
 {
   imports = [
     ./network.nix
+    ./disk-config.nix
   ];
 
   config = {
@@ -17,13 +18,6 @@
     ];
     rv32ima.machine.isRemote = true;
     rv32ima.machine.impermanence.enable = true;
-    rv32ima.machine.enableZfsMirror = true;
-    rv32ima.machine.zfsMirrorDisks = [
-      "/dev/disk/by-id/scsi-36f4ee080698bd8002f8844544d27ff18"
-      "/dev/disk/by-id/scsi-36f4ee080698bd8002f88445750a38876"
-      "/dev/disk/by-id/scsi-36f4ee080698bd8002f884459548fb8ea"
-      "/dev/disk/by-id/scsi-36f4ee080698bd8002f88445c58305558"
-    ];
 
     services.getty.autologinUser = "root";
 
