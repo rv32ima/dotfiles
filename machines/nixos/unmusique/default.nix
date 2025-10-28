@@ -33,6 +33,7 @@
       "usb_storage"
       "sd_mod"
       "sr_mod"
+      "hpsa"
     ];
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
