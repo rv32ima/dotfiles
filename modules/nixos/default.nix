@@ -10,5 +10,6 @@
     ./remote-builder.nix
     ./zfs-mirror.nix
     ./impermanence.nix
+    ./netboot.nix
   ];
 }
