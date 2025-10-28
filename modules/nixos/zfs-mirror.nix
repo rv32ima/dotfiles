@@ -14,72 +14,49 @@
     rv32ima.machine.zfsMirrorDisks = lib.mkOption {
       type = lib.types.listOf lib.types.str;
     };
+    rv32ima.machine.swapSizePerDisk = lib.mkOption {
+      type = lib.types.str;
+      default = "16G";
+    };
   };
 
   config = lib.mkIf config.rv32ima.machine.enableZfsMirror {
-    disko.devices.disk.disk1 = {
-      type = "disk";
-      device = builtins.elemAt config.rv32ima.machine.zfsMirrorDisks 0;
-      content.type = "gpt";
-      content.partitions = {
-        ESP = {
-          size = "500M";
-          type = "EF00";
-          content = {
-            type = "filesystem";
-            format = "vfat";
-            mountpoint = "/boot1";
-            mountOptions = [ "umask=0077" ];
+    disko.devices.disk = builtins.listToAttrs (
+      lib.imap (i: disk: {
+        name = "disk${i}";
+        value = {
+          type = "disk";
+          device = disk;
+          content.type = "gpt";
+          content.partitions = {
+            ESP = {
+              size = "500M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot${i}";
+                mountOptions = [ "umask=0077" ];
+              };
+            };
+            swap = {
+              size = config.rv32ima.machine.swapSizePerDisk;
+              content = {
+                type = "swap";
+                discardPolicy = "both";
+              };
+            };
+            root = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "zroot";
+              };
+            };
           };
         };
-        swap = {
-          size = "16G";
-          content = {
-            type = "swap";
-            discardPolicy = "both";
-          };
-        };
-        root = {
-          size = "100%";
-          content = {
-            type = "zfs";
-            pool = "zroot";
-          };
-        };
-      };
-    };
-
-    disko.devices.disk.disk2 = {
-      type = "disk";
-      device = builtins.elemAt config.rv32ima.machine.zfsMirrorDisks 1;
-      content.type = "gpt";
-      content.partitions = {
-        ESP = {
-          size = "500M";
-          type = "EF00";
-          content = {
-            type = "filesystem";
-            format = "vfat";
-            mountpoint = "/boot2";
-            mountOptions = [ "umask=0077" ];
-          };
-        };
-        swap = {
-          size = "16G";
-          content = {
-            type = "swap";
-            discardPolicy = "both";
-          };
-        };
-        root = {
-          size = "100%";
-          content = {
-            type = "zfs";
-            pool = "zroot";
-          };
-        };
-      };
-    };
+      }) config.rv32ima.machine.zfsMirrorDisks
+    );
 
     disko.devices.zpool.zroot = {
       type = "zpool";
@@ -123,16 +100,11 @@
 
     boot.loader.grub.enable = true;
     boot.loader.grub.efiSupport = true;
-    boot.loader.grub.mirroredBoots = [
-      {
-        devices = [ "nodev" ];
-        path = "/boot1";
-      }
-      {
-        devices = [ "nodev" ];
-        path = "/boot2";
-      }
-    ];
+    boot.loader.grub.mirroredBoots = lib.imap (i: _: {
+      devices = [ "nodev" ];
+      path = "/boot${i}";
+    }) config.rv32ima.machine.zfsMirrorDisks;
+
     boot.loader.efi.canTouchEfiVariables = true;
 
   };
