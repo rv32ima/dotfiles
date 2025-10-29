@@ -95,7 +95,7 @@
             group,
           }:
           [
-            "d \"${lib.path.append /persist path}\" ${mode} ${owner} ${group}"
+            "d \"${lib.path.append /persist (lib.path.splitRoot path).subpath}\" ${mode} ${owner} ${group}"
           ]
         ) impermanenceDirs)
       );
@@ -106,7 +106,7 @@
           {
             name = path;
             value = {
-              device = "${lib.path.append /persist path}";
+              device = "${lib.path.append /persist (lib.path.splitRoot path).subpath}";
               options = [ "bind" ];
             };
           }
