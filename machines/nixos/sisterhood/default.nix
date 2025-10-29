@@ -58,7 +58,7 @@
     services.plex.dataDir = "/persist/var/lib/plex";
 
     sops.secrets."services/soulseek/environment" = {
-      sopsFile = ./secrets/password.yaml;
+      sopsFile = ./secrets/soulseek.yaml;
     };
 
     services.slskd.enable = true;
