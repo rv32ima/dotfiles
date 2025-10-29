@@ -55,5 +55,15 @@
     services.plex.enable = true;
     services.plex.openFirewall = true;
     services.plex.dataDir = "/persist/var/lib/plex";
+
+    services.slskd.enable = true;
+    services.slskd.openFirewall = true;
+    services.slskd.settings = {
+      shares.directories = [
+        "/media/music"
+      ];
+      directories.downloads = "/media/downloads/slskd/complete";
+      directories.incomplete = "/media/downloads/slskd/incomplete";
+    };
   };
 }
