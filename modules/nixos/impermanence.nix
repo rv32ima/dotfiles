@@ -69,6 +69,9 @@
 
       impermanenceDirs =
         defaultImpermanenceDirs ++ config.rv32ima.machine.impermanence.extraPersistDirectories;
+
+      toPersistPath =
+        path: builtins.toString (lib.path.append /persist (lib.path.splitRoot path).subpath);
     in
     lib.mkIf config.rv32ima.machine.impermanence.enable {
       services.openssh.hostKeys = [
@@ -95,7 +98,7 @@
             group,
           }:
           [
-            "d \"${builtins.toString (lib.path.append /persist (lib.path.splitRoot path).subpath)}\" ${mode} ${owner} ${group}"
+            "d \"${toPersistPath path}\" ${mode} ${owner} ${group}"
           ]
         ) impermanenceDirs)
       );
@@ -106,7 +109,7 @@
           {
             name = "${builtins.toString path}";
             value = {
-              device = "${builtins.toString (lib.path.append /persist (lib.path.splitRoot path).subpath)}";
+              device = "${toPersistPath path}";
               options = [ "bind" ];
             };
           }
