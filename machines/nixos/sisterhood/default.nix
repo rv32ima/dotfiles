@@ -87,6 +87,7 @@ in
     services.tailscale.package = pkgsUnstable.tailscale;
     services.tailscale.openFirewall = true;
     services.tailscale.useRoutingFeatures = "both";
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
     services.prometheus.exporters.node.enable = true;
 
