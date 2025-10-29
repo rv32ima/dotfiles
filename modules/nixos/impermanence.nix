@@ -12,7 +12,7 @@
         lib.types.submodule {
           options = {
             path = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.path;
             };
             mode = lib.mkOption {
               type = lib.types.str;
@@ -36,32 +36,32 @@
     let
       defaultImpermanenceDirs = [
         {
-          path = "/var/log";
+          path = /var/log;
           mode = "0644";
           owner = "root";
           group = "root";
         }
         {
-          path = "/var/lib/nixos";
+          path = /var/lib/nixos;
           mode = "0644";
           owner = "root";
           group = "root";
         }
         {
-          path = "/var/lib/systemd/coredump";
+          path = /var/lib/systemd/coredump;
           mode = "0644";
           owner = "root";
           group = "root";
         }
         {
-          path = "/var/lib/systemd/timers";
+          path = /var/lib/systemd/timers;
           mode = "0644";
           owner = "root";
           group = "root";
         }
       ]
       ++ lib.lists.optional (config.services.tailscale.enable) {
-        path = "/var/lib/tailscale";
+        path = /var/lib/tailscale;
         mode = "0644";
         owner = "root";
         group = "root";

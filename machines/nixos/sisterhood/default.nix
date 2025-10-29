@@ -27,37 +27,7 @@ in
     rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.impermanence.extraPersistDirectories = [
       {
-        path = "/var/log";
-        mode = "0644";
-        owner = "root";
-        group = "root";
-      }
-      {
-        path = "/var/lib/nixos";
-        mode = "0644";
-        owner = "root";
-        group = "root";
-      }
-      {
-        path = "/var/lib/systemd/coredump";
-        mode = "0644";
-        owner = "root";
-        group = "root";
-      }
-      {
-        path = "/var/lib/systemd/timers";
-        mode = "0644";
-        owner = "root";
-        group = "root";
-      }
-      {
-        path = "/var/lib/tailscale";
-        mode = "0644";
-        owner = "root";
-        group = "root";
-      }
-      {
-        path = "/var/lib/slskd";
+        path = /var/lib/slskd;
         mode = "0644";
         owner = "slskd";
         group = "slskd";
