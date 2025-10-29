@@ -11,10 +11,6 @@
       type = lib.types.listOf (
         lib.types.submodule {
           options = {
-            type = lib.mkOption {
-              type = lib.types.str;
-              default = "d";
-            };
             path = lib.mkOption {
               type = lib.types.str;
             };
