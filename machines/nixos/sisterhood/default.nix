@@ -65,5 +65,6 @@
       directories.downloads = "/media/downloads/slskd/complete";
       directories.incomplete = "/media/downloads/slskd/incomplete";
     };
+    services.slskd.domain = null;
   };
 }
