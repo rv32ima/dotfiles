@@ -56,9 +56,8 @@
           group = "root";
         }
         {
-          type = "f";
-          path = "/var/lib/tailscale/tailscaled.state";
-          mode = "0600";
+          path = "/var/lib/tailscale";
+          mode = "0644";
           owner = "root";
           group = "root";
         }
@@ -82,21 +81,31 @@
     systemd.tmpfiles.rules = lib.lists.flatten (
       [
         "d /persist/etc/ssh 0644 root root"
-        "d /persist/var/lib 0755 root root"
       ]
       ++ (builtins.map (
         {
-          type ? "d",
           path,
           mode,
           owner,
           group,
         }:
         [
-          "\"${type}\" \"/persist${path}\" ${mode} ${owner} ${group}"
-          "L \"${path}\" - - - - /persist${path}"
+          "d \"/persist${path}\" ${mode} ${owner} ${group}"
         ]
       ) config.rv32ima.machine.impermanence.extraPersistDirectories)
+    );
+
+    filesystems = builtins.listToAttrs (
+      builtins.map (
+        { path, ... }:
+        {
+          name = path;
+          value = {
+            device = "/persist${path}";
+            options = [ "bind" ];
+          };
+        }
+      ) config.rv32ima.machine.impermanence.extraPersistDirectories
     );
 
     boot.initrd.systemd.enable = true;
