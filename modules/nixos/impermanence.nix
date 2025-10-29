@@ -95,7 +95,7 @@
             group,
           }:
           [
-            "d \"${lib.path.append /persist (lib.path.splitRoot path).subpath}\" ${mode} ${owner} ${group}"
+            "d \"${builtins.toString (lib.path.append /persist (lib.path.splitRoot path).subpath)}\" ${mode} ${owner} ${group}"
           ]
         ) impermanenceDirs)
       );
@@ -106,7 +106,7 @@
           {
             name = "${builtins.toString path}";
             value = {
-              device = "${lib.path.append /persist (lib.path.splitRoot path).subpath}";
+              device = "${builtins.toString (lib.path.append /persist (lib.path.splitRoot path).subpath)}";
               options = [ "bind" ];
             };
           }
