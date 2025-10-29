@@ -30,7 +30,7 @@ in
   config = lib.mkIf config.rv32ima.machine.remote-builder.enable {
     users.users.nix.openssh.authorizedKeys.keys = [
       # use nix-store for hydra which doesn't support ssh-ng
-      ''restrict,command="${nix-ssh-wrapper}" ${config.nix.remote-builder.key}''
+      ''restrict,command="${nix-ssh-wrapper}" ${config.rv32ima.machine.remote-builder.key}''
     ];
 
     nix.settings.trusted-users = [ "nix" ];
