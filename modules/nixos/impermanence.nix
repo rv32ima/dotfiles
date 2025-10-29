@@ -104,7 +104,7 @@
         builtins.map (
           { path, ... }:
           {
-            name = path;
+            name = "${builtins.toString path}";
             value = {
               device = "${lib.path.append /persist (lib.path.splitRoot path).subpath}";
               options = [ "bind" ];
