@@ -50,5 +50,8 @@
 
     networking.useNetworkd = true;
     networking.firewall.allowedTCPPorts = [ ];
+
+    services.plex.enable = true;
+    services.plex.openFirewall = true;
   };
 }
