@@ -1,6 +1,13 @@
 {
+  config,
+  inputs,
   ...
 }:
+let
+  pkgsUnstable = import inputs.nixpkgs-unstable {
+    system = config.rv32ima.machine.platform;
+  };
+in
 {
 
   config = {
@@ -14,6 +21,8 @@
     ];
     rv32ima.machine.isRemote = false;
     rv32ima.machine.workstation.enable = true;
+
+    services.tailscale.package = pkgsUnstable.tailscale;
 
     nix.distributedBuilds = true;
     nix.settings.max-jobs = 10;
