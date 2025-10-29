@@ -95,7 +95,7 @@
       ) config.rv32ima.machine.impermanence.extraPersistDirectories)
     );
 
-    filesystems = builtins.listToAttrs (
+    fileSystems = builtins.listToAttrs (
       builtins.map (
         { path, ... }:
         {
