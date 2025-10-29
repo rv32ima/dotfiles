@@ -51,7 +51,7 @@
         group = "root";
       }
       {
-        path = "/var/lib/plex";
+        path = "/var/lib/plex/Plex Media Server";
         mode = "0644";
         owner = "plex";
         group = "plex";

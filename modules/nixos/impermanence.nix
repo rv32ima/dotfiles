@@ -93,8 +93,8 @@
           group,
         }:
         [
-          "${type} /persist${path} ${mode} ${owner} ${group}"
-          "L ${path} - - - - /persist${path}"
+          "\"${type}\" \"/persist${path}\" ${mode} ${owner} ${group}"
+          "L \"${path}\" - - - - \"/persist${path}\""
         ]
       ) config.rv32ima.machine.impermanence.extraPersistDirectories)
     );
