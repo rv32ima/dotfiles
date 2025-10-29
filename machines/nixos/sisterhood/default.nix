@@ -1,4 +1,5 @@
 {
+  config,
   ...
 }:
 {
@@ -56,6 +57,10 @@
     services.plex.openFirewall = true;
     services.plex.dataDir = "/persist/var/lib/plex";
 
+    sops.secrets."services/soulseek/environment" = {
+      sopsFile = ./secrets/password.yaml;
+    };
+
     services.slskd.enable = true;
     services.slskd.openFirewall = true;
     services.slskd.settings = {
@@ -66,5 +71,6 @@
       directories.incomplete = "/media/downloads/slskd/incomplete";
     };
     services.slskd.domain = null;
+    services.slskd.environmentFile = config.sops.secrets."services/soulseek/environment".path;
   };
 }

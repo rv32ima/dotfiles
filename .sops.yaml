@@ -18,3 +18,8 @@ creation_rules:
     - age:
       - *1password
       - *fadeoutz
+  - path_regex: machines/nixos/sisterhood/secrets/.*$
+    key_groups:
+    - age:
+      - *1password
+      - *sisterhood
