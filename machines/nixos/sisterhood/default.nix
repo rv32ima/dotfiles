@@ -102,5 +102,6 @@ in
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
 
     services.rutorrent.enable = true;
+    services.rutorrent.nginx.enable = true;
   };
 }
