@@ -100,7 +100,7 @@ in
       directories.downloads = "/media/downloads/slskd/complete";
       directories.incomplete = "/media/downloads/slskd/incomplete";
     };
-    services.slskd.domain = null;
+    services.slskd.domain = "slskd.tail09d5b.ts.net";
     services.slskd.environmentFile = config.sops.secrets."services/soulseek/environment".path;
 
     services.rtorrent.enable = true;
@@ -108,7 +108,7 @@ in
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
 
     services.rutorrent.enable = true;
-    services.rutorrent.hostName = "sisterhood.tail09d5b.ts.net";
+    services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
     services.rutorrent.nginx.enable = true;
 
     services.radarr.enable = true;
