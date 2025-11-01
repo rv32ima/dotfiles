@@ -28,19 +28,25 @@ in
     rv32ima.machine.impermanence.extraPersistDirectories = [
       {
         path = /var/lib/slskd;
-        mode = "0644";
+        mode = "0770";
         owner = "slskd";
         group = "slskd";
       }
       {
         path = /var/lib/rtorrent;
-        mode = "0644";
+        mode = "0770";
         owner = "rtorrent";
         group = "rtorrent";
       }
       {
+        path = /var/lib/rutorrent;
+        mode = "0775";
+        owner = "rutorrent";
+        group = "rutorrent";
+      }
+      {
         path = /var/lib/radarr/.config/Radarr;
-        mode = "0777";
+        mode = "0770";
         owner = "radarr";
         group = "radarr";
       }
