@@ -32,6 +32,12 @@ in
         owner = "slskd";
         group = "slskd";
       }
+      {
+        path = /var/lib/rtorrent;
+        mode = "0644";
+        owner = "rtorrent";
+        group = "rtorrent";
+      }
     ];
     rv32ima.machine.remote-builder.enable = true;
 
@@ -90,5 +96,11 @@ in
     };
     services.slskd.domain = null;
     services.slskd.environmentFile = config.sops.secrets."services/soulseek/environment".path;
+
+    services.rtorrent.enable = true;
+    services.rtorrent.openFirewall = true;
+    services.rtorrent.downloadDir = "/media/downloads/rtorrent";
+
+    services.rutorrent.enable = true;
   };
 }
