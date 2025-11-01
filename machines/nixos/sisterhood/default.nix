@@ -38,6 +38,12 @@ in
         owner = "rtorrent";
         group = "rtorrent";
       }
+      {
+        path = /var/lib/radarr/.config/Radarr;
+        mode = "0777";
+        owner = "radarr";
+        group = "radarr";
+      }
     ];
     rv32ima.machine.remote-builder.enable = true;
 
@@ -104,5 +110,7 @@ in
     services.rutorrent.enable = true;
     services.rutorrent.hostName = "sisterhood.tail09d5b.ts.net";
     services.rutorrent.nginx.enable = true;
+
+    services.radarr.enable = true;
   };
 }
