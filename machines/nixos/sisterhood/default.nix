@@ -102,6 +102,7 @@ in
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
 
     services.rutorrent.enable = true;
+    services.rutorrent.hostName = "sisterhood.tail09d5b.ts.net";
     services.rutorrent.nginx.enable = true;
   };
 }
