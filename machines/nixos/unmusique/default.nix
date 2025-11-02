@@ -146,7 +146,7 @@ in
         root_url = "https://grafana.tail09d5b.ts.net";
       };
 
-      auth.generic_oauth = {
+      "auth.generic_oauth" = {
         enabled = true;
         allow_sign_up = true;
         auto_login = true;
