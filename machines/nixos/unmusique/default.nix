@@ -153,6 +153,8 @@ in
 
     sops.secrets."services/grafana/client_secret" = {
       sopsFile = ./secrets/grafana.yaml;
+      owner = config.users.users.grafana.name;
+      group = config.users.users.grafana.group;
     };
 
     services.grafana.enable = true;
