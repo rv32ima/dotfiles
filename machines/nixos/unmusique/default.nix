@@ -161,6 +161,9 @@ in
     services.grafana.settings = {
       server = {
         root_url = "https://grafana.tail09d5b.ts.net";
+        domain = "grafana.tail09d5b.ts.net";
+        enforce_domain = true;
+        enable_gzip = true;
       };
 
       "auth.generic_oauth" = {
@@ -186,6 +189,15 @@ in
       };
     };
 
+    services.grafana.provision.datasources.settings.datasources = [
+      {
+        name = "Victoria Metrics";
+        type = "prometheus";
+        isDefault = true;
+        url = "http://localhost:8428";
+      }
+    ];
+
     services.postgresql.enable = true;
     services.postgresql.ensureDatabases = [ "grafana" ];
     services.postgresql.ensureUsers = [
@@ -195,8 +207,5 @@ in
       }
     ];
 
-    # services.grafana.provision.datasources = {
-
-    # }
   };
 }
