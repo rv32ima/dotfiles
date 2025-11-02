@@ -174,6 +174,7 @@ in
         auth_url = "https://tsidp.tail09d5b.ts.net/authorize/3445028570815881";
         token_url = "https://tsidp.tail09d5b.ts.net/token";
         api_url = "https://tsidp.tail09d5b.ts.net/userinfo";
+        login_attribute_path = "email";
       };
 
       database = {
