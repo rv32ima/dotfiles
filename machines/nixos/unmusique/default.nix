@@ -104,7 +104,7 @@ in
     };
 
     services.vmagent.enable = true;
-    services.vmagent.remoteWrite.url = "http://localhost:8428";
+    services.vmagent.remoteWrite.url = "http://localhost:8428/api/v1/write";
     services.vmagent.prometheusConfig = {
       scrape_configs = [
         {
