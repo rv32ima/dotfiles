@@ -89,5 +89,38 @@ in
         config.sops.secrets."services/tailscalesd/environment".path
       ];
     };
+
+    services.vmagent.enable = true;
+    services.vmagent.remoteWrite.url = "http://localhost:8428";
+    services.vmagent.prometheusConfig = {
+      scrape_configs = [
+        {
+          job_name = "tailscale-node-exporter";
+          http_sd_configs = [
+            {
+              url = "http://localhost:9242";
+            }
+          ];
+          relabel_configs = [
+            {
+              source_labels = [ "__meta_tailscale_device_hostname" ];
+              target_label = "tailscale_hostname";
+            }
+            {
+              source_labels = [ "__meta_tailscale_device_name" ];
+              target_label = "tailscale_name";
+            }
+            {
+              source_labels = [ "__address__" ];
+              regex = "(.*)";
+              replacement = "$1:9100";
+              target_label = "__address__";
+            }
+          ];
+        }
+      ];
+    };
+
+    services.grafana.enable = true;
   };
 }
