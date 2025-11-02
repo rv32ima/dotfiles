@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -121,6 +122,47 @@ in
       ];
     };
 
+    systemd.services.tsidp = {
+      description = "Tailscale OIDC Identity Provider";
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "tailscaled.service" ];
+
+      serviceConfig = {
+        ExecStartPre = pkgs.writeShellScript "wait-for-tailscale" ''
+          while ! ${pkgsUnstable.tailscale}/bin/tailscale status &>/dev/null; do
+            echo "Waiting for tailscale to be ready..."
+            sleep 1
+          done
+        '';
+        ExecStart = "${pkgsUnstable.tailscale}/bin/tsidp --use-local-tailscaled=true --dir=/var/lib/tailscale/tsidp --port=443";
+        Environment = [ "TAILSCALE_USE_WIP_CODE=1" ];
+        Restart = "always";
+      };
+    };
+
     services.grafana.enable = true;
+    services.grafana.settings = {
+      server = {
+        root_url = "https://grafana.tail09d5b.ts.net";
+      };
+
+      auth.generic_oauth = {
+        enabled = true;
+        allow_sign_up = true;
+        auto_login = true;
+        client_id = "unused";
+        client_secret = "unused";
+        scopes = [
+          "openid"
+          "profile"
+          "email"
+        ];
+        allow_assign_grafana_admin = true;
+      };
+    };
+
+    # services.grafana.provision.datasources = {
+
+    # }
   };
 }
