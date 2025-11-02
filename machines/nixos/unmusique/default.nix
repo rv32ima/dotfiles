@@ -152,11 +152,7 @@ in
         auto_login = true;
         client_id = "unused";
         client_secret = "unused";
-        scopes = [
-          "openid"
-          "profile"
-          "email"
-        ];
+        scopes = "openid profile email";
         allow_assign_grafana_admin = true;
       };
     };
