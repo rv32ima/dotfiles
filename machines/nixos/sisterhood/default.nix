@@ -118,5 +118,23 @@ in
     services.rutorrent.nginx.enable = true;
 
     services.radarr.enable = true;
+
+    sops.secrets."services/restic/media/password" = {
+      sopsFile = ./secrets/restic.yaml;
+    };
+
+    sops.secrets."services/restic/media/rcloneConfig" = {
+      sopsFile = ./secrets/restic.yaml;
+    };
+
+    services.restic.backups."media" = {
+      initialize = true;
+      repository = "rclone:secret:restic/media";
+      paths = [
+        "/media"
+      ];
+      passwordFile = config.sops.secrets."services/restic/media/password".path;
+      rcloneConfigFile = config.sops.secrets."services/restic/media/rcloneConfig".path;
+    };
   };
 }
