@@ -72,7 +72,7 @@
     };
 
     virtualisation.oci-containers.containers."tailscalesd" = {
-      image = "ghcr.io/cfunkhouser/tailscalesd:latest";
+      image = "ghcr.io/cfunkhouser/tailscalesd:main";
       hostname = "tailscalesd";
       ports = [ "127.0.0.1:9242:9242" ];
       environmentFiles = [
