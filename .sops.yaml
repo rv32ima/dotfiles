@@ -23,3 +23,8 @@ creation_rules:
     - age:
       - *1password
       - *sisterhood
+  - path_regex: machines/nixos/unmusique/secrets/.*$
+    key_groups:
+    - age:
+      - *1password
+      - *unmusique
