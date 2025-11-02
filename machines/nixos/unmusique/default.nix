@@ -1,7 +1,13 @@
 {
   config,
+  inputs,
   ...
 }:
+let
+  pkgsUnstable = import inputs.nixpkgs-unstable {
+    system = config.rv32ima.machine.platform;
+  };
+in
 {
   imports = [
     ./network.nix
@@ -51,7 +57,11 @@
     networking.hostId = "b89ce780";
 
     services.tailscale.enable = true;
+    services.tailscale.package = pkgsUnstable.tailscale;
     services.tailscale.openFirewall = true;
+    services.tailscale.useRoutingFeatures = "both";
+    services.tailscale.extraSetFlags = [ "--accept-routes" ];
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
     services.prometheus.exporters.node.enable = true;
 
