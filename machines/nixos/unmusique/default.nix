@@ -175,6 +175,7 @@ in
         token_url = "https://tsidp.tail09d5b.ts.net/token";
         api_url = "https://tsidp.tail09d5b.ts.net/userinfo";
         login_attribute_path = "email";
+        role_attribute_path = "role";
       };
 
       database = {
