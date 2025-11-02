@@ -25,8 +25,8 @@
     ];
     rv32ima.machine.impermanence.extraPersistDirectories = [
       {
-        path = /var/lib/victoriametrics;
-        mode = "0777";
+        path = /var/lib/private;
+        mode = "0700";
         owner = "root";
         group = "root";
       }
