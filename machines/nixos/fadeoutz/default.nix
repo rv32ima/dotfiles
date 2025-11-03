@@ -51,6 +51,10 @@
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
 
-    networking.firewall.allowedTCPPorts = [ 8000 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+      8000
+    ];
   };
 }
