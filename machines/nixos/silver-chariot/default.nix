@@ -31,6 +31,12 @@ in
       "/dev/disk/by-id/scsi-364cd98f0bbce9400305770c2d0c58853"
     ];
     rv32ima.machine.impermanence.extraPersistDirectories = [
+      {
+        path = /var/lib/cloudflared;
+        mode = "0770";
+        owner = "cloudflared";
+        group = "cloudflared";
+      }
     ];
 
     services.getty.autologinUser = "root";
@@ -192,6 +198,7 @@ in
       default = "http_status:404";
       certificateFile = config.services.cloudflared.certificateFile;
       originRequest.noTLSVerify = true;
+      credentialsFile = "/var/lib/cloudflared/silver-chariot.json";
     };
   };
 }
