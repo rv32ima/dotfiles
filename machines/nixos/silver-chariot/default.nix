@@ -184,6 +184,12 @@ in
         };
       };
 
+    sops.secrets."services/cloudflared/credentials" = {
+      sopsFile = ./secrets/cloudflared.yaml;
+      owner = config.users.users.nobody.name;
+      group = config.users.users.nobody.group;
+    };
+
     sops.secrets."services/cloudflared/certificate" = {
       sopsFile = ./secrets/cloudflared.yaml;
       owner = config.users.users.nobody.name;
@@ -198,7 +204,7 @@ in
       default = "http_status:404";
       certificateFile = config.services.cloudflared.certificateFile;
       originRequest.noTLSVerify = true;
-      credentialsFile = "/var/lib/cloudflared/silver-chariot.json";
+      credentialsFile = config.sops.secrets."services/cloudflared/credentials".path;
     };
   };
 }
