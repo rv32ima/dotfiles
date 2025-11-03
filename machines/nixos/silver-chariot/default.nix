@@ -196,9 +196,12 @@ in
             port = 443;
           }
         ];
-        locations."/" = {
-          proxyPass = "https://localhost:8443";
-        };
+        extraConfig = ''
+          proxy_pass localhost:8443;
+          proxy_ssl on;
+          proxy_ssl_name ca.t4t.net;
+          proxy_ssl_server_name on;
+        '';
       };
     };
   };
