@@ -84,7 +84,10 @@ in
     programs.fish.useBabelfish = true;
 
     networking.useNetworkd = true;
-    networking.firewall.allowedTCPPorts = [ ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
     sops.secrets."services/step-ca/intermediatePassword" = {
       sopsFile = ./secrets/step-ca.yaml;
@@ -184,27 +187,21 @@ in
         };
       };
 
-    sops.secrets."services/cloudflared/credentials" = {
-      sopsFile = ./secrets/cloudflared.yaml;
-      owner = config.users.users.nobody.name;
-      group = config.users.users.nobody.group;
-    };
-
-    sops.secrets."services/cloudflared/certificate" = {
-      sopsFile = ./secrets/cloudflared.yaml;
-      owner = config.users.users.nobody.name;
-      group = config.users.users.nobody.group;
-    };
-    services.cloudflared.enable = true;
-    services.cloudflared.certificateFile = config.sops.secrets."services/cloudflared/certificate".path;
-    services.cloudflared.tunnels."silver-chariot" = {
-      ingress = {
-        "ca.t4t.net" = "tcp://localhost:8443";
+    services.nginx.enable = true;
+    services.nginx.virtualHosts = {
+      "ca.t4t.net" = {
+        listen = [
+          {
+            addr = "0.0.0.0";
+            port = 443;
+            ssl = true;
+          }
+        ];
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "https://localhost:8443";
+        };
       };
-      default = "http_status:404";
-      certificateFile = config.services.cloudflared.certificateFile;
-      originRequest.noTLSVerify = true;
-      credentialsFile = config.sops.secrets."services/cloudflared/credentials".path;
     };
   };
 }
