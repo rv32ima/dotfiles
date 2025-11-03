@@ -110,8 +110,8 @@ in
     services.step-ca.enable = true;
     services.step-ca.intermediatePasswordFile =
       config.sops.secrets."services/step-ca/intermediatePassword".path;
-    services.step-ca.port = 8443;
-    services.step-ca.address = "127.0.0.1";
+    services.step-ca.port = 443;
+    services.step-ca.address = "0.0.0.0";
     services.step-ca.settings =
       let
         rootCA = pkgs.writeText "root_ca.crt" ''
