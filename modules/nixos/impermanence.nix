@@ -36,6 +36,12 @@
     let
       defaultImpermanenceDirs = [
         {
+          path = /var/lib/private;
+          mode = "0700";
+          owner = "root";
+          group = "root";
+        }
+        {
           path = /var/log;
           mode = "0644";
           owner = "root";

@@ -31,12 +31,6 @@ in
       "/dev/disk/by-id/scsi-364cd98f0bbce9400305770c2d0c58853"
     ];
     rv32ima.machine.impermanence.extraPersistDirectories = [
-      {
-        path = /var/lib/step-ca;
-        mode = "0770";
-        owner = "step-ca";
-        group = "step-ca";
-      }
     ];
 
     services.getty.autologinUser = "root";
@@ -156,7 +150,7 @@ in
         crt = "${intermediateCA}";
         db = {
           badgerFileLoadingMode = "";
-          dataSource = "/var/lib/step-ca/db";
+          dataSource = "/var/lib/private/step-ca/db";
           type = "badgerv2";
         };
         dnsNames = [ "ca.t4t.net" ];

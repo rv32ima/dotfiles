@@ -31,12 +31,7 @@ in
       "/dev/disk/by-id/ata-MK000480GZXRA_S6M8NE0T100628"
     ];
     rv32ima.machine.impermanence.extraPersistDirectories = [
-      {
-        path = /var/lib/private;
-        mode = "0700";
-        owner = "root";
-        group = "root";
-      }
+
       {
         path = /var/lib/grafana;
         mode = "0770";
