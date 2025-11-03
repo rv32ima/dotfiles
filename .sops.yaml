@@ -28,3 +28,8 @@ creation_rules:
     - age:
       - *1password
       - *unmusique
+  - path_regex: machines/nixos/silver-chariot/secrets/.*$
+    key_groups:
+    - age:
+      - *1password
+      - *silver-chariot

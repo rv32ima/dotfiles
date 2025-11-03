@@ -59,7 +59,7 @@ sops updatekeys users/ellie/secrets/password.yaml
 on every file that the new machine needs access to. After you've done that, commit the new secrets to this repo, and push to GitHub. Then, on the target machine, run the following:
 ```
 MACHINE="fadeoutz"
-sudo nixos-rebuild boot --flake "github:rv32ima/dotfiles#${MACHINE}"
+nixos-rebuild boot --flake "github:rv32ima/dotfiles#${MACHINE}"
 exit
 ```
 
