@@ -199,7 +199,7 @@ in
     services.cloudflared.certificateFile = config.sops.secrets."services/cloudflared/certificate".path;
     services.cloudflared.tunnels."silver-chariot" = {
       ingress = {
-        "ca.t4t.net" = "https://localhost:8443";
+        "ca.t4t.net" = "tcp://localhost:8443";
       };
       default = "http_status:404";
       certificateFile = config.services.cloudflared.certificateFile;
