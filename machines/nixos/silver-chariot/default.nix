@@ -34,8 +34,8 @@ in
       {
         path = /var/lib/cloudflared;
         mode = "0770";
-        owner = "cloudflared";
-        group = "cloudflared";
+        owner = "nobody";
+        group = "nogroup";
       }
     ];
 
@@ -186,8 +186,8 @@ in
 
     sops.secrets."services/cloudflared/certificate" = {
       sopsFile = ./secrets/cloudflared.yaml;
-      owner = config.users.users.cloudflared.name;
-      group = config.users.users.cloudflared.group;
+      owner = config.users.users.nobody.name;
+      group = config.users.users.nobody.group;
     };
     services.cloudflared.enable = true;
     services.cloudflared.certificateFile = config.sops.secrets."services/cloudflared/certificate".path;
