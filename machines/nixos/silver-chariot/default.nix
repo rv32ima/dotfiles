@@ -56,7 +56,7 @@ in
     services.tailscale.package = pkgsUnstable.tailscale;
     services.tailscale.openFirewall = true;
     services.tailscale.useRoutingFeatures = "both";
-    services.tailscale.authKeyFile = config.sops.secrets "services/tailscale/authKey".path;
+    services.tailscale.authKeyFile = config.sops.secrets."services/tailscale/authKey".path;
     services.tailscale.authKeyParameters.ephemeral = false;
     services.tailscale.authKeyParameters.preauthorized = true;
     services.tailscale.extraUpFlags = [
