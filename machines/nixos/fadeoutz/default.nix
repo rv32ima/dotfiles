@@ -1,6 +1,12 @@
 {
+  pkgs,
   ...
 }:
+let
+  sshCA = pkgs.writeText "ssh-ca.pub" ''
+    ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNR6/2huKK07d3kY9NY+zxMdcxhw8Z0gdUyyJcJcyLgPjcOzfAw3QSzndMeZOBGUo7CqQwoc8ZVnKhPiTSFiEL4=
+  '';
+in
 {
   imports = [
     ./network.nix
@@ -47,6 +53,9 @@
 
     services.openssh.enable = true;
     services.openssh.openFirewall = false;
+    services.openssh.extraConfig = ''
+      TrustedUserCAKeys ${sshCA}
+    '';
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
