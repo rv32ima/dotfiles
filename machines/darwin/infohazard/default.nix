@@ -28,10 +28,10 @@ in
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
       {
-        hostName = "artpop";
+        hostName = "sisterhood";
         system = "x86_64-linux";
-        sshUser = "ellie";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUx2RE95ZXJzZzJSVFhGRWpEanZoaXkzNTN0cG9mL2Z4cVU2VlcwNzFhYVEK";
+        sshUser = "nix";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUsvYUIzdTlRVE02azRMbkZOcjkzR2RJdXUxalFNdHZaNThCYm13dldvRGcK";
         sshKey = "/etc/nix/builder_ed25519";
         maxJobs = 96;
         protocol = "ssh-ng";
