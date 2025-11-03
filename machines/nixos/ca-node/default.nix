@@ -200,7 +200,10 @@ in
           policy = {
             x509 = {
               allow = {
-                dns = [ "*.sea.t4t.net" ];
+                dns = [
+                  "*.sea.t4t.net"
+                  "*.t4t.net"
+                ];
               };
               allowWildcardNames = true;
             };
