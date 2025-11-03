@@ -178,6 +178,18 @@ in
         };
       };
 
+    sops.secrets."services/cloudflared/certificate" = {
+      sopsFile = ./secrets/cloudflared.yaml;
+      owner = config.users.users.cloudflared.name;
+      group = config.users.users.cloudflared.group;
+    };
     services.cloudflared.enable = true;
+    services.cloudflared.certificateFile = config.sops.secrets."services/cloudflared/certificate".path;
+    services.cloudflared.tunnels."silver-chariot" = {
+      ingress = {
+        "ca.t4t.net" = "https://localhost:8443";
+      };
+      originRequest.noTLSVerify = true;
+    };
   };
 }
