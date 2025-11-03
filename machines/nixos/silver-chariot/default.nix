@@ -143,7 +143,7 @@ in
         '';
       in
       {
-        address = ":8443";
+        address = ":443";
         authority = {
           provisioners = [
             {
@@ -186,23 +186,5 @@ in
           renegotiation = false;
         };
       };
-
-    services.nginx.enable = true;
-    services.nginx.virtualHosts = {
-      "ca.t4t.net" = {
-        listen = [
-          {
-            addr = "0.0.0.0";
-            port = 443;
-          }
-        ];
-        extraConfig = ''
-          proxy_pass localhost:8443;
-          proxy_ssl on;
-          proxy_ssl_name ca.t4t.net;
-          proxy_ssl_server_name on;
-        '';
-      };
-    };
   };
 }
