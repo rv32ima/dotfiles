@@ -171,5 +171,7 @@ in
           renegotiation = false;
         };
       };
+
+    services.cloudflared.enable = true;
   };
 }
