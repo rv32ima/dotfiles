@@ -189,6 +189,7 @@ in
       ingress = {
         "ca.t4t.net" = "https://localhost:8443";
       };
+      default = "http_status:404";
       originRequest.noTLSVerify = true;
     };
   };
