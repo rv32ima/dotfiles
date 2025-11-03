@@ -142,7 +142,7 @@ in
           yjRY8k6KUgIhAPNiMLBTEeRm127ioh5I/Jg4dICVPj9GVg9rMmXgozAJ
           -----END CERTIFICATE-----
         '';
-        x509Template = pkgs.writeTextFile "x509.tpl" ''
+        x509Template = pkgs.writeText "x509.tpl" ''
           {
               "subject": {{ toJson .Subject }},
               "sans": {{ toJson .SANs }},
@@ -154,7 +154,7 @@ in
               "extKeyUsage": ["serverAuth", "clientAuth"]
           }
         '';
-        sshTemplate = pkgs.writeTextFile "ssh.tpl" ''
+        sshTemplate = pkgs.writeText "ssh.tpl" ''
           {
             "type": {{ toJson .Type }},
             "keyId": {{ toJson .KeyID }},
