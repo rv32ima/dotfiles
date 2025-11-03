@@ -108,6 +108,18 @@ in
       group = config.users.users.step-ca.group;
     };
 
+    sops.secrets."services/step-ca/hostSSHCAKey" = {
+      sopsFile = ./secrets/step-ca.yaml;
+      owner = config.users.users.step-ca.name;
+      group = config.users.users.step-ca.group;
+    };
+
+    sops.secrets."services/step-ca/userSSHCAKey" = {
+      sopsFile = ./secrets/step-ca.yaml;
+      owner = config.users.users.step-ca.name;
+      group = config.users.users.step-ca.group;
+    };
+
     services.step-ca.enable = true;
     services.step-ca.intermediatePasswordFile =
       config.sops.secrets."services/step-ca/intermediatePassword".path;
@@ -265,6 +277,10 @@ in
           format = "text";
         };
         root = "${rootCA}";
+        ssh = {
+          hostKey = config.sops.secrets."services/step-ca/hostSSHCAKey".path;
+          userKey = config.sops.secrets."services/step-ca/userSSHCAKey".path;
+        };
         tls = {
           cipherSuites = [
             "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
