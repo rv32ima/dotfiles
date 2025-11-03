@@ -82,14 +82,20 @@ in
 
     sops.secrets."services/step-ca/intermediatePassword" = {
       sopsFile = ./secrets/step-ca.yaml;
+      owner = config.users.users.step-ca.name;
+      group = config.users.users.step-ca.group;
     };
 
     sops.secrets."services/step-ca/intermediateCAPrivateKey" = {
       sopsFile = ./secrets/step-ca.yaml;
+      owner = config.users.users.step-ca.name;
+      group = config.users.users.step-ca.group;
     };
 
     sops.secrets."services/step-ca/rootCAPrivateKey" = {
       sopsFile = ./secrets/step-ca.yaml;
+      owner = config.users.users.step-ca.name;
+      group = config.users.users.step-ca.group;
     };
 
     services.step-ca.enable = true;
