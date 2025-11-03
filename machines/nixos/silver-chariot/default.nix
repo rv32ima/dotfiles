@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -116,30 +117,51 @@ in
       let
         rootCA = pkgs.writeText "root_ca.crt" ''
           -----BEGIN CERTIFICATE-----
-          MIIBqzCCAVKgAwIBAgIRANo92RkDVcS+H3fYj3xAPdwwCgYIKoZIzj0EAwIwNDEU
-          MBIGA1UEChMLdDR0Lm5ldCBQS0kxHDAaBgNVBAMTE3Q0dC5uZXQgUEtJIFJvb3Qg
-          Q0EwHhcNMjUxMTAzMDA0NjAwWhcNMzUxMTAxMDA0NjAwWjA0MRQwEgYDVQQKEwt0
-          NHQubmV0IFBLSTEcMBoGA1UEAxMTdDR0Lm5ldCBQS0kgUm9vdCBDQTBZMBMGByqG
-          SM49AgEGCCqGSM49AwEHA0IABCpsc7ku1iaGpo1UONzFTYL60Lb4QT3b+2oVhik4
-          E6bnG+z+BfUEZs8mpi78h60dx5nnbByC74LjUsjRlRDRdlyjRTBDMA4GA1UdDwEB
-          /wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0GA1UdDgQWBBQrLOyzATS+uMfZ
-          f0rM/vGhqvwRnTAKBggqhkjOPQQDAgNHADBEAiBwYbbf1B255oWVAqsiOYGj2+tL
-          tAdKKcOmOJ9vGs6OnQIgMQM164ttoS1dL2BFebWbx/yun4zlV0Uy0fJnvfFYd68=
+          MIIBqzCCAVGgAwIBAgIQBImOd0v6mpOQ4bxjVQ7yxzAKBggqhkjOPQQDAjA0MRQw
+          EgYDVQQKEwt0NHQubmV0IFBLSTEcMBoGA1UEAxMTdDR0Lm5ldCBQS0kgUm9vdCBD
+          QTAeFw0yNTExMDMwMzM5MDFaFw0zNTExMDEwMzM5MDFaMDQxFDASBgNVBAoTC3Q0
+          dC5uZXQgUEtJMRwwGgYDVQQDExN0NHQubmV0IFBLSSBSb290IENBMFkwEwYHKoZI
+          zj0CAQYIKoZIzj0DAQcDQgAE/hN6RvLICvSjmrXolzly1tjzD8R0I/8q25mM7b7m
+          JRorJlg78rFatKZtxaqzI0DvdCHC61VYGG8OGZflUOJKKKNFMEMwDgYDVR0PAQH/
+          BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYEFH6PXcYvOoJtVLWf
+          h5tvJ8EB8tQeMAoGCCqGSM49BAMCA0gAMEUCIQDfEPg6k2fvNK3cyUMET32VRnaG
+          kHmeor1m/j/CGIIMeQIgVvl0HlPTtO0rSHUlhfjmaFNMieOJRvzczqEkWI/wxTM=
           -----END CERTIFICATE-----
         '';
         intermediateCA = pkgs.writeText "intermediate_ca.crt" ''
           -----BEGIN CERTIFICATE-----
-          MIIB1DCCAXqgAwIBAgIQWel5LO2/OvzZDp5zq4xomzAKBggqhkjOPQQDAjA0MRQw
-          EgYDVQQKEwt0NHQubmV0IFBLSTEcMBoGA1UEAxMTdDR0Lm5ldCBQS0kgUm9vdCBD
-          QTAeFw0yNTExMDMwMDQ2MDFaFw0zNTExMDEwMDQ2MDFaMDwxFDASBgNVBAoTC3Q0
-          dC5uZXQgUEtJMSQwIgYDVQQDExt0NHQubmV0IFBLSSBJbnRlcm1lZGlhdGUgQ0Ew
-          WTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAStn3h6a0BKBN1SUnOnpod6YZACGyst
-          r21nfygltsyQCmbAZuorMA4frf3nXzWbpQD4h5lPhnuSJEGNQXdwxoTMo2YwZDAO
-          BgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNVHQ4EFgQULAdj
-          cruVzF+2RWImJsKbBxx1rbwwHwYDVR0jBBgwFoAUKyzsswE0vrjH2X9KzP7xoar8
-          EZ0wCgYIKoZIzj0EAwIDSAAwRQIhAOywq6Qn7jz7xSk2mjPxjAmVSvf7j4842Pgy
-          hEbvSzA2AiA0iGQkqDudg9ce1Acey/ch3zr2A/y22OiGBEyJcOFDhQ==
+          MIIB1jCCAXugAwIBAgIRAP93anDr7zr67yVmkhWYE0cwCgYIKoZIzj0EAwIwNDEU
+          MBIGA1UEChMLdDR0Lm5ldCBQS0kxHDAaBgNVBAMTE3Q0dC5uZXQgUEtJIFJvb3Qg
+          Q0EwHhcNMjUxMTAzMDMzOTAyWhcNMzUxMTAxMDMzOTAyWjA8MRQwEgYDVQQKEwt0
+          NHQubmV0IFBLSTEkMCIGA1UEAxMbdDR0Lm5ldCBQS0kgSW50ZXJtZWRpYXRlIENB
+          MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBI/JwUNoageIIzK/waPkFjU8EaMH
+          /A5F8Sd/U89UDvCDWNa5IroslHaQG3v+To+aThME0uUdVKoGJAEFi1oF4qNmMGQw
+          DgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFLc4
+          CaeCbSOX/L9zhuVSA9zgIpjCMB8GA1UdIwQYMBaAFH6PXcYvOoJtVLWfh5tvJ8EB
+          8tQeMAoGCCqGSM49BAMCA0kAMEYCIQDTR2YLGdF+mpxSamAJUsukTJ9X5gbZA7ED
+          yjRY8k6KUgIhAPNiMLBTEeRm127ioh5I/Jg4dICVPj9GVg9rMmXgozAJ
           -----END CERTIFICATE-----
+        '';
+        x509Template = pkgs.writeTextFile "x509.tpl" ''
+          {
+              "subject": {{ toJson .Subject }},
+              "sans": {{ toJson .SANs }},
+          {{- if typeIs "*rsa.PublicKey" .Insecure.CR.PublicKey }}
+              "keyUsage": ["keyEncipherment", "digitalSignature"],
+          {{- else }}
+              "keyUsage": ["digitalSignature"],
+          {{- end }}
+              "extKeyUsage": ["serverAuth", "clientAuth"]
+          }
+        '';
+        sshTemplate = pkgs.writeTextFile "ssh.tpl" ''
+          {
+            "type": {{ toJson .Type }},
+            "keyId": {{ toJson .KeyID }},
+            "principals": {{ toJson .Principals }},
+            "extensions": {{ toJson .Extensions }},
+            "criticalOptions": {{ toJson .CriticalOptions }}
+          }
         '';
       in
       {
@@ -147,20 +169,87 @@ in
         authority = {
           provisioners = [
             {
-              encryptedKey = "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjdHkiOiJqd2sranNvbiIsImVuYyI6IkEyNTZHQ00iLCJwMmMiOjYwMDAwMCwicDJzIjoiYWQxWDV3bGE1NC1SV2lOWGgyUDZIUSJ9.KNMx17srvtub_Sv_jFkN9b_8Dd35OUgJpz9bIxW96mzL9Yxjnv1Cyw.4OuUOEX0-ovjMS4h.vXdeBWyRG9zcIz79SLp1jKaId0GzzgC2bVnvemly6njCAz9F7vFsDqkvoqpyeKK12ntGAnqSXmGNOO5AKgvWIuBWbHL_BoqkuHB4gX6H-_JIY1IfRquzBthfGxe6lMpNZFsKl2flgk7ZriD9IekvaFg6E2KAye3mUC7Hvjr_-kfwS558gzgQkWEqKPgvUa_HMoKxUdjwP3HW2k9KQCfdU1-4lNkJhPuz4M4nP5YH3u9Q19zcKC7LVHtU-W77XtV_MCML0duuBKVxBGZzdpeZeWWUMkFAKrKKHZMezd2sle7M7Dhmex_ahnpA9SnA3IpuuZdeUHN0U8vWpghMl1I.01_OWtgcN2syiHLS7oWx-g";
+              encryptedKey = "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjdHkiOiJqd2sranNvbiIsImVuYyI6IkEyNTZHQ00iLCJwMmMiOjYwMDAwMCwicDJzIjoid3FmT2w4Q3hldjhZeXhKQkJzdTVCdyJ9.kUyoE8KhDYII89gxRt4jHNhVNTd3ghXrKO1brT2a3zeR6VFSFgOPDA.RYlJM1hW00E4puL0.JvpEODq_yKWeHZmkv1f4pdkKsXKslnf-Z6F4mG3u4uGKqcwhUvqpLKZ0UWiMT-fHl4RekRi4XA7F_67jPqwyuvwamzRhzyfwgqLorEBs9mPZRD0AizF2RURol-kOzJHMxF6vKNWHkFuF3TKi56IvgoapQWB-AMD4hHheDWYoAL0BifR1GVGiIkBdeH7LKLve8sWk2HiOE41kX-y19zMZgmDH499JgOzV0q16-ImBXG7hSivQz18mQOQ2kkGX88DiPXwa_eg_tqmmI0tPP9oFWlRgP8D4f7aelPn0fcdy2vhm4Ik43TgRO2-U40Z3Xyq5RLOfJBiYoKiB-ztCOMU.eKW5Lv9M6FK7txhhsx22uw";
               key = {
                 alg = "ES256";
                 crv = "P-256";
-                kid = "pPKtTVS1_YRSROMELMOlIigIR2QDP11NC36AE32eUhg";
+                kid = "c83DXf8QpGr9dPE4tUWEWzIoydCTzWFqmsuZ2BTw4eE";
                 kty = "EC";
                 use = "sig";
-                x = "uMOIMakUyxTCN3Ccy57j81zJ4u4lGMdjdQ_u6olZ-L8";
-                y = "DAZz4Y-gZbZWtoKml32iY7mj7VeBKI-fmm0g1Nln65M";
+                x = "l2YMYC2LVDRkOpHlCblby7-1ZHPutunJ_WW4HlAtR80";
+                y = "QuAqRVFR32V28Zjw9TjopM2Ifh-jJ6sz94F0s1VeqSk";
               };
               name = "ellie@t4t.net";
               type = "JWK";
+              claims = {
+                enableSSHCA = true;
+              };
+            }
+            {
+              type = "ACME";
+              name = "acme";
+              forceCN = true;
+              claims = {
+                maxTLSCertDuration = "87600h";
+                defaultTLSCertDuration = "87600h";
+              };
+              termsOfService = "";
+              website = "";
+              caaIdentities = [ ];
+              challenges = [
+                "http-01"
+                "dns-01"
+                "tls-alpn-01"
+              ];
+            }
+            {
+              type = "SSHPOP";
+              name = "sshpop";
+              claims = {
+                enableSSHCA = true;
+              };
+              options = {
+                ssh = {
+                  templateFile = "${sshTemplate}";
+                };
+              };
+            }
+            {
+              type = "X5C";
+              name = "x5c";
+              roots =
+                let
+                  roots = [
+                    (builtins.readFile "${rootCA}")
+                  ];
+                  rootsStr = lib.strings.concatStrings roots;
+                in
+                (pkgs.callPackage "${inputs.self}/modules/shared/base64.nix" { }).toBase64 rootsStr;
+              claims = {
+                maxTLSCertDuration = "8h";
+                defaultTLSCertDuration = "2h";
+                disableRenewal = true;
+                enableSSHCA = true;
+              };
+              options = {
+                x509 = {
+                  templateFile = "${x509Template}";
+                };
+                ssh = {
+                  templateFile = "${sshTemplate}";
+                };
+              };
             }
           ];
+
+          policy = {
+            x509 = {
+              allow = {
+                dns = [ "*.sea.t4t.net" ];
+              };
+              allowWildcardNames = true;
+            };
+          };
         };
         crt = "${intermediateCA}";
         db = {
