@@ -12,3 +12,6 @@ Host *
 Host artpop
   User ellie
   ForwardAgent yes
+
+Host sw1.sea.t4t.net
+  PubkeyAcceptedAlgorithms +ssh-rsa
