@@ -19,6 +19,7 @@
     ];
     rv32ima.machine.isRemote = true;
 
+    services.openssh.enable = true;
     services.openssh.hostKeys = [
       {
         path = "/etc/ssh/ssh_host_ed25519_key";
