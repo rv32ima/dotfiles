@@ -4,6 +4,7 @@ keys:
   - &unmusique age1erh5uqmskp79psdkvz6u5fgtxlul3g08uemktllu0syg6lsrjyfsvla0f5
   - &silver-chariot age14kme0qdc89dkmpj558lz3run9y77zjm26awfvfhhzaval06jm4js45qc2g
   - &sisterhood age1x6z9tjpx8t39wr7pusxv70yheefy3uk63levgrr24gfr70pln5ys8f43ep
+  - &golden-experience age1v97xa2makee9wvs4eydwhsfg93hpnclqu3cuy9mdq3n3lzjhyg5qjp0psk
 creation_rules:
   - path_regex: users/.*/secrets/.*$
     key_groups:
@@ -13,6 +14,7 @@ creation_rules:
       - *unmusique
       - *silver-chariot
       - *sisterhood
+      - *golden-experience
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:
