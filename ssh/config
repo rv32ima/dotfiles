@@ -15,3 +15,7 @@ Host artpop
 
 Host sw1.sea.t4t.net
   PubkeyAcceptedAlgorithms +ssh-rsa
+
+Host cofractal-oob
+  User root
+  HostName 2605:bb00:c510::210
