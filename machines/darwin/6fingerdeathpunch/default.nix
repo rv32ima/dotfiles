@@ -30,10 +30,10 @@
         ];
       }
       {
-        hostName = "54.191.5.245";
+        hostName = "35.94.33.174";
         system = "x86_64-linux";
         sshUser = "root";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFWRUNPS3dGY3l3Q0lXTUZQcDZIUVRNVEMwUFVSWUtxZndNVTFEdGZYUkUK";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFENlNHMnhJQ2pRMTBMZUMwd3pKaitqb1FtTnZzWmJjamczalUrVU5RaWoK";
         sshKey = "/etc/nix/builder_ed25519";
         maxJobs = 192;
         protocol = "ssh-ng";

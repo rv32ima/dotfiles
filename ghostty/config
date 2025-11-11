@@ -1629,6 +1629,7 @@ x11-instance-name =
 #    compositors like Sway (see [upstream issue](https://github.com/emersion/xdg-desktop-portal-wlr/issues/240)).
 # keybind = super+shift+d=new_split:down
 # keybind = super+enter=toggle_fullscreen
+keybind = global:super+shift+enter=toggle_quick_terminal
 # keybind = super+alt+shift+j=write_screen_file:open
 # keybind = super+2=goto_tab:2
 # keybind = super+digit_6=goto_tab:6
