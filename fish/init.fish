@@ -1,3 +1,4 @@
+
 # exports
 if test -f "$HOME/.nix-profile/etc/profile.d/nix.fish"
   source "$HOME/.nix-profile/etc/profile.d/nix.fish"
