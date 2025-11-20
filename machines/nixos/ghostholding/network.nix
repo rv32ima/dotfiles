@@ -1,28 +1,62 @@
 { lib, ... }:
 {
-  # networking.useDHCP = lib.mkDefault false;
-  # networking.useNetworkd = true;
-  # services.resolved.enable = false;
+  networking.useDHCP = lib.mkDefault false;
+  networking.useNetworkd = true;
+  services.resolved.enable = false;
 
-  # systemd.network.networks."01-ethernet" = {
-  #   enable = true;
-  #   matchConfig.PermanentMACAddress = "B0:26:28:C2:C7:20";
+  systemd.network.networks."01-mgmt" = {
+    enable = true;
+    matchConfig.PermanentMACAddress = "ec:0d:9a:ce:e0:4a";
 
-  #   dns = [
-  #     "1.1.1.1"
-  #     "1.0.0.1"
-  #   ];
+    dns = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
 
-  #   routes = [
-  #     {
-  #       Gateway = "108.62.157.254";
-  #     }
-  #   ];
+    routes = [
+      {
+        Gateway = "172.20.2.1";
+      }
+    ];
 
-  #   addresses = [
-  #     {
-  #       Address = "108.62.157.229/27";
-  #     }
-  #   ];
-  # };
+    addresses = [
+      {
+        Address = "172.20.2.214/24";
+      }
+    ];
+  };
+
+  systemd.network.networks."02-mgmt-too" = {
+    enable = true;
+    matchConfig.PermanentMACAddress = "ec:0d:9a:ce:e0:4b";
+    dns = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
+    DHCP = "yes";
+  };
+
+  systemd.network.netdevs."uplink".netdevConfig = {
+    Kind = "bond";
+    Name = "uplink";
+  };
+
+  systemd.network.networks."uplink-swp1" = {
+    matchConfig.Name = "swp1";
+    networkConfig.Bond = "uplink";
+  };
+
+  systemd.network.networks."uplink-swp2" = {
+    matchConfig.Name = "swp2";
+    networkConfig.Bond = "uplink";
+  };
+
+  systemd.network.networks."uplink" = {
+    matchConfig.Name = "uplink";
+    addresses = [
+      {
+        Address = "23.190.72.1/24";
+      }
+    ];
+  };
 }

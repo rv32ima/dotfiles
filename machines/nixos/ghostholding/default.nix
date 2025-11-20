@@ -33,8 +33,48 @@
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
+    boot.kernelParams = [
+      "console=tty0"
+      "console=ttyS0,115200"
+      "net.ifnames=0"
+      "biosdevname=0"
+    ];
+
+    environment.systemPackages = [
+      pkgs.linux-firmware
+    ];
 
     networking.hostId = "35a29483";
+
+    services.udev.extraRules = ''
+      SUBSYSTEM=="net", ACTION=="add", DRIVERS=="mlxsw_spectrum*", NAME="sw$attr{phys_port_name}"
+    '';
+
+    boot.kernel.sysctl = {
+      "net.ipv4.ip_forward" = "1";
+      "net.ipv6.conf.all.forwarding" = "1";
+      "net.ipv6.conf.default.forwarding" = "1";
+      "net.ipv6.conf.all.keep_addr_on_down" = "1";
+      "net.ipv6.conf.default.keep_addr_on_down" = "1";
+      "net.ipv4.conf.all.ignore_routes_with_linkdown" = "1";
+      "net.ipv6.conf.all.ignore_routes_with_linkdown" = "1";
+      "net.ipv4.conf.default.ignore_routes_with_linkdown" = "1";
+      "net.ipv6.conf.default.ignore_routes_with_linkdown" = "1";
+      "net.ipv4.fib_multipath_hash_policy" = "1";
+      "net.ipv6.fib_multipath_hash_policy" = "1";
+      "net.ipv6.conf.all.ndisc_notify" = "1";
+      "net.ipv6.conf.default.ndisc_notify" = "1";
+      "net.ipv4.conf.all.rp_filter" = "0";
+      "net.ipv4.conf.default.rp_filter" = "0";
+      "net.ipv4.ip_forward_update_priority" = "0";
+      "net.ipv6.route.skip_notify_on_dev_down" = "1";
+      "net.ipv4.fib_multipath_use_neigh" = "1";
+      "net.ipv6.route.max_size" = "16384";
+      "net.ipv4.neigh.default.gc_thresh2" = "8192";
+      "net.ipv6.neigh.default.gc_thresh2" = "8192";
+      "net.ipv4.neigh.default.gc_thresh3" = "8192";
+      "net.ipv6.neigh.default.gc_thresh3" = "8192";
+    };
 
     services.tailscale.enable = true;
     services.tailscale.openFirewall = true;
@@ -47,12 +87,6 @@
 
     users.users.root.openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPUAs4RQBUriBrp7rv2cepCve5eIo6uqFfgs7oPqV9Q" # 1Password -> 'Primary SSH key'
-    ];
-
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-      8000
     ];
   };
 }
