@@ -33,6 +33,7 @@
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
+    boot.kernelPackages = pkgs.linuxPackages_6_6;
     boot.kernelParams = [
       "console=tty0"
       "console=ttyS0,115200"
