@@ -41,9 +41,7 @@
       "biosdevname=0"
     ];
 
-    environment.systemPackages = [
-      pkgs.linux-firmware
-    ];
+    hardware.enableAllFirmware = true;
 
     networking.hostId = "35a29483";
 
