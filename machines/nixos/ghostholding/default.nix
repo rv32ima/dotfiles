@@ -29,13 +29,12 @@
       "usb_storage"
       "sd_mod"
       "sr_mod"
-      "mlxfw"
-      "mlxreg_io"
-      "mlxreg_hotplug"
-      "mlx_wdt"
     ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelModules = [ "kvm-intel" ];
+    boot.kernelModules = [
+      "kvm-intel"
+      "mlxfw"
+    ];
     boot.extraModulePackages = [ ];
     boot.kernelParams = [
       "console=tty0"
