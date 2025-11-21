@@ -29,6 +29,10 @@
       "usb_storage"
       "sd_mod"
       "sr_mod"
+      "mlxfw"
+      "mlxreg_io"
+      "mlxreg_hotplug"
+      "mlx_wdt"
     ];
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
