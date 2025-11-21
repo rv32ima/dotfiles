@@ -42,6 +42,16 @@
       "net.ifnames=0"
       "biosdevname=0"
     ];
+    boot.kernelPatches = [
+      {
+        name = "mlx-stuff";
+        patch = null;
+        extraConfig = ''
+          MLXREG_HOTPLUG y
+          MLXREG_IO y
+        '';
+      }
+    ];
 
     hardware.enableAllFirmware = true;
 
