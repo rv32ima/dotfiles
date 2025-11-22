@@ -45,6 +45,12 @@
     Name = "uplink";
   };
 
+  systemd.network.netdevs."uplink".bondConfig = {
+    Mode = "802.3ad";
+    TransmitHashPolicy = "layer3+4";
+    LACPTransmitRate = "fast";
+  };
+
   systemd.network.networks."uplink-swp1" = {
     matchConfig.Name = "swp1";
     networkConfig.Bond = "uplink";
