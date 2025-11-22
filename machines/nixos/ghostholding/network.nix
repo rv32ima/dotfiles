@@ -2,7 +2,11 @@
 {
   networking.useDHCP = lib.mkDefault false;
   networking.useNetworkd = true;
-  services.resolved.enable = false;
+  services.resolved.enable = true;
+  services.resolved.fallbackDns = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
 
   systemd.network.networks."01-mgmt" = {
     enable = true;
