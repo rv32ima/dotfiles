@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -35,7 +36,6 @@
       "kvm-intel"
       "mlxfw"
     ];
-    boot.extraModulePackages = [ ];
     boot.kernelParams = [
       "console=tty0"
       "console=ttyS0,115200"
@@ -47,10 +47,17 @@
         name = "mlx-stuff";
         patch = null;
         extraConfig = ''
-          MLXREG_HOTPLUG y
-          MLXREG_IO y
+          MELLANOX_PLATFORM y
+          MLXREG_HOTPLUG m
+          MLXREG_IO m
+          MLXREG_LC m
+          NVSW_SN2201 m
+          SENSORS_MLXREG_FAN m
         '';
       }
+    ];
+    boot.blacklistedKernelModules = [
+      "i2c_mux_reg"
     ];
 
     hardware.enableAllFirmware = true;
@@ -87,8 +94,8 @@
       "net.ipv6.neigh.default.gc_thresh3" = "8192";
     };
 
-    services.tailscale.enable = true;
-    services.tailscale.openFirewall = true;
+    services.tailscale.enable = false;
+    services.tailscale.openFirewall = false;
 
     services.openssh.enable = true;
     services.openssh.openFirewall = true;
