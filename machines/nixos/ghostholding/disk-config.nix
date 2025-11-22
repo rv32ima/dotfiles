@@ -86,6 +86,7 @@
       path = "/boot";
     }
   ];
+  boot.loader.grub.efiInstallAsRemovable = true;
 
   boot.loader.efi.canTouchEfiVariables = true;
 }
