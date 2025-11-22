@@ -80,11 +80,5 @@
 
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
-  boot.loader.grub.mirroredBoots = [
-    {
-      devices = [ "nodev" ];
-      path = "/boot";
-    }
-  ];
   boot.loader.grub.efiInstallAsRemovable = true;
 }
