@@ -81,4 +81,5 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.device = "/dev/disk/by-id/ata-InnoDisk_Corp._-_mSATA_3ME_20161108AA1228094333";
 }
