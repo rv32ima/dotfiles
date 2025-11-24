@@ -108,6 +108,26 @@
       "net.ipv6.neigh.default.gc_thresh3" = "8192";
     };
 
+    services.gobgpd.enable = true;
+    services.gobgpd.settings = {
+      global = {
+        config = {
+          as = 395388;
+          router-id = "192.168.255.1";
+        };
+      };
+      neighbors = [ ];
+      zebra = {
+        config = {
+          enabled = true;
+          url = "unix:/var/run/quagga/zserv.api";
+          redistribute-route-type-list = [ "connect" ];
+          version = 6;
+        };
+      };
+    };
+    services.frr.mgmt.enable = true;
+
     services.tailscale.enable = false;
     services.tailscale.openFirewall = false;
 

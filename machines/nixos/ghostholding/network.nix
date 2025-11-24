@@ -12,11 +12,6 @@
     enable = true;
     matchConfig.PermanentMACAddress = "ec:0d:9a:ce:e0:4a";
 
-    dns = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
-
     routes = [
       {
         Gateway = "172.20.2.1";
@@ -33,10 +28,6 @@
   systemd.network.networks."02-mgmt-too" = {
     enable = true;
     matchConfig.PermanentMACAddress = "ec:0d:9a:ce:e0:4b";
-    dns = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
     DHCP = "yes";
   };
 
