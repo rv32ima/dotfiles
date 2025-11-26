@@ -120,13 +120,13 @@
       zebra = {
         config = {
           enabled = true;
-          url = "unix:/var/run/quagga/zserv.api";
+          url = "unix:/var/run/frr/zserv.api";
           redistribute-route-type-list = [ "connect" ];
           version = 6;
         };
       };
     };
-    services.frr.mgmt.enable = true;
+    services.frr.bgpd.enable = true;
 
     services.tailscale.enable = false;
     services.tailscale.openFirewall = false;
