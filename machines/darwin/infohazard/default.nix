@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }:
 let
@@ -22,7 +23,16 @@ in
     rv32ima.machine.isRemote = false;
     rv32ima.machine.workstation.enable = true;
 
+    # Tailscale Split DNS doesn't work with the OSS-built
+    # client, like what comes from Nix. Alas, we have to use the "real" version that
+    # uses a kernel extension.
+    services.tailscale.enable = lib.mkForce false;
     services.tailscale.package = pkgsUnstable.tailscale;
+    homebrew = {
+      casks = [
+        "tailscale-app"
+      ];
+    };
 
     nix.distributedBuilds = true;
     nix.settings.max-jobs = 10;

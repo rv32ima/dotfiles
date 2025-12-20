@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   networking.useDHCP = lib.mkDefault false;
   networking.useNetworkd = true;
@@ -6,6 +6,8 @@
   services.resolved.fallbackDns = [
     "1.1.1.1"
     "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
   ];
 
   systemd.network.networks."01-mgmt" = {
@@ -54,10 +56,47 @@
 
   systemd.network.networks."uplink" = {
     matchConfig.Name = "uplink";
+
+    routes = [
+      {
+        # don't ask why we need this, we just do
+        Destination = "169.254.169.254/32";
+      }
+      {
+        Gateway = "169.254.169.254";
+      }
+      {
+        Gateway = "2606:7940:32:3c::1";
+      }
+    ];
+
     addresses = [
       {
         Address = "23.190.72.1/24";
       }
+      {
+        Address = "199.255.18.181/32";
+      }
+      {
+        Address = "2606:7940:32:3c::11/120";
+      }
+    ];
+  };
+
+  # HAHAHAHAHAHAHAHAHAHA we are VERY funny here
+  systemd.services."cofractal-jank" = {
+    script = ''
+      set -eu
+      ${pkgs.nettools}/bin/arp -i uplink -s -n 169.254.169.254 e4:dc:5f:f0:03:b0
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    wantedBy = [ "network-online.target" ];
+    after = [
+      "network.target"
+      "network-online.target"
     ];
   };
 }
