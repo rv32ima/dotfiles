@@ -114,7 +114,9 @@
       ipv6 forwarding
       service integrated-vtysh-config
       router bgp 395388
+      bgp router-id 199.255.18.181
       bgp ebgp-requires-policy
+      bgp default dynamic-capability
       neighbor cofractal peer-group
       neighbor cofractal remote-as 26073
       neighbor 2606:7940:32:3c::2 peer-group cofractal
@@ -123,6 +125,8 @@
       address-family ipv4 unicast
         redistribute connected
         neighbor cofractal activate
+        neighbor cofractal send-nexthop-characteristics
+        neighbor cofractal capability extended-nexthop
         neighbor cofractal route-map IMPORT in
         neighbor cofractal route-map EXPORT out
       exit-address-family
@@ -138,6 +142,7 @@
       !
       route-map EXPORT permit 1
       match interface lo
+      set ipv6 next-hop global 2606:7940:32:3c::11
       !
       route-map IMPORT deny 1
       !

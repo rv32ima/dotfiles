@@ -9,20 +9,17 @@
     "2606:4700:4700::1111"
     "2606:4700:4700::1001"
   ];
+  networking.firewall.logRefusedConnections = false;
+  networking.firewall.logRefusedPackets = false;
+  networking.firewall.logRefusedUnicastsOnly = false;
 
   systemd.network.networks."01-mgmt" = {
     enable = true;
     matchConfig.PermanentMACAddress = "ec:0d:9a:ce:e0:4a";
 
-    routes = [
-      {
-        Gateway = "172.20.2.1";
-      }
-    ];
-
     addresses = [
       {
-        Address = "172.20.2.214/24";
+        Address = "172.20.2.214/32";
       }
     ];
   };
