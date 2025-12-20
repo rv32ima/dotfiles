@@ -108,24 +108,42 @@
       "net.ipv6.neigh.default.gc_thresh3" = "8192";
     };
 
-    services.gobgpd.enable = true;
-    services.gobgpd.settings = {
-      global = {
-        config = {
-          as = 395388;
-          router-id = "192.168.255.1";
-        };
-      };
-      neighbors = [ ];
-      zebra = {
-        config = {
-          enabled = true;
-          url = "unix:/var/run/frr/zserv.api";
-          redistribute-route-type-list = [ "connect" ];
-          version = 6;
-        };
-      };
-    };
+    services.frr.config = ''
+      frr defaults traditional
+      log syslog informational
+      ipv6 forwarding
+      service integrated-vtysh-config
+      router bgp 395388
+      bgp ebgp-requires-policy
+      neighbor cofractal peer-group
+      neighbor cofractal remote-as 26073
+      neighbor 2606:7940:32:3c::2 peer-group cofractal
+      neighbor 2606:7940:32:3c::3 peer-group cofractal
+      !
+      address-family ipv4 unicast
+        redistribute connected
+        neighbor cofractal activate
+        neighbor cofractal route-map IMPORT in
+        neighbor cofractal route-map EXPORT out
+      exit-address-family
+      !
+      address-family ipv6
+        redistribute connected
+        neighbor cofractal activate
+        neighbor cofractal route-map IMPORT in
+        neighbor cofractal route-map EXPORT out
+      exit-address-family
+      !
+      route-map EXPORT deny 100
+      !
+      route-map EXPORT permit 1
+      match interface lo
+      !
+      route-map IMPORT deny 1
+      !
+      line vty
+      !
+    '';
     services.frr.bgpd.enable = true;
 
     services.tailscale.enable = false;

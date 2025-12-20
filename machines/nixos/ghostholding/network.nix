@@ -72,13 +72,22 @@
 
     addresses = [
       {
-        Address = "23.190.72.1/24";
-      }
-      {
         Address = "199.255.18.181/32";
       }
       {
         Address = "2606:7940:32:3c::11/120";
+      }
+    ];
+  };
+
+  systemd.network.networks."loopback" = {
+    matchConfig.Name = "lo";
+    addresses = [
+      {
+        Address = "23.190.72.0/24";
+      }
+      {
+        Address = "2620:C2:2000::0/48";
       }
     ];
   };
