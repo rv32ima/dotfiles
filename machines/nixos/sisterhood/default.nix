@@ -130,6 +130,9 @@ in
     services.syncthing.dataDir = "/media/syncthing";
     services.syncthing.databaseDir = "/var/lib/syncthing";
     services.syncthing.configDir = "/etc/syncthing";
+    systemd.tmpfiles.rules = [
+      "d /etc/syncthing 0644 syncthing syncthing"
+    ];
     services.syncthing.systemService = true;
     services.syncthing.user = "syncthing";
     services.syncthing.group = "syncthing";
