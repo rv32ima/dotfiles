@@ -136,6 +136,21 @@ in
     services.syncthing.systemService = true;
     services.syncthing.user = "syncthing";
     services.syncthing.group = "syncthing";
+    services.syncthing.overrideDevices = true;
+    services.syncthing.overrideFolders = true;
+    services.syncthing.settings = {
+      devices = {
+        "gold-experience" = {
+          id = "E6AB7XY-6JCMYME-7ZPIPEK-4G6K5IF-TL2QOL2-6VBS727-44O2T3W-GGNAWAP";
+        };
+      };
+      folders = {
+        "Music" = {
+          path = "/media/music";
+          devices = [ "gold-experience" ];
+        };
+      };
+    };
 
     services.radarr.enable = true;
 
