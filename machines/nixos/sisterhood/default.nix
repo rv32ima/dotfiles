@@ -50,6 +50,12 @@ in
         owner = "radarr";
         group = "radarr";
       }
+      {
+        path = /var/lib/syncthing;
+        mode = "0770";
+        owner = "syncthing";
+        group = "syncthing";
+      }
     ];
     rv32ima.machine.remote-builder.enable = true;
 
@@ -117,6 +123,21 @@ in
     services.rutorrent.enable = true;
     services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
     services.rutorrent.nginx.enable = true;
+
+    services.syncthing.enable = true;
+    services.syncthing.guiAddress = "0.0.0.0:8384";
+    services.syncthing.openDefaultPorts = true;
+    services.syncthing.dataDir = "/media/syncthing";
+    services.syncthing.databaseDir = "/var/lib/syncthing";
+    services.syncthing.configDir = "/etc/syncthing";
+    services.syncthing.systemService = true;
+    services.syncthing.user = "syncthing";
+    services.syncthing.group = "syncthing";
+
+    users.groups.syncthing = {
+      members = [ "syncthing" ];
+    };
+    users.users.syncthing.home = "/var/lib/syncthing";
 
     services.radarr.enable = true;
 
