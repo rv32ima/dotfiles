@@ -134,11 +134,6 @@ in
     services.syncthing.user = "syncthing";
     services.syncthing.group = "syncthing";
 
-    users.groups.syncthing = {
-      members = [ "syncthing" ];
-    };
-    users.users.syncthing.home = "/var/lib/syncthing";
-
     services.radarr.enable = true;
 
     sops.secrets."services/restic/media/password" = {
