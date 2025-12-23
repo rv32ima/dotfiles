@@ -56,6 +56,12 @@ in
         owner = "syncthing";
         group = "syncthing";
       }
+      {
+        path = /var/lib/sonarr/.config/Sonarr;
+        mode = "0770";
+        owner = "sonarr";
+        group = "sonarr";
+      }
     ];
     rv32ima.machine.remote-builder.enable = true;
 
@@ -153,6 +159,7 @@ in
     };
 
     services.radarr.enable = true;
+    services.sonarr.enable = true;
 
     sops.secrets."services/restic/media/password" = {
       sopsFile = ./secrets/restic.yaml;
