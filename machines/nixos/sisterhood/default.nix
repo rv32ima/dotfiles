@@ -124,7 +124,7 @@ in
 
     services.rtorrent.enable = true;
     services.rtorrent.openFirewall = true;
-    services.rtorrent.services.rtorrent.downloadDir = "/media/downloads/rtorrent";
+    services.rtorrent.downloadDir = "/media/downloads/rtorrent";
     services.rtorrent.configText = ''
       system.umask.set = 0000
       scgi_port = 127.0.0.1:5050
