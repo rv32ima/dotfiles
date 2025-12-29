@@ -125,6 +125,9 @@ in
     services.rtorrent.enable = true;
     services.rtorrent.openFirewall = true;
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
+    services.rtorrent.configText = ''
+      system.umask.set = 0000
+    '';
 
     services.rutorrent.enable = true;
     services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
