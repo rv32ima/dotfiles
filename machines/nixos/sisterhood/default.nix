@@ -133,13 +133,7 @@ in
       server {
         listen 127.0.0.1:5050;
         server_name localhost;
-        access_log off;
-        error_log /dev/null;
-
-        root /dev/null;
         location / {
-            allow 127.0.0.1;
-            deny all;
             include ${pkgs.nginx}/conf/scgi_params;
             scgi_pass unix:/run/rtorrent/rpc.sock;
         }
