@@ -129,19 +129,18 @@ in
       system.umask.set = 0000
     '';
     services.nginx.appendHttpConfig = ''
-        server {
-          listen 127.0.0.1:5050;
-          server_name localhost;
-          access_log off;
-          error_log /dev/null;
+      server {
+        listen 127.0.0.1:5050;
+        server_name localhost;
+        access_log off;
+        error_log /dev/null;
 
-          root /dev/null;
-          location /scgi {
-              allow 127.0.0.1;
-              deny all;
-              include scgi_params;
-              scgi_pass unix:/run/rtorrent/rpc.sock;
-          }
+        root /dev/null;
+        location /scgi {
+            allow 127.0.0.1;
+            deny all;
+            include scgi_params;
+            scgi_pass unix:/run/rtorrent/rpc.sock;
         }
       }
     '';
