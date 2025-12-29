@@ -163,6 +163,7 @@ in
 
     services.radarr.enable = true;
     services.sonarr.enable = true;
+    services.prowlarr.enable = true;
 
     sops.secrets."services/restic/media/password" = {
       sopsFile = ./secrets/restic.yaml;
