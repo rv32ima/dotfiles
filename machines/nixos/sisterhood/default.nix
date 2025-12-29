@@ -127,7 +127,18 @@ in
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
     services.rtorrent.configText = ''
       system.umask.set = 0000
-      scgi_port = 127.0.0.1:5050
+    '';
+    services.nginx.appendConfig = ''
+      http {
+        server {
+          listen 5050;
+          server_name localhost;
+          location ^~ /scgi {
+              include scgi_params;
+              scgi_pass  unix:/run/rtorrent/rpc.sock;
+          }
+        }
+      }
     '';
 
     services.rutorrent.enable = true;
