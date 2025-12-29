@@ -130,11 +130,17 @@ in
     '';
     services.nginx.appendHttpConfig = ''
         server {
-          listen 5050;
+          listen 127.0.0.1:5050;
           server_name localhost;
-          location ^~ /scgi {
+          access_log off;
+          error_log /dev/null;
+
+          root /dev/null;
+          location /scgi {
+              allow 127.0.0.1;
+              deny all;
               include scgi_params;
-              scgi_pass  unix:/run/rtorrent/rpc.sock;
+              scgi_pass unix:/run/rtorrent/rpc.sock;
           }
         }
       }
