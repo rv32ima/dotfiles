@@ -123,11 +123,22 @@ in
     services.slskd.domain = "slskd.tail09d5b.ts.net";
     services.slskd.environmentFile = config.sops.secrets."services/soulseek/environment".path;
 
+    security.pam.loginLimits = [
+      {
+        domain = "*";
+        item = "nofile";
+        type = "-";
+        value = "65536";
+      }
+    ];
     services.rtorrent.enable = true;
     services.rtorrent.openFirewall = true;
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
     services.rtorrent.configText = ''
       system.umask.set = 0000
+      network.http.max_open.set = 10000
+      network.max_open_files.set = 10000
+      network.max_open_sockets.set = 10000
     '';
     services.nginx.appendHttpConfig = ''
       server {
