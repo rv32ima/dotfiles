@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -136,10 +137,10 @@ in
         error_log /dev/null;
 
         root /dev/null;
-        location /scgi {
+        location / {
             allow 127.0.0.1;
             deny all;
-            include scgi_params;
+            include ${pkgs.nginx}/conf/scgi_params;
             scgi_pass unix:/run/rtorrent/rpc.sock;
         }
       }
