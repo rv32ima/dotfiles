@@ -128,8 +128,7 @@ in
     services.rtorrent.configText = ''
       system.umask.set = 0000
     '';
-    services.nginx.appendConfig = ''
-      http {
+    services.nginx.appendHttpConfig = ''
         server {
           listen 5050;
           server_name localhost;
