@@ -139,6 +139,9 @@ in
         }
       }
     '';
+    users.groups."rtorrent".members = [
+      "nginx"
+    ];
 
     services.rutorrent.enable = true;
     services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
