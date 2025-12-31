@@ -207,5 +207,12 @@ in
       passwordFile = config.sops.secrets."services/restic/media/password".path;
       rcloneConfigFile = config.sops.secrets."services/restic/media/rcloneConfig".path;
     };
+
+    services.prometheus.exporters.restic = {
+      enable = true;
+      repository = "rclone:secret:restic/media";
+      rcloneConfigFile = config.sops.secrets."services/restic/media/rcloneConfig".path;
+      passwordFile = config.sops.secrets."services/restic/media/password".path;
+    };
   };
 }
