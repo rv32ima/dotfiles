@@ -207,6 +207,7 @@ in
     users.users."restic" = {
       enable = true;
       group = "restic";
+      isSystemUser = true;
     };
 
     services.restic.backups."media" = {
