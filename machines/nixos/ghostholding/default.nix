@@ -151,8 +151,9 @@
     '';
     services.frr.bgpd.enable = true;
 
-    services.tailscale.enable = false;
+    services.tailscale.enable = true;
     services.tailscale.openFirewall = false;
+    services.tailscale.interfaceName = "userspace-networking";
 
     services.openssh.enable = true;
     services.openssh.openFirewall = true;
