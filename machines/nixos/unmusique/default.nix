@@ -126,6 +126,16 @@ in
             }
           ];
         }
+        {
+          job_name = "restic-exporter";
+          static_configs = [
+            {
+              targets = [
+                "http://sisterhood.tail09d5b.ts.net:9753"
+              ];
+            }
+          ];
+        }
       ];
     };
 
