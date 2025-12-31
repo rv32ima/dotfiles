@@ -192,15 +192,27 @@ in
 
     sops.secrets."services/restic/media/password" = {
       sopsFile = ./secrets/restic.yaml;
+      owner = config.users.users."restic".name;
+      group = config.users.users."restic".group;
+      mode = "0440";
     };
 
     sops.secrets."services/restic/media/rcloneConfig" = {
       sopsFile = ./secrets/restic.yaml;
+      owner = config.users.users."restic".name;
+      group = config.users.users."restic".group;
+      mode = "0440";
+    };
+
+    users.users."restic" = {
+      enable = true;
+      group = "restic";
     };
 
     services.restic.backups."media" = {
       initialize = true;
       repository = "rclone:secret:restic/media";
+      user = config.users.users."restic".name;
       paths = [
         "/media"
       ];
@@ -214,5 +226,10 @@ in
       rcloneConfigFile = config.sops.secrets."services/restic/media/rcloneConfig".path;
       passwordFile = config.sops.secrets."services/restic/media/password".path;
     };
+
+    users.groups."restic".members = [
+      "restic"
+      "restic-exporter"
+    ];
   };
 }
