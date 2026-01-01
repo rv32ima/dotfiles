@@ -466,6 +466,7 @@ in
         in
         {
           image = "golift/unpackerr:latest";
+          autoStart = true;
           environmentFiles = [
             config.sops.secrets."services/unpackerr/environment".path
           ];
@@ -475,6 +476,7 @@ in
           ];
         };
     };
+    networking.firewall.interfaces."podman0".allowedTCPPorts = [ 7878 8989 ];
 
     sops.secrets."services/restic/media/password" = {
       sopsFile = ./secrets/restic.yaml;
