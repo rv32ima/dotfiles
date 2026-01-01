@@ -198,7 +198,7 @@ in
     virtualisation.oci-containers.containers = {
       unpackerr =
         let
-           = pkgs.writeTextDir "config/unpackerr.conf" ''
+          cfg = pkgs.writeTextDir "config/unpackerr.conf" ''
               ####################################################
               ##      Unpackerr Example Configuration File      ##
               ####################################################
@@ -471,7 +471,7 @@ in
           ];
           volumes = [
             "/media:/media"
-            "${config}/config:/config"
+            "${cfg}/config:/config"
           ];
         };
     };
