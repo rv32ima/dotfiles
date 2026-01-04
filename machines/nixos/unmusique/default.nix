@@ -150,7 +150,7 @@ in
         ExecStart = "${pkgsUnstable.tailscale}/bin/tsidp --hostname=tsidp --dir=/var/lib/tailscale/tsidp --port=443";
         Environment = [ "TAILSCALE_USE_WIP_CODE=1" ];
         EnvironmentFile = [
-          config.sops.secrets."services/tsidp/environment".path
+          # config.sops.secrets."services/tsidp/environment".path
         ];
         Restart = "always";
       };

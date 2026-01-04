@@ -16,16 +16,10 @@ in
     ./disk-config.nix
   ];
 
-  config = (if (builtins.hasAttr "deployment" options) then {
-    deployment = {
-      targetHost = "sisterhood.tail09d5b.ts.net";
-      targetPort = 22;
-      
-    };
-  } else {} ) // {
+  config = {
     rv32ima.machine.enable = true;
     rv32ima.machine.hostName = "sisterhood";
-    rv32ima.machine.stateVersion = "25.05";
+    rv32ima.machine.stateVersion = "25.11";
     rv32ima.machine.platform = "x86_64-linux";
     rv32ima.machine.users = [
       "root"
@@ -65,7 +59,7 @@ in
         group = "syncthing";
       }
       {
-        path = /var/lib/sonarr/.config/Sonarr;
+        path = /var/lib/sonarr/.config/NzbDrone;
         mode = "0770";
         owner = "sonarr";
         group = "sonarr";

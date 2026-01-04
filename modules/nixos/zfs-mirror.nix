@@ -107,5 +107,7 @@
 
     boot.loader.efi.canTouchEfiVariables = true;
 
+    services.zfs.autoScrub.enable = true;
+    services.zfs.autoScrub.interval = "1w";
   };
 }
