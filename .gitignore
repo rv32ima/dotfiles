@@ -5,3 +5,4 @@ ssh/*.pub
 ssh/known_hosts
 ssh/known_hosts.old
 result
+.direnv

@@ -57,11 +57,13 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     microvm.url = "github:microvm-nix/microvm.nix";
     microvm.inputs.flake-utils.follows = "flake-utils";
+    colmena.url = "github:zhaofengli/colmena";
   };
 
   outputs =
     inputs@{
       nixpkgs,
+      colmena,
       ...
     }:
     let
@@ -89,6 +91,40 @@
       nixosConfigurations = import ./nixos.nix {
         inherit inputs;
         machines = nixosMachineFiles;
+      };
+
+      colmenaHive = colmena.lib.makeHive inputs.self.outputs.colmena;
+
+      colmena =
+        let
+          conf = lib.attrsets.filterAttrs (
+            name: _: (lib.strings.hasSuffix "-installer" name) == false && name != "nixos-netboot"
+          ) inputs.self.nixosConfigurations;
+        in
+        {
+          meta = {
+            nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+            nodeSpecialArgs = builtins.mapAttrs (_: value: value._module.specialArgs) conf;
+            nodeNixpkgs = builtins.mapAttrs (_: value: value.pkgs) conf;
+          };
+        }
+        // (builtins.mapAttrs (name: value: {
+          imports = value._module.args.modules;
+          deployment = import ./machines/nixos/${name}/deployment.nix;
+        }) conf);
+
+      devShells.aarch64-darwin = {
+        default =
+          let
+            pkgs = import inputs.nixpkgs {
+              system = "aarch64-darwin";
+            };
+          in
+          pkgs.mkShell {
+            packages = [
+              colmena.packages.aarch64-darwin.colmena
+            ];
+          };
       };
     };
 }

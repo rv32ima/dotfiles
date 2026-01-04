@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  options,
   pkgs,
   ...
 }:
@@ -15,7 +16,13 @@ in
     ./disk-config.nix
   ];
 
-  config = {
+  config = (if (builtins.hasAttr "deployment" options) then {
+    deployment = {
+      targetHost = "sisterhood.tail09d5b.ts.net";
+      targetPort = 22;
+      
+    };
+  } else {} ) // {
     rv32ima.machine.enable = true;
     rv32ima.machine.hostName = "sisterhood";
     rv32ima.machine.stateVersion = "25.05";

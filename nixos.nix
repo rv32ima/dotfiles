@@ -4,6 +4,7 @@
   ...
 }:
 let
+  lib = inputs.nixpkgs.lib;
   mkCommon =
     machine@{
       hostName,
@@ -40,27 +41,41 @@ builtins.listToAttrs (
   builtins.concatLists (
     map (
       mI@{ hostName, ... }:
-      [
-        {
-          name = hostName;
-          value = mkCommon (
-            mI
-            // {
-              configType = "machine";
+      (
+        if builtins.pathExists ./machines/nixos/${hostName}/default.nix then
+          [
+            {
+              name = hostName;
+              value = mkCommon (
+                mI
+                // {
+                  configType = "machine";
+                }
+              );
             }
-          );
-        }
-        {
-          name = "${hostName}-installer";
-          value = mkCommon (
-            mI
-            // {
-              configType = "installer";
-            }
-          );
 
-        }
-      ]
+          ]
+        else
+          [ ]
+      )
+      ++ (
+        if builtins.pathExists ./machines/nixos/${hostName}/installer.nix then
+          [
+            {
+              name = "${hostName}-installer";
+              value = mkCommon (
+                mI
+                // {
+                  configType = "installer";
+                }
+              );
+
+            }
+
+          ]
+        else
+          [ ]
+      )
     ) machines
   )
 )
