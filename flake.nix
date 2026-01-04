@@ -97,8 +97,14 @@
 
       colmena =
         let
+          blacklistedNodes = [
+            "golden-experience"
+            "nixos-netboot"
+            "ca-node"
+          ];
           conf = lib.attrsets.filterAttrs (
-            name: _: (lib.strings.hasSuffix "-installer" name) == false && name != "nixos-netboot"
+            name: _:
+            (lib.strings.hasSuffix "-installer" name) == false && (builtins.elem name blacklistedNodes) == false
           ) inputs.self.nixosConfigurations;
         in
         {

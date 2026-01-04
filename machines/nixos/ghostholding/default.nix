@@ -160,9 +160,5 @@
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
-
-    users.users.root.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGPUAs4RQBUriBrp7rv2cepCve5eIo6uqFfgs7oPqV9Q" # 1Password -> 'Primary SSH key'
-    ];
   };
 }
