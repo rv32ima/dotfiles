@@ -15,7 +15,7 @@ in
   config = {
     rv32ima.machine.enable = true;
     rv32ima.machine.hostName = "fadeoutz";
-    rv32ima.machine.stateVersion = "25.05";
+    rv32ima.machine.stateVersion = "25.11";
     rv32ima.machine.platform = "x86_64-linux";
     rv32ima.machine.users = [
       "root"
