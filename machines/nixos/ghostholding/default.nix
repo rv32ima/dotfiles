@@ -157,6 +157,7 @@
 
     services.openssh.enable = true;
     services.openssh.openFirewall = false;
+    services.fail2ban.enable = true;
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;

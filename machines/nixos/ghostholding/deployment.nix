@@ -1,5 +1,5 @@
 {
-  targetHost = "ghostholding.sea.t4t.net";
+  targetHost = "ghostholding.tail09d5b.ts.net";
   targetPort = 22;
   targetUser = "root";
 }

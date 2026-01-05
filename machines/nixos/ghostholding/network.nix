@@ -19,7 +19,7 @@
 
     addresses = [
       {
-        Address = "172.20.2.214/32";
+        Address = "172.20.2.214/24";
       }
     ];
   };
@@ -37,8 +37,8 @@
 
   systemd.network.netdevs."uplink".bondConfig = {
     Mode = "802.3ad";
-    TransmitHashPolicy = "layer3+4";
-    LACPTransmitRate = "fast";
+    # TransmitHashPolicy = "layer3+4";
+    # LACPTransmitRate = "fast";
   };
 
   systemd.network.networks."uplink-swp1" = {
@@ -99,7 +99,7 @@
       Type = "oneshot";
       User = "root";
     };
-    wantedBy = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     after = [
       "network.target"
       "network-online.target"

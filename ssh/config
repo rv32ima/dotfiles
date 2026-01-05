@@ -19,3 +19,8 @@ Host sw1.sea.t4t.net
 Host cofractal-oob
   User root
   HostName 2605:bb00:c510::210
+
+Host oob-forwarded
+  User root
+  HostName localhost
+  Port 2223
