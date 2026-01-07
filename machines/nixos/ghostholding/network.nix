@@ -34,6 +34,7 @@
   systemd.network.netdevs."uplink".netdevConfig = {
     Kind = "bond";
     Name = "uplink";
+    MACAddress = "ec:0d:9a:f9:e4:fd";
   };
 
   systemd.network.netdevs."uplink".bondConfig = {
