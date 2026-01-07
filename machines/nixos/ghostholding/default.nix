@@ -161,5 +161,7 @@
 
     programs.fish.enable = true;
     programs.fish.useBabelfish = true;
+
+    services.prometheus.exporters.node.enable = true;
   };
 }
