@@ -12,6 +12,7 @@
   networking.firewall.logRefusedConnections = false;
   networking.firewall.logRefusedPackets = false;
   networking.firewall.logRefusedUnicastsOnly = false;
+  systemd.network.wait-online.enable = false;
 
   systemd.network.networks."01-mgmt" = {
     enable = true;
