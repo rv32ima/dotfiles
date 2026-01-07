@@ -91,6 +91,15 @@
   };
 
   # HAHAHAHAHAHAHAHAHAHA we are VERY funny here
+  systemd.timers."cofractal-jank" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "1m";
+      OnUnitActiveSec = "1m";
+      Unit = "cofractal-jank.service";
+    };
+  };
+
   systemd.services."cofractal-jank" = {
     script = ''
       set -eu
@@ -100,7 +109,6 @@
       Type = "oneshot";
       User = "root";
     };
-    wants = [ "network-online.target" ];
     after = [
       "network.target"
       "network-online.target"
