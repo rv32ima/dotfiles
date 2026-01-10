@@ -6,6 +6,7 @@ keys:
   - &sisterhood age1x6z9tjpx8t39wr7pusxv70yheefy3uk63levgrr24gfr70pln5ys8f43ep
   - &golden-experience age1v97xa2makee9wvs4eydwhsfg93hpnclqu3cuy9mdq3n3lzjhyg5qjp0psk
   - &ghostholding age15qf22v35zxffq8lh0a0wtppr20p99ayhj7u7clxzywwne54yzu8qnykh8s
+  - &dreamflasher age19yfzje6pm8382xnzy6xj456c3753rvym0p2mp7jztsf62rjc83wskrdqpk
 creation_rules:
   - path_regex: users/.*/secrets/.*$
     key_groups:
@@ -17,6 +18,7 @@ creation_rules:
       - *sisterhood
       - *golden-experience
       - *ghostholding
+      - *dreamflasher
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:
