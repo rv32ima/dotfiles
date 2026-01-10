@@ -21,7 +21,24 @@
 
     git = {
       enable = true;
-      extraConfig = builtins.readFile ../../git/${config.home.username}.gitconfig;
+      settings = {
+        user = {
+          email = "me@ellie.fm";
+          name = "ellie-idb";
+        };
+
+        "includeIf \"gitdir:~/work\"" = {
+          path = "~/work/.gitconfig";
+        };
+
+        http = {
+          cookiefile = "~/.gitcookies";
+        };
+
+        "url \"ssh://git@github.com/\"" = {
+          insteadOf = "https://github.com/";
+        };
+      };
     };
 
     jujutsu = {
@@ -80,10 +97,10 @@
   home.packages = with pkgs; [
     # Programming Languages
     nodejs_20
-    go_1_23
-    (rust-bin.stable.latest.default.override {
-      extensions = [ "rust-src" ];
-    })
+    go_latest
+    # (rust-bin.stable.latest.default.override {
+    #   extensions = [ "rust-src" ];
+    # })
 
     nixd
     git

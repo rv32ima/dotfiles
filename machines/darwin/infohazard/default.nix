@@ -34,6 +34,12 @@ in
       ];
     };
 
+    nix.linux-builder = {
+      enable = true;
+      ephemeral = true;
+      maxJobs = 10;
+    };
+
     nix.distributedBuilds = true;
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
