@@ -137,7 +137,7 @@ in
     services.rtorrent.downloadDir = "/media/downloads/rtorrent";
     services.rtorrent.configText = ''
       system.umask.set = 0000
-      network.http.max_open.set = 10000
+      network.http.max_open.set = 4000
       network.max_open_files.set = 10000
       network.max_open_sockets.set = 10000
       pieces.memory.max.set = 16384M
