@@ -71,7 +71,7 @@ exit
 
 After you've verified that secrets can get decrypted successfully, it's time to reboot the system. Run these following commands:
 ```
-umount -R /mnt
+mount -R /mnt
 zpool export -a
 sync
 reboot
