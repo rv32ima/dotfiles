@@ -143,6 +143,7 @@ in
       pieces.memory.max.set = 16384M
       network.xmlrpc.size_limit.set = 4M
     '';
+    systemd.services."rtorrent".serviceConfig.LimitNOFILE = "262144";
     services.nginx.appendHttpConfig = ''
       server {
         listen 127.0.0.1:5050;
