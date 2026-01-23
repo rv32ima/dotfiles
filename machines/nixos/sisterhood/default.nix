@@ -129,7 +129,7 @@ in
         domain = "*";
         item = "nofile";
         type = "-";
-        value = "65536";
+        value = "262144";
       }
     ];
     services.rtorrent.enable = true;
