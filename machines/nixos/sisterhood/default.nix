@@ -162,6 +162,20 @@ in
     services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
     services.rutorrent.nginx.enable = true;
 
+    sops.secrets."services/cloudflared/credentials_file" = {
+      sopsFile = ./secrets/cloudflared.yaml;
+      owner = "root";
+    };
+
+    services.cloudflared.enable = true;
+    services.cloudflared.tunnels = {
+      "sisterhood" = {
+        credentialsFile = config.sops.secrets."services/cloudflared/credentials_file".path;
+        default = "http_status:404";
+        ingress."music.t4t.net" = "http://127.0.0.1:4747";
+      };
+    };
+
     services.gonic.enable = true;
     services.gonic.settings = {
       music-path = [
