@@ -23,7 +23,7 @@ in
   options.rv32ima.machine.remote-builder.enable = lib.mkEnableOption "Remote Builder";
   options.rv32ima.machine.remote-builder.key = lib.mkOption {
     type = lib.types.singleLineStr;
-    default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7LMYuJpon+g+BLC95GIbzt9k0AJcEeIsHLC3rxvii3 builder@localhost";
+    default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYuMJ2VhzIpdQ158PvX2SH+8HRJ3Y4nbYvzNcPuaPI+ builder@localhost";
     description = "ssh public key for the remote build user";
   };
 
