@@ -167,6 +167,8 @@ in
       music-path = [
         "/media/music"
       ];
+      podcast-path = "/media/podcasts"; # ???
+      playlists-path = "/media/playlists"; # ???????
     };
 
     services.syncthing.enable = true;
