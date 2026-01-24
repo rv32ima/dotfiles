@@ -162,6 +162,13 @@ in
     services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
     services.rutorrent.nginx.enable = true;
 
+    services.gonic.enable = true;
+    services.gonic.settings = {
+      music-path = [
+        "/media/music"
+      ];
+    };
+
     services.syncthing.enable = true;
     services.syncthing.guiAddress = "0.0.0.0:8384";
     services.syncthing.openDefaultPorts = true;
