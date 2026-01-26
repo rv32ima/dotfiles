@@ -108,6 +108,48 @@
       "net.ipv6.neigh.default.gc_thresh3" = "8192";
     };
 
+    # services.gobgpd.enable = true;
+    # services.gobgpd.settings = {
+    #   global = {
+    #     config = {
+    #       as = 395388;
+    #       router-id = "199.255.18.181";
+    #     };
+    #   };
+
+    #   peer-groups = [
+    #     {
+    #       config = {
+    #         peer-group-name = "cofractal";
+    #         peer-as = 26073;
+    #       };
+    #       afi-safis = [
+    #         {
+    #           afi-safi-name = "ipv4-unicast";
+    #         }
+    #         {
+    #           afi-safi-name = "ipv6-unicast";
+    #         }
+    #       ];
+    #     }
+    #   ];
+
+    #   neighbors = [
+    #     {
+    #       config = {
+    #         neighbor-address = "2606:7940:32:3c::2";
+    #         peer-group = "cofractal";
+    #       };
+    #     }
+    #     {
+    #       config = {
+    #         neighbor-address = "2606:7940:32:3c::3";
+    #         peer-group = "cofractal";
+    #       };
+    #     }
+    #   ];
+    # };
+
     services.frr.config = ''
       frr defaults traditional
       log syslog informational
