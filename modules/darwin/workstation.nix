@@ -53,6 +53,9 @@
 
           cmd-right = "workspace next";
           cmd-left = "workspace prev";
+
+          cmd-shift-right = "move-node-to-workspace next";
+          cmd-shift-left = "move-node-to-workspace left";
         };
         mode.service.binding = {
           esc = [
