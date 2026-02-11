@@ -24,11 +24,18 @@
           discardPolicy = "both";
         };
       };
-      zfs = {
+      luks = {
         size = "100%";
         content = {
-          type = "zfs";
-          pool = "zroot";
+          type = "luks";
+          name = "disk1-luks";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
         };
       };
     };
