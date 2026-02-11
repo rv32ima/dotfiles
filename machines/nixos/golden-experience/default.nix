@@ -1,11 +1,16 @@
 {
-  pkgs,
+  config,
   inputs,
   ...
 }:
+let
+  pkgsUnstable = import inputs.nixpkgs-unstable {
+    system = config.rv32ima.machine.platform;
+  };
+in
 {
   imports = [
-    inputs.nixos-wsl.nixosModules.default
+    ./disk-config.nix
   ];
 
   config = {
@@ -18,26 +23,43 @@
       "ellie"
     ];
     rv32ima.machine.isRemote = true;
+    rv32ima.machine.impermanence.enable = true;
+    rv32ima.machine.remote-builder.enable = true;
+
+    services.getty.autologinUser = "root";
+
+    boot.initrd.availableKernelModules = [
+      "ahci"
+      "xhci_pci"
+      "megaraid_sas"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+      "sr_mod"
+    ];
+    boot.initrd.kernelModules = [ ];
+    boot.kernelModules = [ "kvm_amd" ];
+    boot.extraModulePackages = [ ];
+
+    # head -c4 /dev/urandom | od -A none -t x4
+    networking.hostId = "657c30f3";
+
+    services.tailscale.enable = true;
+    services.tailscale.package = pkgsUnstable.tailscale;
+    services.tailscale.openFirewall = true;
+    services.tailscale.useRoutingFeatures = "both";
+    services.tailscale.extraSetFlags = [ "--accept-routes" ];
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+    services.prometheus.exporters.node.enable = true;
 
     services.openssh.enable = true;
-    services.openssh.hostKeys = [
-      {
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-      {
-        path = "/etc/ssh/ssh_host_rsa_key";
-        type = "rsa";
-        bits = 4096;
-      }
-    ];
+    services.openssh.openFirewall = false;
 
-    wsl.enable = true;
-    wsl.defaultUser = "ellie";
+    programs.fish.enable = true;
+    programs.fish.useBabelfish = true;
 
-    environment.systemPackages = with pkgs; [
-      wget
-    ];
-    programs.nix-ld.enable = true;
+    networking.useNetworkd = true;
+    networking.firewall.allowedTCPPorts = [ ];
   };
 }
