@@ -62,6 +62,7 @@ in
     networking.useNetworkd = true;
     networking.firewall.allowedTCPPorts = [ ];
 
+    hardware.enableRedistributableFirmware = true;
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
   };
