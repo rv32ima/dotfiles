@@ -2,11 +2,13 @@
   modulesPath,
   inputs,
   lib,
+  self,
   ...
 }:
 {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    (self.lib.user "root")
   ];
 
   config = {
@@ -14,9 +16,6 @@
     rv32ima.machine.hostName = "nixos-iso";
     rv32ima.machine.stateVersion = "25.11";
     rv32ima.machine.platform = "aarch64-linux";
-    rv32ima.machine.users = [
-      "root"
-    ];
     rv32ima.machine.isRemote = true;
 
     environment.systemPackages = [

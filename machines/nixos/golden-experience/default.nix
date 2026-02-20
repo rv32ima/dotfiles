@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  self,
   ...
 }:
 let
@@ -11,6 +12,9 @@ in
 {
   imports = [
     ./disk-config.nix
+
+    (self.lib.user "root")
+    (self.lib.user "ellie")
   ];
 
   config = {
@@ -18,10 +22,6 @@ in
     rv32ima.machine.hostName = "golden-experience";
     rv32ima.machine.stateVersion = "25.11";
     rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.users = [
-      "root"
-      "ellie"
-    ];
     rv32ima.machine.isRemote = true;
     rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.remote-builder.enable = true;

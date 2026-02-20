@@ -1,12 +1,15 @@
 {
   pkgs,
   config,
+  self,
   ...
 }:
 {
   imports = [
     ./network.nix
     ./disk-config.nix
+
+    (self.lib.user "root")
   ];
 
   config = {
@@ -14,9 +17,7 @@
     rv32ima.machine.hostName = "ghostholding";
     rv32ima.machine.stateVersion = "25.11";
     rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.users = [
-      "root"
-    ];
+
     rv32ima.machine.isRemote = true;
     rv32ima.machine.impermanence.enable = true;
 

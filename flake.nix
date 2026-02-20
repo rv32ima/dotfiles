@@ -6,6 +6,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
@@ -62,75 +63,162 @@
 
   outputs =
     inputs@{
+      self,
       nixpkgs,
+      flake-parts,
       colmena,
       ...
     }:
-    let
-      lib = nixpkgs.lib;
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { inputs, ... }:
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+        ];
 
-      getMachineFiles =
-        type:
-        builtins.map
-          (hostName: {
-            inherit hostName;
-            file = ./machines/${type}/${hostName}/default.nix;
-          })
-          (
-            builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./machines/${type}))
-          );
-      nixosMachineFiles = getMachineFiles "nixos";
-      darwinMachineFiles = getMachineFiles "darwin";
-    in
-    {
-      darwinConfigurations = import ./darwin.nix {
-        inherit inputs;
-        machines = darwinMachineFiles;
-      };
-
-      nixosConfigurations = import ./nixos.nix {
-        inherit inputs;
-        machines = nixosMachineFiles;
-      };
-
-      colmenaHive = colmena.lib.makeHive inputs.self.outputs.colmena;
-
-      colmena =
-        let
-          blacklistedNodes = [
-            "golden-experience"
-            "nixos-netboot"
-            "ca-node"
-          ];
-          conf = lib.attrsets.filterAttrs (
-            name: _:
-            (lib.strings.hasSuffix "-installer" name) == false && (builtins.elem name blacklistedNodes) == false
-          ) inputs.self.nixosConfigurations;
-        in
-        {
-          meta = {
-            nixpkgs = import nixpkgs { system = "x86_64-linux"; };
-            nodeSpecialArgs = builtins.mapAttrs (_: value: value._module.specialArgs) conf;
-            nodeNixpkgs = builtins.mapAttrs (_: value: value.pkgs) conf;
-          };
-        }
-        // (builtins.mapAttrs (name: value: {
-          imports = value._module.args.modules;
-          deployment = import ./machines/nixos/${name}/deployment.nix;
-        }) conf);
-
-      devShells.aarch64-darwin = {
-        default =
+        flake =
           let
-            pkgs = import inputs.nixpkgs {
-              system = "aarch64-darwin";
-            };
+            inherit (inputs) colmena;
+            lib = nixpkgs.lib;
+
+            getMachineFiles =
+              type:
+              builtins.map
+                (hostName: {
+                  inherit hostName;
+                  file = ./machines/${type}/${hostName}/default.nix;
+                })
+                (
+                  builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./machines/${type}))
+                );
+            nixosMachineFiles = getMachineFiles "nixos";
+            darwinMachineFiles = getMachineFiles "darwin";
           in
-          pkgs.mkShell {
-            packages = [
-              colmena.packages.aarch64-darwin.colmena
-            ];
+          {
+            darwinConfigurations = import ./darwin.nix {
+              inherit inputs self;
+              machines = darwinMachineFiles;
+            };
+
+            nixosConfigurations = import ./nixos.nix {
+              inherit inputs self;
+              machines = nixosMachineFiles;
+            };
+
+            colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+
+            colmena =
+              let
+                blacklistedNodes = [
+                  "golden-experience"
+                  "nixos-netboot"
+                  "ca-node"
+                ];
+                conf = lib.attrsets.filterAttrs (
+                  name: _:
+                  (lib.strings.hasSuffix "-installer" name) == false && (builtins.elem name blacklistedNodes) == false
+                ) inputs.self.nixosConfigurations;
+              in
+              {
+                meta = {
+                  nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+                  nodeSpecialArgs = builtins.mapAttrs (_: value: value._module.specialArgs) conf;
+                  nodeNixpkgs = builtins.mapAttrs (_: value: value.pkgs) conf;
+                };
+              }
+              // (builtins.mapAttrs (name: value: {
+                imports = value._module.args.modules;
+                deployment = import ./machines/nixos/${name}/deployment.nix;
+              }) conf);
+
+            lib = {
+              user =
+                userName:
+                if builtins.pathExists ./users/${userName}/default.nix then
+                  ./users/${userName}/default.nix
+                else if builtins.pathExists ./users/${userName}.nix then
+                  ./users/${userName}.nix
+                else
+                  throw "User module '${userName}' not found in users directory";
+            };
+
           };
-      };
-    };
+
+        perSystem =
+          {
+            pkgs,
+            system,
+            ...
+          }:
+          {
+            devShells.default = pkgs.mkShell {
+              packages = [
+                colmena.packages.${system}.colmena
+              ];
+            };
+          };
+      }
+    );
+
+  # outputs =
+  #   inputs@{
+  #     nixpkgs,
+  #     colmena,
+  #     ...
+  #   }:
+  #   let
+  #     lib = nixpkgs.lib;
+
+  #     getMachineFiles =
+  #       type:
+  #       builtins.map
+  #         (hostName: {
+  #           inherit hostName;
+  #           file = ./machines/${type}/${hostName}/default.nix;
+  #         })
+  #         (
+  #           builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./machines/${type}))
+  #         );
+  #     nixosMachineFiles = getMachineFiles "nixos";
+  #     darwinMachineFiles = getMachineFiles "darwin";
+  #   in
+  #   {
+  #     darwinConfigurations = import ./darwin.nix {
+  #       inherit inputs;
+  #       machines = darwinMachineFiles;
+  #     };
+
+  #     nixosConfigurations = import ./nixos.nix {
+  #       inherit inputs;
+  #       machines = nixosMachineFiles;
+  #     };
+
+  #     colmenaHive = colmena.lib.makeHive inputs.self.outputs.colmena;
+
+  #     colmena =
+  #       let
+  #         blacklistedNodes = [
+  #           "golden-experience"
+  #           "nixos-netboot"
+  #           "ca-node"
+  #         ];
+  #         conf = lib.attrsets.filterAttrs (
+  #           name: _:
+  #           (lib.strings.hasSuffix "-installer" name) == false && (builtins.elem name blacklistedNodes) == false
+  #         ) inputs.self.nixosConfigurations;
+  #       in
+  #       {
+  #         meta = {
+  #           nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+  #           nodeSpecialArgs = builtins.mapAttrs (_: value: value._module.specialArgs) conf;
+  #           nodeNixpkgs = builtins.mapAttrs (_: value: value.pkgs) conf;
+  #         };
+  #       }
+  #       // (builtins.mapAttrs (name: value: {
+  #         imports = value._module.args.modules;
+  #         deployment = import ./machines/nixos/${name}/deployment.nix;
+  #       }) conf);
+
+  #   };
 }

@@ -16,7 +16,7 @@ let
       "/home/${user}";
 
 in
-lib.mkIf (builtins.elem "eford" config.rv32ima.machine.users) {
+{
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
 

@@ -16,9 +16,7 @@ let
 
   canSetPassword = builtins.hasAttr "hashedPasswordFile" (options.users.users.type.getSubOptions { });
 in
-# You might be saying, "ew ellie, yuck!", why do you have to do this hack?
-# I know, I know. But dynamic imports based off of an option doesn't work.
-lib.mkIf (builtins.elem "ellie" config.rv32ima.machine.users) {
+{
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
 

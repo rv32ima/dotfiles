@@ -2,12 +2,14 @@
   modulesPath,
   inputs,
   lib,
+  self,
   ...
 }:
 {
   imports = [
     "${modulesPath}/installer/netboot/netboot-minimal.nix"
     ./network.nix
+    (self.lib.user "root")
   ];
 
   config = {
@@ -15,9 +17,6 @@
     rv32ima.machine.hostName = "sisterhood";
     rv32ima.machine.stateVersion = "25.05";
     rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.users = [
-      "root"
-    ];
     rv32ima.machine.isRemote = true;
 
     environment.systemPackages = [

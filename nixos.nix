@@ -1,6 +1,7 @@
 {
   machines,
   inputs,
+  self,
   ...
 }:
 let
@@ -18,6 +19,7 @@ let
         inherit
           inputs
           machine
+          self
           ;
       };
 

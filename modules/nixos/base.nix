@@ -22,11 +22,6 @@
       default = "";
       description = "The state version for this machine";
     };
-    rv32ima.machine.users = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "The users on this machine";
-    };
     rv32ima.machine.isRemote = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -1,6 +1,7 @@
 {
   machines,
   inputs,
+  self,
   ...
 }:
 let
@@ -14,6 +15,7 @@ let
       specialArgs = {
         inherit
           inputs
+          self
           ;
       };
     in
