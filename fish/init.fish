@@ -193,5 +193,4 @@ if test -x "$(which jj 2>/dev/null)"
   jj util completion fish | source
 end
 
-eval (ssh-agent -c)
-
+{ eval (ssh-agent -c) } &>/dev/null
