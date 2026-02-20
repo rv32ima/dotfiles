@@ -115,7 +115,6 @@
             colmena =
               let
                 blacklistedNodes = [
-                  "golden-experience"
                   "nixos-netboot"
                   "ca-node"
                 ];
