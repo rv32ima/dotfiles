@@ -18,6 +18,11 @@
       pkgs.openssh
     ];
 
+    environment.variables = {
+      "SSH_ASKPASS" = "/opt/homebrew/opt/ssh-askpass/bin/ssh-askpass";
+      "SUDO_ASKPASS" = "/opt/homebrew/opt/ssh-askpass/bin/ssh-askpass";
+    };
+
     services.aerospace = {
       enable = true;
       settings = {
