@@ -42,16 +42,16 @@
     "darwin-ssh-askpass": {
       "flake": false,
       "locked": {
-        "lastModified": 1733911744,
-        "narHash": "sha256-AIavOodSuRjCuZE6XRTi86sdLdrLwQyMNwpy8FEx0Ak=",
+        "lastModified": 1733921657,
+        "narHash": "sha256-o4Alucmh6s2ZWuTPr0E+cmr+859xgeQ1RHgHKCu3+1k=",
         "owner": "theseal",
-        "repo": "ssh-askpass",
-        "rev": "5d4e581d4823bb12f01321a52f4c1611b361c035",
+        "repo": "homebrew-ssh-askpass",
+        "rev": "1fc55f5aa614ed21240822275928970df88a4470",
         "type": "github"
       },
       "original": {
         "owner": "theseal",
-        "repo": "ssh-askpass",
+        "repo": "homebrew-ssh-askpass",
         "type": "github"
       }
     },

@@ -60,7 +60,7 @@
     microvm.inputs.flake-utils.follows = "flake-utils";
     colmena.url = "github:zhaofengli/colmena";
     darwin-ssh-askpass = {
-      url = "github:theseal/ssh-askpass";
+      url = "github:theseal/homebrew-ssh-askpass";
       flake = false;
     };
   };
