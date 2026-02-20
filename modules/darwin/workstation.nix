@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -9,6 +10,14 @@
   };
 
   config = lib.mkIf config.rv32ima.machine.workstation.enable {
+    environment.shells = [
+      pkgs.fish
+    ];
+
+    environment.systemPackages = [
+      pkgs.openssh
+    ];
+
     services.aerospace = {
       enable = true;
       settings = {
