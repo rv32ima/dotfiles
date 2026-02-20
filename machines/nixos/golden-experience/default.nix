@@ -65,5 +65,8 @@ in
     hardware.enableRedistributableFirmware = true;
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
+
+    services.ollama.enable = true;
+    services.ollama.package = pkgsUnstable.ollama-vulkan;
   };
 }
