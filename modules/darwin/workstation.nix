@@ -119,6 +119,9 @@
     homebrew = {
       enable = true;
       global.autoUpdate = false;
+      brews = [
+        "ssh-askpass"
+      ];
       casks = [
         "1password-cli"
         "ghostty"

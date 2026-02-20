@@ -39,6 +39,22 @@
         "type": "github"
       }
     },
+    "darwin-ssh-askpass": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733911744,
+        "narHash": "sha256-AIavOodSuRjCuZE6XRTi86sdLdrLwQyMNwpy8FEx0Ak=",
+        "owner": "theseal",
+        "repo": "ssh-askpass",
+        "rev": "5d4e581d4823bb12f01321a52f4c1611b361c035",
+        "type": "github"
+      },
+      "original": {
+        "owner": "theseal",
+        "repo": "ssh-askpass",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -500,6 +516,7 @@
     "root": {
       "inputs": {
         "colmena": "colmena",
+        "darwin-ssh-askpass": "darwin-ssh-askpass",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils_2",

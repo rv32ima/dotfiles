@@ -59,6 +59,10 @@
     microvm.url = "github:microvm-nix/microvm.nix";
     microvm.inputs.flake-utils.follows = "flake-utils";
     colmena.url = "github:zhaofengli/colmena";
+    darwin-ssh-askpass = {
+      url = "github:theseal/ssh-askpass";
+      flake = false;
+    };
   };
 
   outputs =
