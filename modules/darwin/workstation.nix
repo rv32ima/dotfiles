@@ -115,6 +115,7 @@
         "ghostty"
         "setapp"
         "orbstack"
+        "jordanbaird-ice"
       ];
     };
 
