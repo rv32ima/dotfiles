@@ -113,6 +113,8 @@
       casks = [
         "1password-cli"
         "ghostty"
+        "setapp"
+        "orbstack"
       ];
     };
 

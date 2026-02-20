@@ -9,11 +9,7 @@
   ];
 
   home = {
-    file.".ssh" = {
-      enable = true;
-      recursive = true;
-      source = ../../ssh;
-    };
+
 
     file.".config/ghostty/config" = {
       source = "${inputs.self}/ghostty/config";

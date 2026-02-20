@@ -58,6 +58,12 @@ in
       )
     ];
 
+    home.file.".ssh/config" = {
+      enable = true;
+      recursive = true;
+      source = ../../ssh/ellie.config;
+    };
+
     home.file."bin" = {
       source = "${inputs.self}/bin";
       recursive = true;
