@@ -8,7 +8,7 @@
 }:
 let
   pkgsUnstable = import inputs.nixpkgs-unstable {
-    system = config.rv32ima.machine.platform;
+    system = pkgs.stdenv.hostPlatform.system;
   };
 in
 {
