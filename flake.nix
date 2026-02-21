@@ -71,6 +71,7 @@
       nixpkgs,
       flake-parts,
       colmena,
+      nix-darwin,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -136,6 +137,46 @@
               }) conf);
 
             lib = {
+              vars = {
+                machines = import ./vars/machines.nix inputs;
+              };
+
+              nixosSystem =
+                machineName: self.lib.nixosSystem' machineName ./machines/nixos/${machineName}/configuration.nix;
+
+              nixosSystem' =
+                machineName: machineModule:
+                nixpkgs.lib.nixosSystem {
+                  modules = [
+                    { networking.hostName = machineName; }
+                    (self.lib.nixosModule "nixos/base")
+                    machineModule
+                  ];
+                  specialArgs = {
+                    inherit self inputs;
+                    vars = self.lib.vars;
+                    vars' = self.lib.vars.machines.${machineName} or { };
+                  };
+                };
+
+              darwinSystem =
+                machineName: self.lib.darwinSystem' machineName ./machines/${machineName}/configuration.nix;
+
+              darwinSystem' =
+                machineName: machineModule:
+                nix-darwin.lib.darwinSystem {
+                  modules = [
+                    { networking.hostName = machineName; }
+                    (self.lib.nixosModule "darwin/base")
+                    machineModule
+                  ];
+                  specialArgs = {
+                    inherit self inputs;
+                    vars = self.lib.vars;
+                    vars' = self.lib.vars.machines.${machineName} or { };
+                  };
+                };
+
               nixosModule =
                 name:
                 if builtins.pathExists ./modules/${name}/default.nix then

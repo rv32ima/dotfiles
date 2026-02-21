@@ -42,7 +42,6 @@
     system.stateVersion = 6;
     system.primaryUser = "eford";
     nixpkgs.hostPlatform = "aarch64-darwin";
-    networking.hostName = "6fingerdeathpunch";
     networking.domain = "net.ellie.fm";
   };
 }

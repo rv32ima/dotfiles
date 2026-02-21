@@ -11,50 +11,7 @@ let
       file,
       ...
     }:
-    let
-      specialArgs = {
-        inherit
-          inputs
-          self
-          ;
-      };
-    in
-    inputs.nix-darwin.lib.darwinSystem {
-      inherit specialArgs;
-      modules = [
-        inputs.sops-nix.darwinModules.sops
-        inputs.nix-homebrew.darwinModules.nix-homebrew
-        (
-          { config, ... }:
-          {
-            nix-homebrew = {
-              autoMigrate = true;
-              enable = true;
-              enableRosetta = true;
-              user = config.system.primaryUser;
-              taps = {
-                "homebrew/homebrew-core" = inputs.homebrew-core;
-                "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                "theseal/homebrew-ssh-askpass" = inputs.darwin-ssh-askpass;
-              };
-              mutableTaps = false;
-            };
-          }
-        )
-        inputs.home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
-            inherit inputs;
-          };
-        }
-        (self.lib.nixosModule "shared/nix-config")
-        (self.lib.nixosModule "shared/nixpkgs")
-        file
-      ];
-    };
+    self.lib.darwinSystem' hostName file;
 in
 builtins.listToAttrs (
   map (

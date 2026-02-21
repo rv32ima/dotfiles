@@ -65,7 +65,6 @@ in
 
     nixpkgs.hostPlatform = "x86_64-linux";
     system.stateVersion = "25.11";
-    networking.hostName = "golden-experience";
     networking.domain = "net.ellie.fm";
   };
 }

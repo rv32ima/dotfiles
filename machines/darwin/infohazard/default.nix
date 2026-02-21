@@ -59,7 +59,6 @@ in
     system.stateVersion = 6;
     system.primaryUser = "ellie";
     nixpkgs.hostPlatform = "aarch64-darwin";
-    networking.hostName = "infohazard";
     networking.domain = "net.ellie.fm";
   };
 }
