@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    (self.lib.user "eford-pinterest")
+    (self.lib.userModule "eford-pinterest")
   ];
   config = {
     rv32ima.machine.enable = true;

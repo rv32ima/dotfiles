@@ -13,8 +13,8 @@ in
 {
   imports = [
     ./network.nix
-    (self.lib.user "root")
-    (self.lib.user "ellie")
+    (self.lib.userModule "root")
+    (self.lib.userModule "ellie")
   ];
 
   config = {

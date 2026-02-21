@@ -12,7 +12,7 @@ let
 in
 {
   imports = [
-    (self.lib.user "ellie")
+    (self.lib.userModule "ellie")
 
   ];
 

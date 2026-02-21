@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    (self.lib.user "root")
+    (self.lib.userModule "root")
   ];
 
   config = {

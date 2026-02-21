@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    (self.lib.user "eford-tvsci")
+    (self.lib.userModule "eford-tvsci")
   ];
   config = {
     rv32ima.machine.enable = true;

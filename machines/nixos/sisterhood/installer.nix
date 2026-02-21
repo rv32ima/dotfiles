@@ -9,7 +9,7 @@
   imports = [
     "${modulesPath}/installer/netboot/netboot-minimal.nix"
     ./network.nix
-    (self.lib.user "root")
+    (self.lib.userModule "root")
   ];
 
   config = {

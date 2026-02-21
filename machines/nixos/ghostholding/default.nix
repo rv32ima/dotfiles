@@ -9,7 +9,7 @@
     ./network.nix
     ./disk-config.nix
 
-    (self.lib.user "root")
+    (self.lib.userModule "root")
   ];
 
   config = {
