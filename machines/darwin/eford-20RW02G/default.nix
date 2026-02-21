@@ -5,8 +5,7 @@
 {
   imports = [
     (self.lib.nixosModule "darwin/workstation")
-
-    (self.lib.userModule "eford-pinterest")
+    (self.lib.nixosModule "users/eford-pinterest")
   ];
   config = {
     rv32ima.machine.workstation.enable = true;

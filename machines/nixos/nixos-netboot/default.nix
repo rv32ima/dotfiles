@@ -9,16 +9,10 @@
   imports = [
     (self.lib.nixosModule "nixos/netboot")
 
-    (self.lib.userModule "root")
+    (self.lib.nixosModule "users/root")
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "nixos-netboot";
-    rv32ima.machine.stateVersion = "25.11";
-    rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.isRemote = true;
-
     environment.systemPackages = [
       inputs.disko.packages.x86_64-linux.default
     ];

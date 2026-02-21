@@ -136,15 +136,6 @@
               }) conf);
 
             lib = {
-              userModule =
-                userName:
-                if builtins.pathExists ./users/${userName}/default.nix then
-                  import ./users/${userName}/default.nix
-                else if builtins.pathExists ./users/${userName}.nix then
-                  import ./users/${userName}.nix
-                else
-                  throw "User module '${userName}' not found in users directory";
-
               nixosModule =
                 name:
                 if builtins.pathExists ./modules/${name}/default.nix then

@@ -16,8 +16,8 @@ in
     (self.lib.nixosModule "nixos/zfs-mirror")
     (self.lib.nixosModule "nixos/remote-builder")
 
-    (self.lib.userModule "root")
-    (self.lib.userModule "ellie")
+    (self.lib.nixosModule "users/root")
+    (self.lib.nixosModule "users/ellie")
 
     ./network.nix
   ];

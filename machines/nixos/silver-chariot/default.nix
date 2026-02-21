@@ -11,9 +11,13 @@ let
 in
 {
   imports = [
+    (self.lib.nixosModule "nixos/impermanence")
+    (self.lib.nixosModule "nixos/zfs-mirror")
+    (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "users/root")
+    (self.lib.nixosModule "users/ellie")
+
     ./network.nix
-    (self.lib.userModule "root")
-    (self.lib.userModule "ellie")
   ];
 
   config = {

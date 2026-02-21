@@ -8,7 +8,7 @@
 {
   imports = [
     "${modulesPath}/installer/netboot/netboot-minimal.nix"
-    (self.lib.userModule "root")
+    (self.lib.nixosModule "users/root")
   ];
 
   config = {

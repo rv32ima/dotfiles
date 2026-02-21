@@ -6,7 +6,7 @@
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
 
-    (self.lib.userModule "root")
+    (self.lib.nixosModule "users/root")
 
     ./network.nix
     ./disk-config.nix

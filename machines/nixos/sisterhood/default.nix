@@ -16,8 +16,8 @@ in
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/remote-builder")
 
-    (self.lib.userModule "root")
-    (self.lib.userModule "ellie")
+    (self.lib.nixosModule "users/root")
+    (self.lib.nixosModule "users/ellie")
 
     ./network.nix
     ./disk-config.nix

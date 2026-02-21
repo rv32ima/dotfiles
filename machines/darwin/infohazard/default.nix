@@ -14,8 +14,7 @@ in
   imports = [
     (self.lib.nixosModule "darwin/workstation")
     (self.lib.nixosModule "darwin/linux-builder")
-
-    (self.lib.userModule "ellie")
+    (self.lib.nixosModule "users/ellie")
   ];
 
   config = {

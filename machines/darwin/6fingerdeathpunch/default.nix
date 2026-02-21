@@ -5,8 +5,7 @@
 {
   imports = [
     (self.lib.nixosModule "darwin/workstation")
-
-    (self.lib.userModule "eford-tvsci")
+    (self.lib.nixosModule "users/eford-tvsci")
   ];
   config = {
     rv32ima.machine.workstation.enable = true;

@@ -8,7 +8,7 @@
 {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-    (self.lib.userModule "root")
+    (self.lib.nixosModule "users/root")
   ];
 
   config = {
