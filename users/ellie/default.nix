@@ -3,6 +3,7 @@
   options,
   config,
   inputs,
+  self,
   lib,
   ...
 }:
@@ -50,12 +51,7 @@ in
 
   home-manager.users."ellie" = {
     imports = [
-      (
-        if config.rv32ima.machine.isRemote then
-          "${inputs.self}/modules/home-manager/remote.nix"
-        else
-          "${inputs.self}/modules/home-manager/local.nix"
-      )
+      (self.lib.nixosModule "home-manager/local")
     ];
 
     home.file.".ssh/config" = {

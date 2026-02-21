@@ -8,16 +8,13 @@
 {
   imports = [
     "${modulesPath}/installer/netboot/netboot-minimal.nix"
-    ./network.nix
+
     (self.lib.userModule "root")
+
+    ./network.nix
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "zephyr";
-    rv32ima.machine.stateVersion = "25.05";
-    rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.isRemote = true;
 
     environment.systemPackages = [
       inputs.disko.packages.x86_64-linux.default
@@ -37,5 +34,10 @@
     networking.firewall.allowedTCPPorts = [
       22
     ];
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    system.stateVersion = "25.11";
+    networking.hostName = "silver-chariot";
+    networking.domain = "sea.t4t.net";
   };
 }

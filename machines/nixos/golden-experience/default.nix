@@ -11,21 +11,16 @@ let
 in
 {
   imports = [
-    ./disk-config.nix
+    (self.lib.nixosModule "nixos/impermanence")
+    (self.lib.nixosModule "nixos/remote-builder")
 
     (self.lib.userModule "root")
     (self.lib.userModule "ellie")
+
+    ./disk-config.nix
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "golden-experience";
-    rv32ima.machine.stateVersion = "25.11";
-    rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.isRemote = true;
-    rv32ima.machine.impermanence.enable = true;
-    rv32ima.machine.remote-builder.enable = true;
-
     services.getty.autologinUser = "root";
 
     boot.initrd.availableKernelModules = [
@@ -68,5 +63,10 @@ in
 
     services.ollama.enable = true;
     services.ollama.package = pkgsUnstable.ollama-vulkan;
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    system.stateVersion = "25.11";
+    networking.hostName = "golden-experience";
+    networking.domain = "net.ellie.fm";
   };
 }

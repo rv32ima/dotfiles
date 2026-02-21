@@ -20,14 +20,13 @@ let
   '';
 in
 {
-  options.rv32ima.machine.remote-builder.enable = lib.mkEnableOption "Remote Builder";
   options.rv32ima.machine.remote-builder.key = lib.mkOption {
     type = lib.types.singleLineStr;
     default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYuMJ2VhzIpdQ158PvX2SH+8HRJ3Y4nbYvzNcPuaPI+ builder@localhost";
     description = "ssh public key for the remote build user";
   };
 
-  config = lib.mkIf config.rv32ima.machine.remote-builder.enable {
+  config = {
     users.users.nix.openssh.authorizedKeys.keys = [
       # use nix-store for hydra which doesn't support ssh-ng
       ''restrict,command="${nix-ssh-wrapper}" ${config.rv32ima.machine.remote-builder.key}''

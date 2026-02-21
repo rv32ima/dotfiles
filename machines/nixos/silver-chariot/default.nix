@@ -1,8 +1,6 @@
 {
   config,
   inputs,
-  pkgs,
-  lib,
   self,
   ...
 }:
@@ -19,11 +17,6 @@ in
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "silver-chariot";
-    rv32ima.machine.stateVersion = "25.11";
-    rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.isRemote = true;
     rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.enableZfsMirror = true;
     rv32ima.machine.zfsMirrorDisks = [
@@ -86,5 +79,10 @@ in
 
     networking.useNetworkd = true;
     networking.firewall.allowedTCPPorts = [ ];
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    system.stateVersion = "25.11";
+    networking.hostName = "silver-chariot";
+    networking.domain = "sea.t4t.net";
   };
 }

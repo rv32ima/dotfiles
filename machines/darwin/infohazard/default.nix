@@ -12,17 +12,12 @@ let
 in
 {
   imports = [
-    (self.lib.userModule "ellie")
+    (self.lib.nixosModule "darwin/workstation")
 
+    (self.lib.userModule "ellie")
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "infohazard";
-    rv32ima.machine.stateVersion = 6;
-    rv32ima.machine.primaryUser = "ellie";
-    rv32ima.machine.platform = "aarch64-darwin";
-    rv32ima.machine.isRemote = false;
     rv32ima.machine.workstation.enable = true;
 
     # Tailscale Split DNS doesn't work with the OSS-built
@@ -60,5 +55,11 @@ in
         ];
       }
     ];
+
+    system.stateVersion = 6;
+    system.primaryUser = "ellie";
+    nixpkgs.hostPlatform = "aarch64-darwin";
+    networking.hostName = "infohazard";
+    networking.domain = "net.ellie.fm";
   };
 }

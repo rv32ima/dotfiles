@@ -4,15 +4,11 @@
 }:
 {
   imports = [
+    (self.lib.nixosModule "darwin/workstation")
+
     (self.lib.userModule "eford-pinterest")
   ];
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "eford-20RW02G";
-    rv32ima.machine.stateVersion = 6;
-    rv32ima.machine.primaryUser = "eford";
-    rv32ima.machine.platform = "aarch64-darwin";
-    rv32ima.machine.isRemote = false;
     rv32ima.machine.workstation.enable = true;
 
     nix.buildMachines = [
@@ -32,5 +28,10 @@
 
     nix.settings.max-jobs = 10;
     nix.distributedBuilds = true;
+
+    system.stateVersion = 6;
+    system.primaryUser = "eford";
+    nixpkgs.hostPlatform = "aarch64-darwin";
+    networking.hostName = "eford-20RW02G";
   };
 }

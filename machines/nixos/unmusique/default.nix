@@ -12,18 +12,17 @@ let
 in
 {
   imports = [
-    ./network.nix
+    (self.lib.nixosModule "nixos/impermanence")
+    (self.lib.nixosModule "nixos/zfs-mirror")
+    (self.lib.nixosModule "nixos/remote-builder")
+
     (self.lib.userModule "root")
     (self.lib.userModule "ellie")
+
+    ./network.nix
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "unmusique";
-    rv32ima.machine.stateVersion = "25.11";
-    rv32ima.machine.platform = "x86_64-linux";
-    rv32ima.machine.isRemote = true;
-    rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.enableZfsMirror = true;
     rv32ima.machine.zfsMirrorDisks = [
       "/dev/disk/by-id/ata-MK000480GZXRA_S6M8NE0RC00250"
@@ -211,6 +210,11 @@ in
         ensureDBOwnership = true;
       }
     ];
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    system.stateVersion = "25.11";
+    networking.hostName = "unmusique";
+    networking.domain = "sea.t4t.net";
 
   };
 }

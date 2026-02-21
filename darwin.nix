@@ -31,7 +31,7 @@ let
               autoMigrate = true;
               enable = true;
               enableRosetta = true;
-              user = config.rv32ima.machine.primaryUser;
+              user = config.system.primaryUser;
               taps = {
                 "homebrew/homebrew-core" = inputs.homebrew-core;
                 "homebrew/homebrew-cask" = inputs.homebrew-cask;
@@ -50,7 +50,8 @@ let
             inherit inputs;
           };
         }
-        ./modules/darwin/default.nix
+        (self.lib.nixosModule "shared/nix-config")
+        (self.lib.nixosModule "shared/nixpkgs")
         file
       ];
     };

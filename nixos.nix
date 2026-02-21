@@ -34,7 +34,8 @@ let
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = extraArgs;
         }
-        ./modules/nixos/default.nix
+        (self.lib.nixosModule "shared/nix-config")
+        (self.lib.nixosModule "shared/nixpkgs")
         ./machines/nixos/${hostName}/${configFile}
       ];
     };

@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }:
 {
@@ -10,13 +11,13 @@
     fish = {
       enable = true;
       # TODO: don't do this anymore
-      shellInit = builtins.readFile ../../fish/init.fish;
+      shellInit = builtins.readFile "${inputs.self}/fish/init.fish";
     };
 
     starship = {
       enable = true;
       # TODO: don't do this anymore
-      settings = builtins.fromTOML (builtins.readFile ../../starship/starship.toml);
+      settings = builtins.fromTOML (builtins.readFile "${inputs.self}/starship/starship.toml");
     };
 
     git = {
@@ -43,7 +44,7 @@
 
     jujutsu = {
       enable = true;
-      settings = builtins.fromTOML (builtins.readFile ../../jj/${config.home.username}.toml);
+      settings = builtins.fromTOML (builtins.readFile "${inputs.self}/jj/${config.home.username}.toml");
     };
 
     direnv = {
@@ -91,7 +92,7 @@
 
   xdg.configFile."nvim/lua" = {
     recursive = true;
-    source = ../../nvim/lua;
+    source = "${inputs.self}/nvim/lua";
   };
 
   home.packages = with pkgs; [

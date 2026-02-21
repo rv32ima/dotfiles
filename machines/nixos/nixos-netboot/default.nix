@@ -7,6 +7,8 @@
 }:
 {
   imports = [
+    (self.lib.nixosModule "nixos/netboot")
+
     (self.lib.userModule "root")
   ];
 
@@ -29,5 +31,9 @@
     networking.firewall.allowedTCPPorts = [
       22
     ];
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    system.stateVersion = "25.11";
+    networking.hostName = "nixos-netboot";
   };
 }

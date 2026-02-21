@@ -1,26 +1,18 @@
 {
-  pkgs,
-  config,
   self,
   ...
 }:
 {
   imports = [
-    ./network.nix
-    ./disk-config.nix
+    (self.lib.nixosModule "nixos/impermanence")
 
     (self.lib.userModule "root")
+
+    ./network.nix
+    ./disk-config.nix
   ];
 
   config = {
-    rv32ima.machine.enable = true;
-    rv32ima.machine.hostName = "ghostholding";
-    rv32ima.machine.stateVersion = "25.11";
-    rv32ima.machine.platform = "x86_64-linux";
-
-    rv32ima.machine.isRemote = true;
-    rv32ima.machine.impermanence.enable = true;
-
     services.getty.autologinUser = "root";
 
     boot.initrd.availableKernelModules = [
@@ -206,5 +198,10 @@
     programs.fish.useBabelfish = true;
 
     services.prometheus.exporters.node.enable = true;
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    system.stateVersion = "25.11";
+    networking.hostName = "ghostholding";
+    networking.domain = "sea.t4t.net";
   };
 }

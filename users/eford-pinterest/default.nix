@@ -1,10 +1,10 @@
 {
   pkgs,
-  machine,
   options,
   config,
   lib,
   inputs,
+  self,
   ...
 }:
 let
@@ -39,12 +39,7 @@ in
 
   home-manager.users."eford" = {
     imports = [
-      (
-        if config.rv32ima.machine.isRemote then
-          "${inputs.self}/modules/home-manager/remote.nix"
-        else
-          "${inputs.self}/modules/home-manager/local.nix"
-      )
+      (self.lib.nixosModule "home-manager/local")
     ];
 
     home.file."bin" = {

@@ -144,6 +144,15 @@
                   import ./users/${userName}.nix
                 else
                   throw "User module '${userName}' not found in users directory";
+
+              nixosModule =
+                name:
+                if builtins.pathExists ./modules/${name}/default.nix then
+                  import ./modules/${name}/default.nix
+                else if builtins.pathExists ./modules/${name}.nix then
+                  import ./modules/${name}.nix
+                else
+                  throw "NixOS module '${name}' not found in modules directory";
             };
 
           };
