@@ -47,7 +47,7 @@ in
       settings = {
         user = {
           email = "eford@pinterest.com";
-          name = "eford_pins";
+          name = "Ellie Ford";
         };
 
         "url \"ssh://git@github.com/\"" = {

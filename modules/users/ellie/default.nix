@@ -58,7 +58,7 @@ in
       enable = true;
       settings = {
         user = {
-          name = "rv32ima";
+          name = "Ellie Ford";
           email = "me@ellie.fm";
         };
 
@@ -80,7 +80,7 @@ in
       enable = true;
       settings = {
         user = {
-          name = "rv32ima";
+          name = "Ellie Ford";
           email = "me@ellie.fm";
         };
 

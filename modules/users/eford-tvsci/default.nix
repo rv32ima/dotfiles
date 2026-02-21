@@ -47,7 +47,7 @@ in
       settings = {
         user = {
           email = "eford@tvscientific.com";
-          name = "rv32ima";
+          name = "Ellie Ford";
         };
 
         "url \"ssh://git@github.com/\"" = {
