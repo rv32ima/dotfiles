@@ -54,10 +54,14 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    microvm.url = "github:microvm-nix/microvm.nix";
-    microvm.inputs.flake-utils.follows = "flake-utils";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     colmena.url = "github:zhaofengli/colmena";
     darwin-ssh-askpass = {
       url = "github:theseal/homebrew-ssh-askpass";
@@ -89,27 +93,50 @@
 
             getMachineFiles =
               type:
-              builtins.map
-                (hostName: {
-                  inherit hostName;
-                  file = ./machines/${type}/${hostName}/default.nix;
-                })
-                (
-                  builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./machines/${type}))
-                );
+              builtins.attrNames (lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./machines/${type}));
+
             nixosMachineFiles = getMachineFiles "nixos";
             darwinMachineFiles = getMachineFiles "darwin";
           in
           {
-            darwinConfigurations = import ./darwin.nix {
-              inherit inputs self;
-              machines = darwinMachineFiles;
-            };
+            darwinConfigurations = builtins.listToAttrs (
+              map (hostName: {
+                name = hostName;
+                value = self.lib.darwinSystem' hostName ./machines/darwin/${hostName}/default.nix;
+              }) darwinMachineFiles
+            );
 
-            nixosConfigurations = import ./nixos.nix {
-              inherit inputs self;
-              machines = nixosMachineFiles;
-            };
+            nixosConfigurations = builtins.listToAttrs (
+              builtins.concatLists (
+                map (
+                  hostName:
+                  (
+                    if builtins.pathExists ./machines/nixos/${hostName}/default.nix then
+                      [
+                        {
+                          name = hostName;
+                          value = self.lib.nixosSystem' hostName ./machines/nixos/${hostName}/default.nix;
+                        }
+                      ]
+                    else
+                      [ ]
+                  )
+                  ++ (
+                    if builtins.pathExists ./machines/nixos/${hostName}/installer.nix then
+                      [
+                        {
+                          name = "${hostName}-installer";
+                          value = self.lib.nixosSystem' hostName ./machines/nixos/${hostName}/installer.nix;
+
+                        }
+
+                      ]
+                    else
+                      [ ]
+                  )
+                ) nixosMachineFiles
+              )
+            );
 
             colmenaHive = colmena.lib.makeHive self.outputs.colmena;
 
@@ -133,7 +160,7 @@
               }
               // (builtins.mapAttrs (name: value: {
                 imports = value._module.args.modules;
-                deployment = import ./machines/nixos/${name}/deployment.nix;
+                deployment = self.lib.vars.machines.${name}.deployment or { };
               }) conf);
 
             lib = {
