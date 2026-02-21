@@ -50,7 +50,7 @@ in
     home.file.".ssh/config" = {
       enable = true;
       recursive = true;
-      source = ../../ssh/eford-pinterest.config;
+      source = "${inputs.self}/ssh/eford-pinterest.config";
     };
 
     home.sessionPath = [
