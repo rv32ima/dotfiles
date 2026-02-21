@@ -31,6 +31,5 @@
     system.stateVersion = 6;
     system.primaryUser = "eford";
     nixpkgs.hostPlatform = "aarch64-darwin";
-    networking.hostName = "eford-20RW02G";
   };
 }
