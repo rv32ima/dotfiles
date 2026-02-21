@@ -1,3 +1,4 @@
+{ ... }:
 {
   "ghostholding" = {
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJOdJCK9bK++zCrAqJ5qkvakYMZbcWKynbaWo4F30Jk";
