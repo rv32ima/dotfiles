@@ -39,8 +39,36 @@ in
 
   home-manager.users."eford" = {
     imports = [
-      (self.lib.nixosModule "home-manager/local")
+      (self.lib.nixosModule "home-manager/common")
     ];
+
+    programs.git = {
+      enable = true;
+      settings = {
+        user = {
+          email = "eford@pinterest.com";
+          name = "eford_pins";
+        };
+
+        "url \"ssh://git@github.com/\"" = {
+          insteadOf = "https://github.com/";
+        };
+      };
+    };
+
+    programs.jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Ellie Ford";
+          email = "eford@pinterest.com";
+        };
+
+        ui = {
+          merge-editor = "vscode";
+        };
+      };
+    };
 
     home.file."bin" = {
       source = "${inputs.self}/bin";
@@ -58,19 +86,15 @@ in
     ];
 
     home.username = "eford";
-    home.stateVersion = "25.05";
+    home.stateVersion = "25.11";
     home.packages = with pkgs; [
       zigpkgs."0.15.1"
       inputs.zls.packages.${system}.default
-      cargo-mommy
 
       duckdb
       google-cloud-sdk
       awscli2
       rclone
-
-      tenv
-      nix-your-shell
     ];
   };
 

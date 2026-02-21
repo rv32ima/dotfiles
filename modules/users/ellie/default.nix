@@ -51,8 +51,44 @@ in
 
   home-manager.users."ellie" = {
     imports = [
-      (self.lib.nixosModule "home-manager/local")
+      (self.lib.nixosModule "home-manager/common")
     ];
+
+    programs.git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "rv32ima";
+          email = "me@ellie.fm";
+        };
+
+        "includeIf \"gitdir:~/work\"" = {
+          path = "~/work/.gitconfig";
+        };
+
+        http = {
+          cookiefile = "~/.gitcookies";
+        };
+
+        "url \"ssh://git@github.com/\"" = {
+          insteadOf = "https://github.com/";
+        };
+      };
+    };
+
+    programs.jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "rv32ima";
+          email = "me@ellie.fm";
+        };
+
+        ui = {
+          merge-editor = "vscode";
+        };
+      };
+    };
 
     home.file.".ssh/config" = {
       enable = true;
@@ -70,7 +106,7 @@ in
     ];
 
     home.username = "ellie";
-    home.stateVersion = "25.05";
+    home.stateVersion = "25.11";
     home.packages = with pkgs; [
       p7zip-rar
       age
@@ -80,9 +116,6 @@ in
       kubectx
       step-cli
       awscli2
-      cargo-mommy
-      lixPackageSets.stable.lix
-      nix-your-shell
       fluxcd
       doctl
     ];

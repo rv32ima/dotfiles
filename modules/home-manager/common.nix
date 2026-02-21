@@ -20,33 +20,6 @@
       settings = builtins.fromTOML (builtins.readFile "${inputs.self}/starship/starship.toml");
     };
 
-    git = {
-      enable = true;
-      settings = {
-        user = {
-          email = "me@ellie.fm";
-          name = "ellie-idb";
-        };
-
-        "includeIf \"gitdir:~/work\"" = {
-          path = "~/work/.gitconfig";
-        };
-
-        http = {
-          cookiefile = "~/.gitcookies";
-        };
-
-        "url \"ssh://git@github.com/\"" = {
-          insteadOf = "https://github.com/";
-        };
-      };
-    };
-
-    jujutsu = {
-      enable = true;
-      settings = builtins.fromTOML (builtins.readFile "${inputs.self}/jj/${config.home.username}.toml");
-    };
-
     direnv = {
       enable = true;
     };
@@ -116,5 +89,19 @@
     graphviz
     bazelisk
     jujutsu
+    cargo-mommy
+    tenv
+    nix-your-shell
   ];
+
+  home.file.".config/ghostty/config" = {
+    source = "${inputs.self}/ghostty/config";
+    recursive = true;
+  };
+
+  home.file.".config/1Password/ssh/agent.toml" = {
+    enable = true;
+    recursive = true;
+    source = "${inputs.self}/1Password/ssh/agent.${config.home.username}.toml";
+  };
 }
