@@ -67,6 +67,8 @@
       url = "github:theseal/homebrew-ssh-askpass";
       flake = false;
     };
+    lanzaboote.url = "github:rv32ima/lanzaboote";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

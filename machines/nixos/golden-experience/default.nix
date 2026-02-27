@@ -14,6 +14,7 @@ in
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/secureboot")
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
 
@@ -21,8 +22,6 @@ in
   ];
 
   config = {
-    services.getty.autologinUser = "root";
-
     boot.initrd.availableKernelModules = [
       "ahci"
       "xhci_pci"
@@ -35,6 +34,12 @@ in
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm_amd" ];
     boot.extraModulePackages = [ ];
+
+    boot.initrd.luks.devices = {
+      # This is necessary for TPM2-based LUKS decryption.
+      # Keep the names in sync with disko.
+      disk1-luks.crypttabExtraOpts = [ "tpm2-device=auto" ];
+    };
 
     # head -c4 /dev/urandom | od -A none -t x4
     networking.hostId = "657c30f3";

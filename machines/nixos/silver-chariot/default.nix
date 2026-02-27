@@ -36,7 +36,6 @@ in
         group = "nogroup";
       }
     ];
-    rv32ima.machine.remote-builder.enable = true;
 
     services.getty.autologinUser = "root";
 
