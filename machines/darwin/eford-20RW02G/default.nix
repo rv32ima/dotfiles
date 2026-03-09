@@ -1,5 +1,6 @@
 {
   self,
+  config,
   ...
 }:
 {
@@ -12,10 +13,10 @@
 
     nix.buildMachines = [
       {
-        hostName = "golden-experience.net.ellie.fm";
+        hostName = "golden-experience.home.t4t.net";
         system = "x86_64-linux";
         sshUser = "nix";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU81RGRTZnozbHFiWHR6elZGV0JDSWhubEdiQnozOUs0eW9BR04vRFdlTHYK";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1yL2oxQUp4Y2J6aGZzTjJpWjdjUW5Wem1Cc0pINkZjSnh2VDhlRVVvRUwK";
         sshKey = "/etc/nix/builder_ed25519";
         maxJobs = 32;
         protocol = "ssh-ng";
@@ -23,6 +24,18 @@
           "kvm"
         ];
       }
+    ];
+
+    nix.settings.trusted-users = [
+      "${config.system.primaryUser}"
+    ];
+
+    nix.settings.trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+
+    nix.settings.trusted-substituters = [
+      "https://nix-community.cachix.org"
     ];
 
     nix.settings.max-jobs = 10;
