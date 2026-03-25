@@ -15,6 +15,7 @@ in
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/secureboot")
+    (self.lib.nixosModule "nixos/vscode-server")
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
 
