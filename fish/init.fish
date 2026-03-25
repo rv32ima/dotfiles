@@ -160,13 +160,9 @@ function nix --description "Reproducible and declarative configuration managemen
 end
 
 # If we aren't already connected via SSH
-# then we should launch the gpg-agent so we can get an SSH agent.
-if test -x "$(which gpgconf 2>/dev/null)" -a -z "$SSH_CONNECTION"
-  gpgconf --launch gpg-agent &>/dev/null
-  if test $status -eq 0;
-    set -gx GPG_TTY (tty)
-    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-  end
+# then we should launch the SSH agent.
+if test -z "$SSH_CONNECTION"
+  { eval (ssh-agent -c) } &>/dev/null
 end
 
 if test -e "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
@@ -193,4 +189,3 @@ if test -x "$(which jj 2>/dev/null)"
   jj util completion fish | source
 end
 
-{ eval (ssh-agent -c) } &>/dev/null
