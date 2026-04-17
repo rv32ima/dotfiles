@@ -102,8 +102,8 @@
         {
           mode = "mirror";
           members = [
-            "disk1-luks-zroot"
-            "disk2-luks-zroot"
+            "/dev/mapper/disk1-luks-zroot"
+            "/dev/mapper/disk2-luks-zroot"
           ];
         }
       ];
