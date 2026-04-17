@@ -102,8 +102,8 @@
         {
           mode = "mirror";
           members = [
-            "disk1"
-            "disk2"
+            "disk1-luks-zroot"
+            "disk2-luks-zroot"
           ];
         }
       ];
