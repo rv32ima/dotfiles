@@ -7,6 +7,7 @@ keys:
   - &golden-experience age1gz8kydk5qp8ws7swqjjhunhmyeh5xj8v2lxxv2cudcyn8pr9kesqrj5pzk 
   - &ghostholding age15qf22v35zxffq8lh0a0wtppr20p99ayhj7u7clxzywwne54yzu8qnykh8s
   - &dreamflasher age19yfzje6pm8382xnzy6xj456c3753rvym0p2mp7jztsf62rjc83wskrdqpk
+  - &peer2peer age1cp3quktrfdckjza222emh95rd758cvsj777259xqv66ke0l48qvqs7fp7a
 creation_rules:
   - path_regex: users/.*/secrets/.*$
     key_groups:
@@ -19,6 +20,7 @@ creation_rules:
       - *golden-experience
       - *ghostholding
       - *dreamflasher
+      - *peer2peer
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:
