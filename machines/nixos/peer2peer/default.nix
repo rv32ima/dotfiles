@@ -25,6 +25,12 @@ in
   config = {
     rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.impermanence.extraPersistDirectories = [
+      {
+        path = /var/lib/sbctl;
+        mode = "0644";
+        owner = "root";
+        group = "root";
+      }
     ];
 
     boot.loader.limine.enable = true;
