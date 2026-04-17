@@ -1,7 +1,5 @@
 {
-  config,
   inputs,
-  options,
   pkgs,
   self,
   ...
@@ -15,6 +13,7 @@ in
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/secureboot")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
@@ -27,8 +26,6 @@ in
     rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.impermanence.extraPersistDirectories = [
     ];
-
-    services.getty.autologinUser = "root";
 
     boot.initrd.availableKernelModules = [
       "ahci"

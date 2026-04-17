@@ -17,18 +17,32 @@
           mountOptions = [ "umask=0077" ];
         };
       };
-      swap = {
+      luks-swap = {
         size = "32G";
         content = {
-          type = "swap";
-          discardPolicy = "both";
+          type = "luks";
+          name = "disk1-luks-swap";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "swap";
+            discardPolicy = "both";
+          };
         };
       };
-      zfs = {
+      luks-zroot = {
         size = "100%";
         content = {
-          type = "zfs";
-          pool = "zroot";
+          type = "luks";
+          name = "disk1-luks-zroot";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
         };
       };
     };
@@ -49,18 +63,32 @@
           mountOptions = [ "umask=0077" ];
         };
       };
-      swap = {
+      luks-swap = {
         size = "32G";
         content = {
-          type = "swap";
-          discardPolicy = "both";
+          type = "luks";
+          name = "disk2-luks-swap";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "swap";
+            discardPolicy = "both";
+          };
         };
       };
-      zfs = {
+      luks-zroot = {
         size = "100%";
         content = {
-          type = "zfs";
-          pool = "zroot";
+          type = "luks";
+          name = "disk2-luks-zroot";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
         };
       };
     };
