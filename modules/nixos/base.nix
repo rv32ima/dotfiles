@@ -74,4 +74,7 @@
     enable = true;
     openFirewall = true;
   };
+
+  nixpkgs.hostPlatform = vars'.platform;
+  system.stateVersion = vars'.stateVersion;
 }

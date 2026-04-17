@@ -1,9 +1,14 @@
 {
   config,
   pkgs,
+  modulesPath,
   ...
 }:
 {
+  imports = [
+    "${modulesPath}/installer/netboot/netboot-minimal.nix"
+  ];
+
   config.system.build.netboot = pkgs.symlinkJoin {
     name = "netboot";
     paths = with config.system.build; [
