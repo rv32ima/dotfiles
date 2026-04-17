@@ -27,6 +27,8 @@ in
     rv32ima.machine.impermanence.extraPersistDirectories = [
     ];
 
+    boot.loader.systemd-boot.enable = true;
+
     boot.initrd.availableKernelModules = [
       "ahci"
       "xhci_pci"
