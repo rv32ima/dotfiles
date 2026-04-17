@@ -27,7 +27,8 @@ in
     rv32ima.machine.impermanence.extraPersistDirectories = [
     ];
 
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.limine.enable = true;
+    boot.loader.limine.efiInstallAsRemovable = true;
 
     boot.initrd.availableKernelModules = [
       "ahci"
