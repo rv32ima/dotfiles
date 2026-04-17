@@ -28,6 +28,7 @@ in
     ];
 
     boot.loader.limine.enable = true;
+    boot.loader.limine.secureBoot.enable = true;
     boot.loader.limine.efiInstallAsRemovable = true;
 
     boot.initrd.availableKernelModules = [
