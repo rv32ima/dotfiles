@@ -11,10 +11,8 @@
         size = "500M";
         type = "EF00";
         content = {
-          type = "filesystem";
-          format = "vfat";
-          mountpoint = "/boot1";
-          mountOptions = [ "umask=0077" ];
+          type = "mdraid";
+          name = "boot";
         };
       };
       luks-swap = {
@@ -57,10 +55,8 @@
         size = "500M";
         type = "EF00";
         content = {
-          type = "filesystem";
-          format = "vfat";
-          mountpoint = "/boot2";
-          mountOptions = [ "umask=0077" ];
+          type = "mdraid";
+          name = "boot";
         };
       };
       luks-swap = {
@@ -145,6 +141,18 @@
         mountpoint = "/media";
         options.mountpoint = "legacy";
       };
+    };
+  };
+
+  disko.devices.mdadm.boot = {
+    type = "mdadm";
+    level = 1;
+    metadata = "1.0";
+    content = {
+      type = "filesystem";
+      format = "vfat";
+      mountpoint = "/boot";
+      mountOptions = [ "umask=0077" ];
     };
   };
 
