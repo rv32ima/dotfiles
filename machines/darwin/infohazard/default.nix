@@ -54,6 +54,20 @@ in
           "big-parallel"
         ];
       }
+      {
+        hostName = "peer2peer";
+        system = "x86_64-linux";
+        sshUser = "nix";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVB6NTRIamtCZVpMWVBRTXJJYUt4bDVVbUlQY05iSGg4TDNrTm1JZ2lWUngK";
+        sshKey = "/etc/nix/builder_ed25519";
+        maxJobs = 24;
+        protocol = "ssh-ng";
+        supportedFeatures = [
+          "kvm"
+          "benchmark"
+          "big-parallel"
+        ];
+      }
     ];
 
     system.stateVersion = 6;
