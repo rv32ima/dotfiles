@@ -45,7 +45,7 @@
     stateVersion = "25.11";
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK/aB3u9QTM6k4LnFNr93GdIuu1jQMtvZ58BbmwvWoDg";
     deployment = {
-      targetHost = "sisterhood.tail09d5b.ts.net";
+      targetHost = "peer2peer.home.t4t.net";
       targetPort = 22;
       targetUser = "root";
     };

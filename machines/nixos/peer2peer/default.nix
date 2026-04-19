@@ -14,7 +14,14 @@ in
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/remote-builder")
-    # (self.lib.nixosModule "nixos/secureboot")
+    (self.lib.nixosModule "nixos/services/soulseek")
+    (self.lib.nixosModule "nixos/services/plex")
+    (self.lib.nixosModule "nixos/services/rtorrent")
+    (self.lib.nixosModule "nixos/services/radarr")
+    (self.lib.nixosModule "nixos/services/sonarr")
+    (self.lib.nixosModule "nixos/services/prowlarr")
+    (self.lib.nixosModule "nixos/services/unpackerr")
+    (self.lib.nixosModule "nixos/services/tailscale")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
@@ -54,12 +61,7 @@ in
     # head -c4 /dev/urandom | od -A none -t x4
     networking.hostId = "a41ae525";
 
-    services.tailscale.enable = true;
-    services.tailscale.package = pkgsUnstable.tailscale;
-    services.tailscale.openFirewall = true;
-    services.tailscale.useRoutingFeatures = "both";
-    services.tailscale.extraSetFlags = [ "--accept-routes" ];
-    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+    rv32ima.machine.tailscale.enable = true;
 
     services.prometheus.exporters.node.enable = true;
 

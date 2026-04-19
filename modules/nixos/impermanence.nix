@@ -80,6 +80,7 @@
         path: builtins.toString (lib.path.append /persist (lib.path.splitRoot path).subpath);
     in
     lib.mkIf config.rv32ima.machine.impermanence.enable {
+      
       services.openssh.hostKeys = [
         {
           path = "/persist/etc/ssh/ssh_host_ed25519_key";

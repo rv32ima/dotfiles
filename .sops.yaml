@@ -21,6 +21,16 @@ creation_rules:
       - *ghostholding
       - *dreamflasher
       - *peer2peer
+  - path_regex: modules/nixos/services/soulseek/.*$
+    key_groups:
+    - age:
+      - *1password
+      - *peer2peer
+  - path_regex: modules/nixos/services/unpackerr/.*$
+    key_groups:
+    - age:
+      - *1password
+      - *peer2peer
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:

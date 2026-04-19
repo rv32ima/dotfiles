@@ -75,6 +75,14 @@
     openFirewall = true;
   };
 
+  users.groups.trusted = { };
+  # users in trusted group are trusted by the nix-daemon
+  nix.settings.trusted-users = [ "@trusted" ];
+
+  # Manage users atomically
+  users.mutableUsers = false;
+
   nixpkgs.hostPlatform = vars'.platform;
   system.stateVersion = vars'.stateVersion;
+
 }

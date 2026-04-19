@@ -32,18 +32,7 @@ in
         owner = "slskd";
         group = "slskd";
       }
-      {
-        path = /var/lib/rtorrent;
-        mode = "0770";
-        owner = "rtorrent";
-        group = "rtorrent";
-      }
-      {
-        path = /var/lib/rutorrent;
-        mode = "0775";
-        owner = "rutorrent";
-        group = "rutorrent";
-      }
+
       {
         path = /var/lib/radarr/.config/Radarr;
         mode = "0770";
@@ -101,64 +90,6 @@ in
     networking.firewall.allowedTCPPorts = [ ];
     networking.firewall.logRefusedConnections = false;
 
-    services.plex.enable = true;
-    services.plex.openFirewall = true;
-    services.plex.dataDir = "/persist/var/lib/plex";
-
-    sops.secrets."services/soulseek/environment" = {
-      sopsFile = ./secrets/soulseek.yaml;
-    };
-
-    services.slskd.enable = true;
-    services.slskd.openFirewall = true;
-    services.slskd.settings = {
-      shares.directories = [
-        "/media/music"
-      ];
-      directories.downloads = "/media/downloads/slskd/complete";
-      directories.incomplete = "/media/downloads/slskd/incomplete";
-    };
-    services.slskd.domain = "slskd.tail09d5b.ts.net";
-    services.slskd.environmentFile = config.sops.secrets."services/soulseek/environment".path;
-
-    security.pam.loginLimits = [
-      {
-        domain = "*";
-        item = "nofile";
-        type = "-";
-        value = "262144";
-      }
-    ];
-    services.rtorrent.enable = true;
-    services.rtorrent.openFirewall = true;
-    services.rtorrent.downloadDir = "/media/downloads/rtorrent";
-    services.rtorrent.configText = ''
-      system.umask.set = 0000
-      network.http.max_open.set = 4000
-      network.max_open_files.set = 10000
-      network.max_open_sockets.set = 10000
-      pieces.memory.max.set = 16384M
-      network.xmlrpc.size_limit.set = 4M
-    '';
-    systemd.services."rtorrent".serviceConfig.LimitNOFILE = "262144";
-    services.nginx.appendHttpConfig = ''
-      server {
-        listen 127.0.0.1:5050;
-        server_name localhost;
-        location / {
-            include ${pkgs.nginx}/conf/scgi_params;
-            scgi_pass unix:/run/rtorrent/rpc.sock;
-        }
-      }
-    '';
-    users.groups."rtorrent".members = [
-      "nginx"
-    ];
-
-    services.rutorrent.enable = true;
-    services.rutorrent.hostName = "rutorrent.tail09d5b.ts.net";
-    services.rutorrent.nginx.enable = true;
-
     sops.secrets."services/cloudflared/credentials_file" = {
       sopsFile = ./secrets/cloudflared.yaml;
       owner = "root";
@@ -210,7 +141,6 @@ in
       };
     };
 
-    services.radarr.enable = true;
     services.sonarr.enable = true;
     services.prowlarr.enable = true;
 
