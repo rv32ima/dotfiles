@@ -91,6 +91,28 @@
     ];
   };
 
+  systemd.network.netdevs."bond0".netdevConfig = {
+    Kind = "bond";
+    Name = "uplink";
+    MACAddress = "ec:0d:9a:f9:e4:ff";
+  };
+
+  systemd.network.netdevs."bond0".bondConfig = {
+    Mode = "802.3ad";
+    TransmitHashPolicy = "layer3+4";
+    LACPTransmitRate = "fast";
+  };
+
+  systemd.network.networks."bond0-swp3" = {
+    matchConfig.Name = "swp3";
+    networkConfig.Bond = "bond0";
+  };
+
+  systemd.network.networks."bond0-swp4" = {
+    matchConfig.Name = "swp4";
+    networkConfig.Bond = "bond0";
+  };
+
   # HAHAHAHAHAHAHAHAHAHA we are VERY funny here
   systemd.timers."cofractal-jank" = {
     wantedBy = [ "timers.target" ];
@@ -99,6 +121,21 @@
       OnUnitActiveSec = "1m";
       Unit = "cofractal-jank.service";
     };
+  };
+
+  systemd.services."fix-devlink-ratelimit" = {
+    script = ''
+      set -eu
+      ${pkgs.iproute2}/bin/devlink trap policer set pci/0000:03:00.0 policer 14 rate 4194304 burst 4194304
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    after = [
+      "network.target"
+      "network-online.target"
+    ];
   };
 
   systemd.services."cofractal-jank" = {
