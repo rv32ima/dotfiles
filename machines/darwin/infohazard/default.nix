@@ -41,20 +41,6 @@ in
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
       {
-        hostName = "sisterhood";
-        system = "x86_64-linux";
-        sshUser = "nix";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUsvYUIzdTlRVE02azRMbkZOcjkzR2RJdXUxalFNdHZaNThCYm13dldvRGcK";
-        sshKey = "/etc/nix/builder_ed25519";
-        maxJobs = 96;
-        protocol = "ssh-ng";
-        supportedFeatures = [
-          "kvm"
-          "benchmark"
-          "big-parallel"
-        ];
-      }
-      {
         hostName = "peer2peer";
         system = "x86_64-linux";
         sshUser = "nix";
