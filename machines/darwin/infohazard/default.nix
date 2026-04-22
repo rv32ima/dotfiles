@@ -3,6 +3,7 @@
   inputs,
   lib,
   self,
+  vars,
   ...
 }:
 let
@@ -40,20 +41,9 @@ in
     nix.distributedBuilds = true;
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
-      {
-        hostName = "peer2peer";
-        system = "x86_64-linux";
-        sshUser = "nix";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVB6NTRIamtCZVpMWVBRTXJJYUt4bDVVbUlQY05iSGg4TDNrTm1JZ2lWUngK";
-        sshKey = "/etc/nix/builder_ed25519";
-        maxJobs = 24;
-        protocol = "ssh-ng";
-        supportedFeatures = [
-          "kvm"
-          "benchmark"
-          "big-parallel"
-        ];
-      }
+      (self.lib.machineAsBuilder "peer2peer")
+      (self.lib.machineAsBuilder "silver-chariot")
+      (self.lib.machineAsBuilder "unmusique")
     ];
 
     system.stateVersion = 6;

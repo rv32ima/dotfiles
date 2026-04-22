@@ -82,7 +82,7 @@
   # Manage users atomically
   users.mutableUsers = false;
 
-  nixpkgs.hostPlatform = vars'.platform;
+  nixpkgs.hostPlatform = vars'.system;
   system.stateVersion = vars'.stateVersion;
 
 }

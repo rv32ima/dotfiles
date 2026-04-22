@@ -170,6 +170,27 @@
                 machines = import ./vars/machines.nix inputs;
               };
 
+              machineAsBuilder =
+                machineName:
+                let
+                  vars' = self.lib.vars.machines.${machineName};
+                in
+                if vars' ? build then
+                  {
+                    inherit (vars'.build) maxJobs sshUser supportedFeatures;
+                    inherit (vars') system;
+                    hostName = machineName;
+                    publicHostKey =
+                      let
+                        inherit (import "${inputs.self}/modules/shared/base64.nix" { inherit lib; }) toBase64;
+                      in
+                      toBase64 (vars'.sshPublicKey);
+                    sshKey = "/etc/nix/builder_ed25519";
+                    protocol = "ssh-ng";
+                  }
+                else
+                  lib.assertMsg false "machineAsBuilder must be called on a machine that has a build section";
+
               nixosSystem =
                 machineName: self.lib.nixosSystem' machineName ./machines/nixos/${machineName}/configuration.nix;
 
