@@ -20,6 +20,7 @@ in
     (self.lib.nixosModule "nixos/services/radarr")
     (self.lib.nixosModule "nixos/services/sonarr")
     (self.lib.nixosModule "nixos/services/prowlarr")
+    (self.lib.nixosModule "nixos/services/overseerr")
     (self.lib.nixosModule "nixos/services/unpackerr")
     (self.lib.nixosModule "nixos/services/tailscale")
 
