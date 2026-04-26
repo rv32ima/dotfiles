@@ -90,6 +90,94 @@
     };
   };
 
+  disko.devices.disk.disk3 = {
+    type = "disk";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_4TB_S7U8NJ0YA08333N";
+    content.type = "gpt";
+    content.partitions = {
+      ESP = {
+        size = "500M";
+        type = "EF00";
+        content = {
+          type = "mdraid";
+          name = "boot";
+        };
+      };
+      luks-swap = {
+        size = "32G";
+        content = {
+          type = "luks";
+          name = "disk3-luks-swap";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "swap";
+            discardPolicy = "both";
+          };
+        };
+      };
+      luks-zroot = {
+        size = "100%";
+        content = {
+          type = "luks";
+          name = "disk3-luks-zroot";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
+        };
+      };
+    };
+  };
+
+  disko.devices.disk.disk4 = {
+    type = "disk";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_990_EVO_Plus_4TB_S7U8NJ0YA08351W";
+    content.type = "gpt";
+    content.partitions = {
+      ESP = {
+        size = "500M";
+        type = "EF00";
+        content = {
+          type = "mdraid";
+          name = "boot";
+        };
+      };
+      luks-swap = {
+        size = "32G";
+        content = {
+          type = "luks";
+          name = "disk4-luks-swap";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "swap";
+            discardPolicy = "both";
+          };
+        };
+      };
+      luks-zroot = {
+        size = "100%";
+        content = {
+          type = "luks";
+          name = "disk4-luks-zroot";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
+        };
+      };
+    };
+  };
+
   disko.devices.zpool.zroot = {
     type = "zpool";
     mode.topology = {
@@ -100,6 +188,13 @@
           members = [
             "/dev/mapper/disk1-luks-zroot"
             "/dev/mapper/disk2-luks-zroot"
+          ];
+        }
+        {
+          mode = "mirror";
+          members = [
+            "/dev/mapper/disk3-luks-zroot"
+            "/dev/mapper/disk4-luks-zroot"
           ];
         }
       ];
