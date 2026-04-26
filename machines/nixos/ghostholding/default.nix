@@ -5,7 +5,6 @@
 {
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
-
     (self.lib.nixosModule "users/root")
 
     ./network.nix
@@ -13,6 +12,8 @@
   ];
 
   config = {
+    rv32ima.machine.impermanence.enable = true;
+
     services.getty.autologinUser = "root";
 
     boot.initrd.availableKernelModules = [
