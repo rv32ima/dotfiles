@@ -72,14 +72,18 @@
         unitConfig = {
           BindsTo = [ targetUnit ];
         };
+        path = [
+          config.services.tailscale.package
+        ];
         serviceConfig = {
           RemainAfterExit = "yes";
           Type = "oneshot";
           ExecStart = pkgs.writeShellScript "${name}-serve" ''
-            ${config.services.tailscale.package}/bin/tailscale serve --service=svc:${tag} --https=443 ${builtins.toString port}
+            tailscale wait
+            tailscale serve --service=svc:${tag} --https=443 ${builtins.toString port}
           '';
           ExecStop = pkgs.writeShellScript "${name}-serve-clear" ''
-            ${config.services.tailscale.package}/bin/tailscale serve clear svc:${tag}
+            tailscale serve clear svc:${tag}
           '';
         };
       }
