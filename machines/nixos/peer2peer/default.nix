@@ -118,6 +118,38 @@ in
       "restic-exporter"
     ];
 
+    sops.secrets."services/msmtp/password" = {
+      sopsFile = ./secrets/msmtp.yaml;
+      mode = "0444";
+    };
+
+    services.mail.sendmailSetuidWrapper.enable = true;
+
+    programs.msmtp = {
+      enable = true;
+      setSendmail = true;
+      defaults = {
+        aliases = "/etc/aliases";
+        port = 587;
+        auth = "plain";
+        tls = "on";
+        tls_starttls = "on";
+      };
+      accounts.default = {
+        host = "smtp.fastmail.com";
+        passwordeval = "cat ${config.sops.secrets."services/msmtp/password".path}";
+        from = "admin@t4t.net";
+        user = "me@ellie.fm";
+      };
+    };
+
+    environment.etc.aliases.text = ''
+      root: admin@t4t.net
+    '';
+
+    services.zfs.autoScrub.enable = true;
+    services.zfs.autoScrub.interval = "weekly";
+
     networking.domain = "sea.t4t.net";
   };
 }
