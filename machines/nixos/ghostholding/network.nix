@@ -83,10 +83,10 @@
     matchConfig.Name = "lo";
     addresses = [
       {
-        Address = "23.190.72.0/24";
+        Address = "23.190.72.0/32";
       }
       {
-        Address = "2620:C2:2000::0/48";
+        Address = "2620:C2:2000::0/64";
       }
     ];
   };
