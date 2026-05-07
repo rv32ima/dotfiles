@@ -83,17 +83,17 @@
     matchConfig.Name = "lo";
     addresses = [
       {
-        Address = "23.190.72.0/32";
+        Address = "23.190.72.0/24";
       }
       {
-        Address = "2620:C2:2000::0/64";
+        Address = "2620:C2:2000::1/48";
       }
     ];
   };
 
   systemd.network.netdevs."bond0".netdevConfig = {
     Kind = "bond";
-    Name = "uplink";
+    Name = "bond0";
     MACAddress = "ec:0d:9a:f9:e4:ff";
   };
 
@@ -112,6 +112,67 @@
     matchConfig.Name = "swp4";
     networkConfig.Bond = "bond0";
   };
+
+  systemd.network.networks."bond0" = {
+    matchConfig.Name = "bond0";
+
+    routes = [
+      {
+        Destination = "23.190.72.1";
+      }
+      {
+        Destination = "2620:C2:2000::2";
+      }
+    ];
+
+    # Without this, IPv6 neighbor discovery fails, meaning that
+    # we appear unreachable to the other side. Don't ask me why this
+    # is the way it is.
+    addresses = [
+      {
+        Address = "2620:C2:2000::1/64";
+      }
+    ];
+  };
+
+  systemd.network.netdevs."wg0" = {
+    netdevConfig = {
+      Kind = "wireguard";
+      Name = "wg0";
+    };
+    wireguardConfig = {
+      ListenPort = 51820;
+      RouteTable = "main";
+      PrivateKeyFile = "/persist/etc/wireguard/secret.key";
+    };
+    wireguardPeers = [
+      {
+        AllowedIPs = [
+          "10.100.0.2/32"
+        ];
+        PublicKey = "FfsKIokrP7QAS8vPIRqf+6YyFUW5YsoizEdXbvXRr10=";
+      }
+    ];
+  };
+
+  networking.nat.enable = true;
+  networking.nat.internalInterfaces = [ "wg0" ];
+  networking.nat.externalInterface = "eth0";
+
+  systemd.network.networks."wg0" = {
+    matchConfig.Name = "wg0";
+
+    networkConfig = {
+      IPv4Forwarding = true;
+      IPv6Forwarding = true;
+    };
+
+    address = [
+      "10.100.0.1/32"
+    ];
+  };
+
+  networking.firewall.allowedUDPPorts = [ 51820 ];
 
   # HAHAHAHAHAHAHAHAHAHA we are VERY funny here
   systemd.timers."cofractal-jank" = {

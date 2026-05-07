@@ -54,7 +54,7 @@
     stateVersion = "25.11";
     sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPz54HjkBeZLYPQMrIaKxl5UmIPcNbHh8L3kNmIgiVRx";
     deployment = {
-      targetHost = "peer2peer.home.t4t.net";
+      targetHost = "peer2peer.tail09d5b.ts.net";
       targetPort = 22;
       targetUser = "root";
     };
