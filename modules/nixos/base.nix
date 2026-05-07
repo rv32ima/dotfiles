@@ -72,7 +72,6 @@
   # Enable node-exporter by default for Prometheus monitoring.
   services.prometheus.exporters.node = {
     enable = true;
-    openFirewall = true;
   };
 
   users.groups.trusted = { };
