@@ -80,7 +80,7 @@
           Type = "oneshot";
           ExecStart = pkgs.writeShellScript "${name}-serve" ''
             tailscale wait
-            tailscale serve --service=svc:${tag} --https=443 ${builtins.toString port}
+            ${pkgs.flock}/bin/flock /tmp/tailscale-serve.lock -c "tailscale serve --service=svc:${tag} --https=443 ${builtins.toString port}"
           '';
           ExecStop = pkgs.writeShellScript "${name}-serve-clear" ''
             tailscale serve clear svc:${tag}
