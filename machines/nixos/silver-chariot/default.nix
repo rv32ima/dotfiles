@@ -15,6 +15,7 @@ in
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/zfs-mirror")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/services/tailscale")
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
 
@@ -55,25 +56,7 @@ in
     # head -c4 /dev/urandom | od -A none -t x4
     networking.hostId = "a76f6c36";
 
-    sops.secrets."services/tailscale/authKey" = {
-      sopsFile = ./secrets/tailscale.yaml;
-    };
-
-    services.tailscale.enable = true;
-    services.tailscale.package = pkgsUnstable.tailscale;
-    services.tailscale.openFirewall = true;
-    services.tailscale.useRoutingFeatures = "both";
-    services.tailscale.authKeyFile = config.sops.secrets."services/tailscale/authKey".path;
-    services.tailscale.authKeyParameters.ephemeral = false;
-    services.tailscale.authKeyParameters.preauthorized = true;
-    services.tailscale.extraUpFlags = [
-      "--advertise-tags=tag:infra"
-      "--accept-routes"
-    ];
-    services.tailscale.extraSetFlags = [ "--accept-routes" ];
-    networking.firewall.trustedInterfaces = [ "tailscale0" ];
-
-    services.prometheus.exporters.node.enable = true;
+    rv32ima.machine.tailscale.enable = true;
 
     services.openssh.enable = true;
     services.openssh.openFirewall = false;
