@@ -15,6 +15,7 @@ in
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "nixos/zfs-mirror")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/services/tailscale")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
@@ -28,8 +29,8 @@ in
       "/dev/disk/by-id/ata-MK000480GZXRA_S6M8NE0RC00250"
       "/dev/disk/by-id/ata-MK000480GZXRA_S6M8NE0T100628"
     ];
+    rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.impermanence.extraPersistDirectories = [
-
       {
         path = /var/lib/grafana;
         mode = "0770";
@@ -62,14 +63,7 @@ in
 
     networking.hostId = "b89ce780";
 
-    services.tailscale.enable = true;
-    services.tailscale.package = pkgsUnstable.tailscale;
-    services.tailscale.openFirewall = true;
-    services.tailscale.useRoutingFeatures = "both";
-    services.tailscale.extraSetFlags = [ "--accept-routes" ];
-    networking.firewall.trustedInterfaces = [ "tailscale0" ];
-
-    services.prometheus.exporters.node.enable = true;
+    rv32ima.machine.tailscale.enable = true;
 
     services.openssh.enable = true;
     services.openssh.openFirewall = false;
