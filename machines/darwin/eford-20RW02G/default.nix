@@ -1,6 +1,7 @@
 {
   self,
   config,
+  lib,
   ...
 }:
 {
@@ -10,6 +11,8 @@
   ];
   config = {
     rv32ima.machine.workstation.enable = true;
+
+    services.tailscale.enable = lib.mkForce false;
 
     nix.buildMachines = [
       {

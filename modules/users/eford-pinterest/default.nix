@@ -70,6 +70,10 @@ in
       };
     };
 
+    home.sessionVariables = {
+      "SERIOUS_MODE_NO_FUNNY_BUSINESS" = "1";
+    };
+
     home.file."bin" = {
       source = "${inputs.self}/bin";
       recursive = true;
