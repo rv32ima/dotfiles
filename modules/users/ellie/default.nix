@@ -91,6 +91,12 @@ in
       };
     };
 
+    # They won't like the praise I get in my terminal,
+    # so we should probably turn this off. Just for now.
+    home.sessionVariables = {
+      "SERIOUS_MODE_NO_FUNNY_BUSINESS" = "1";
+    };
+
     home.file.".ssh/config" = {
       enable = true;
       recursive = true;
