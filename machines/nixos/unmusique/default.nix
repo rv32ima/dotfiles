@@ -131,27 +131,15 @@ in
       ];
     };
 
-    sops.secrets."services/tsidp/environment" = {
-      sopsFile = ./secrets/tsidp.yaml;
-    };
-
-    systemd.services.tsidp = {
-      description = "Tailscale OIDC Identity Provider";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgsUnstable.tailscale}/bin/tsidp --hostname=tsidp --dir=/var/lib/tailscale/tsidp --port=443";
-        Environment = [ "TAILSCALE_USE_WIP_CODE=1" ];
-        EnvironmentFile = [
-          # config.sops.secrets."services/tsidp/environment".path
-        ];
-        Restart = "always";
-      };
-    };
-
     sops.secrets."services/grafana/client_secret" = {
       sopsFile = ./secrets/grafana.yaml;
       owner = config.users.users.grafana.name;
       group = config.users.users.grafana.group;
+    };
+
+    services.tsidp.enable = true;
+    services.tsidp.settings = {
+      hostName = "tsidp";
     };
 
     services.grafana.enable = true;
@@ -167,11 +155,11 @@ in
         enabled = true;
         allow_sign_up = true;
         auto_login = true;
-        client_id = "1b06567debbc724522087d666774dab9";
+        client_id = "dd4efe4bf9d92db1e95231ae158d4adc";
         client_secret = "$__file{${config.sops.secrets."services/grafana/client_secret".path}}";
         scopes = "openid profile email";
         allow_assign_grafana_admin = true;
-        auth_url = "https://tsidp.tail09d5b.ts.net/authorize/3445028570815881";
+        auth_url = "https://tsidp.tail09d5b.ts.net/authorize";
         token_url = "https://tsidp.tail09d5b.ts.net/token";
         api_url = "https://tsidp.tail09d5b.ts.net/userinfo";
         login_attribute_path = "email";
@@ -194,6 +182,10 @@ in
         url = "http://localhost:8428";
       }
     ];
+
+    rv32ima.machine.tailscale.services.grafana = {
+      port = 3000;
+    };
 
     services.postgresql.enable = true;
     services.postgresql.ensureDatabases = [ "grafana" ];
