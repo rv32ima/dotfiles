@@ -123,6 +123,10 @@
       {
         Destination = "2620:C2:2000::2";
       }
+      {
+        Destination = "2620:C2:2000:1::/64";
+        Gateway = "2620:C2:2000::2";
+      }
     ];
 
     # Without this, IPv6 neighbor discovery fails, meaning that

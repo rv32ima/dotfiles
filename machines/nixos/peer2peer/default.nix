@@ -23,6 +23,7 @@ in
     (self.lib.nixosModule "nixos/services/overseerr")
     (self.lib.nixosModule "nixos/services/unpackerr")
     (self.lib.nixosModule "nixos/services/tailscale")
+    (self.lib.nixosModule "nixos/services/nzbget")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
