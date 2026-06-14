@@ -47,6 +47,8 @@
           e2d = true;
           d2t = true;
           fk = 4;
+          chmod_f = "755";
+          chmod_d = "755";
         };
       };
     };
