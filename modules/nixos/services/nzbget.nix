@@ -9,5 +9,9 @@
       "UnrarCmd" = "${pkgs.unrar}/bin/unrar";
       "SevenZipCmd" = "${pkgs.p7zip}/bin/7z";
     };
+
+    rv32ima.machine.tailscale.services.nzbget = {
+      port = 6789;
+    };
   };
 }
