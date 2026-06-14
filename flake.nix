@@ -69,6 +69,8 @@
     };
     lanzaboote.url = "github:rv32ima/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    copyparty.url = "github:9001/copyparty";
+    copyparty.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
