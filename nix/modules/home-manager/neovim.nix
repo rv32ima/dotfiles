@@ -22,6 +22,11 @@
         jj
         jjui
 
+        direnv
+
+        # Claude Code
+        claude-code
+
         # Language servers
         # Python
         python313Packages.python-lsp-server
@@ -32,6 +37,9 @@
         nixd
         nixfmt
         statix
+        # Terraform
+        terraform-lsp
+
       ];
 
       plugins = with pkgs.vimPlugins; [
@@ -62,6 +70,7 @@
           plugins = with pkgs.vimPlugins; [
             blink-cmp
             bufferline-nvim
+            claudecode-nvim
             conform-nvim
             flash-nvim
             friendly-snippets
@@ -72,19 +81,31 @@
             lazy-nvim
             LazyVim
             lualine-nvim
+            markdown-preview-nvim
+            render-markdown-nvim
             mini-ai
             mini-icons
             mini-pairs
+            none-ls-nvim
             neo-tree-nvim
+            venv-selector-nvim
+            nvim-dap-python
+            neotest
+            neotest-python
             noice-nvim
             nui-nvim
+            nvim-cmp
+            nvim-dap
             nvim-lint
+            nvim-nio
             nvim-lspconfig
             nvim-treesitter
             nvim-treesitter-textobjects
             nvim-ts-autotag
+            mason-nvim-dap-nvim
             persistence-nvim
             plenary-nvim
+            SchemaStore-nvim
             snacks-nvim
             todo-comments-nvim
             tokyonight-nvim
@@ -92,6 +113,11 @@
             ts-comments-nvim
             which-key-nvim
             pkgs.rv32ima.lazyjui-nvim
+
+            {
+              name = "direnv";
+              path = pkgs.rv32ima.direnv-nvim;
+            }
 
             # When a plugin's name in nixpkgs doesn't match what Lazy expects,
             # you can manually specify the mapping like this:
@@ -140,6 +166,14 @@
 
               -- language specific config is often available via an extra
               -- find available languages here: https://www.lazyvim.org/extras or via :LazyExtras
+              { import = "lazyvim.plugins.extras.ai.claudecode" },
+              { import = "lazyvim.plugins.extras.lang.nix" },
+              { import = "lazyvim.plugins.extras.lang.json" },
+              { import = "lazyvim.plugins.extras.lang.markdown" },
+              { import = "lazyvim.plugins.extras.lang.toml" },
+              { import = "lazyvim.plugins.extras.lang.python" },
+              { import = "lazyvim.plugins.extras.lang.terraform" },
+              { import = "lazyvim.plugins.extras.lang.zig" },
               -- { import = "lazyvim.plugins.extras.lang.nix" }, -- configure lsp/formatters/treesitter etc. for nix 
 
               -- disable mason.nvim, use programs.neovim.extraPackages
