@@ -23,6 +23,11 @@
         jjui
 
         # Language servers
+        # Python
+        python313Packages.python-lsp-server
+        python313Packages.python-lsp-black
+        # Lua
+        lua-language-server
         # Nix
         nixd
         nixfmt
@@ -86,7 +91,7 @@
             trouble-nvim
             ts-comments-nvim
             which-key-nvim
-            pkgs.lazyjui-nvim
+            pkgs.rv32ima.lazyjui-nvim
 
             # When a plugin's name in nixpkgs doesn't match what Lazy expects,
             # you can manually specify the mapping like this:

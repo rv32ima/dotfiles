@@ -12,13 +12,13 @@
       fish = {
         enable = true;
         # TODO: don't do this anymore
-        shellInit = builtins.readFile "${inputs.self}/fish/init.fish";
+        shellInit = builtins.readFile ../../../fish/init.fish;
       };
 
       starship = {
         enable = true;
         # TODO: don't do this anymore
-        settings = builtins.fromTOML (builtins.readFile "${inputs.self}/starship/starship.toml");
+        settings = builtins.fromTOML (builtins.readFile ../../../starship/starship.toml);
       };
 
       direnv = {

@@ -18,5 +18,16 @@
       };
       mutableTaps = false;
     };
+
+    homebrew = {
+      enable = true;
+      global.autoUpdate = false;
+      casks = [
+        "1password-cli"
+        "setapp"
+        "orbstack"
+        "jordanbaird-ice"
+      ];
+    };
   };
 }

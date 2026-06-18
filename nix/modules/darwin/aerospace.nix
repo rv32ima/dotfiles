@@ -1,34 +1,5 @@
-{
-  lib,
-  config,
-  pkgs,
-  self,
-  ...
-}:
-{
-  options = {
-    rv32ima.machine.workstation.enable = lib.mkEnableOption "is this a workstation";
-  };
-
-  imports = [
-    (self.lib.nixosModule "home-manager/common")
-    (self.lib.nixosModule "home-manager/ghostty")
-    (self.lib.nixosModule "home-manager/neovim")
-  ];
-
+{ ... }: {
   config = {
-    environment.shells = [
-      pkgs.fish
-    ];
-
-    environment.systemPackages = [
-      pkgs.openssh
-    ];
-
-    environment.variables = {
-      "SSH_ASKPASS" = "/opt/homebrew/opt/ssh-askpass/bin/ssh-askpass";
-    };
-
     services.aerospace = {
       enable = true;
       settings = {
@@ -119,45 +90,5 @@
         on-focused-monitor-changed = [ ];
       };
     };
-
-    services.jankyborders = {
-      enable = false;
-      hidpi = true;
-    };
-
-    programs.zsh.enable = true;
-
-    homebrew = {
-      enable = true;
-      global.autoUpdate = false;
-      brews = [
-        "ssh-askpass"
-      ];
-      casks = [
-        "1password-cli"
-        "setapp"
-        "orbstack"
-        "jordanbaird-ice"
-      ];
-    };
-
-    services.tailscale.enable = true;
-
-    system.defaults.dock.autohide = true;
-    system.defaults.dock.mru-spaces = false;
-    system.defaults.dock.show-recents = false;
-    system.defaults.finder.AppleShowAllExtensions = true;
-    system.defaults.finder.AppleShowAllFiles = true;
-
-    system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
-    system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
-    system.defaults.NSGlobalDomain.NSAutomaticInlinePredictionEnabled = false;
-    system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
-    system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
-    system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
-    system.defaults.NSGlobalDomain.NSDocumentSaveNewDocumentsToCloud = false;
-
-    system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true;
-    system.defaults.WindowManager.AutoHide = true;
   };
 }

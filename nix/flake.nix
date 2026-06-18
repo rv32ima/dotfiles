@@ -176,17 +176,14 @@
                 machineName:
                 let
                   vars' = self.lib.vars.machines.${machineName};
+                  toBase64 = import ./lib/toBase64.nix { inherit lib; };
                 in
                 if vars' ? build then
                   {
                     inherit (vars'.build) maxJobs sshUser supportedFeatures;
                     inherit (vars') system;
                     hostName = machineName;
-                    publicHostKey =
-                      let
-                        inherit (import "${inputs.self}/modules/shared/base64.nix" { inherit lib; }) toBase64;
-                      in
-                      toBase64 (vars'.sshPublicKey);
+                    publicHostKey = toBase64 vars'.sshPublicKey;
                     sshKey = "/etc/nix/builder_ed25519";
                     protocol = "ssh-ng";
                   }
@@ -240,7 +237,7 @@
             };
 
             overlays = {
-              default = import ./modules/overlays/default.nix { inherit inputs; };
+              default = import ./overlays/default.nix { inherit inputs; };
             };
           };
 
