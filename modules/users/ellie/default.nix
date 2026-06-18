@@ -50,11 +50,7 @@ in
     hashedPasswordFile = config.sops.secrets."users/ellie/password".path;
   };
 
-  home-manager.users."ellie" = {
-    imports = [
-      (self.lib.nixosModule "home-manager/common")
-    ];
-
+  home-manager.users."ellie" = { config, ... }: {
     programs.git = {
       enable = true;
       settings = {
@@ -100,11 +96,11 @@ in
     home.file.".ssh/config" = {
       enable = true;
       recursive = true;
-      source = "${inputs.self}/ssh/ellie.config";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/ssh/ellie.config";
     };
 
     home.file."bin" = {
-      source = "${inputs.self}/bin";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/bin";
       recursive = true;
     };
 
@@ -113,7 +109,7 @@ in
     ];
 
     home.username = "ellie";
-    home.stateVersion = "25.11";
+    home.stateVersion = "26.05";
     home.packages = with pkgs; [
       p7zip-rar
       age

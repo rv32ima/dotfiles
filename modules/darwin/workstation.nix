@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  self,
   ...
 }:
 {
@@ -9,7 +10,13 @@
     rv32ima.machine.workstation.enable = lib.mkEnableOption "is this a workstation";
   };
 
-  config = lib.mkIf config.rv32ima.machine.workstation.enable {
+  imports = [
+    (self.lib.nixosModule "home-manager/common")
+    (self.lib.nixosModule "home-manager/ghostty")
+    (self.lib.nixosModule "home-manager/neovim")
+  ];
+
+  config = {
     environment.shells = [
       pkgs.fish
     ];
@@ -128,7 +135,6 @@
       ];
       casks = [
         "1password-cli"
-        "ghostty"
         "setapp"
         "orbstack"
         "jordanbaird-ice"

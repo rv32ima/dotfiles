@@ -27,6 +27,8 @@
     tmux
   ];
 
+  nixpkgs.overlays = builtins.attrValues self.overlays;
+
   # Where we are roughly:
   time.timeZone = "America/Los_Angeles";
 }

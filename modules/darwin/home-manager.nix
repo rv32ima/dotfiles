@@ -1,7 +1,13 @@
-{ inputs, ... }:
+{
+  inputs,
+  config,
+  self,
+  ...
+}:
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
+
   ];
 
   config = {
