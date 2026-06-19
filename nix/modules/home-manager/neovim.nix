@@ -68,6 +68,10 @@
           # These get turned into a linkFarm directory that Lazy uses
           # as its dev.path (see below).
           plugins = with pkgs.vimPlugins; [
+            # keep-sorted start block=yes
+
+            LazyVim
+            SchemaStore-nvim
             blink-cmp
             bufferline-nvim
             claudecode-nvim
@@ -78,55 +82,52 @@
             fzf-lua
             gitsigns-nvim
             grug-far-nvim
-            lazydev-nvim
             lazy-nvim
-            LazyVim
+            lazydev-nvim
             lualine-nvim
             markdown-preview-nvim
-            render-markdown-nvim
+            mason-nvim-dap-nvim
             mini-ai
             mini-icons
             mini-pairs
-            none-ls-nvim
             neo-tree-nvim
-            venv-selector-nvim
-            nvim-dap-python
             neotest
             neotest-python
             noice-nvim
+            none-ls-nvim
             nui-nvim
             nvim-cmp
             nvim-dap
+            nvim-dap-python
             nvim-lint
-            nvim-nio
             nvim-lspconfig
+            nvim-nio
             nvim-treesitter
             nvim-treesitter-textobjects
             nvim-ts-autotag
-            mason-nvim-dap-nvim
             persistence-nvim
+            pkgs.rv32ima.jj-diffconflicts
+            pkgs.rv32ima.lazyjui-nvim
             plenary-nvim
-            SchemaStore-nvim
+            render-markdown-nvim
             snacks-nvim
             todo-comments-nvim
             tokyonight-nvim
             trouble-nvim
             ts-comments-nvim
+            venv-selector-nvim
             which-key-nvim
-            pkgs.rv32ima.lazyjui-nvim
-            pkgs.rv32ima.jj-diffconflicts
-
-            {
-              name = "direnv";
-              path = pkgs.rv32ima.direnv-nvim;
-            }
-
             # When a plugin's name in nixpkgs doesn't match what Lazy expects,
             # you can manually specify the mapping like this:
             {
               name = "catppuccin";
               path = catppuccin-nvim;
             }
+            {
+              name = "direnv";
+              path = pkgs.rv32ima.direnv-nvim;
+            }
+            # keep-sorted end
           ];
 
           # Maps a plugin derivation to a { name, path } pair.
