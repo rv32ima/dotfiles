@@ -114,6 +114,7 @@
             ts-comments-nvim
             which-key-nvim
             pkgs.rv32ima.lazyjui-nvim
+            pkgs.rv32ima.jj-diffconflicts
 
             {
               name = "direnv";
