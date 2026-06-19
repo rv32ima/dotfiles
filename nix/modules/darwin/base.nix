@@ -5,6 +5,7 @@
   self,
   pkgs,
   inputs,
+  config,
   ...
 }:
 
@@ -15,6 +16,10 @@
     (self.lib.nixosModule "shared/nixpkgs")
     (self.lib.nixosModule "darwin/home-manager")
     (self.lib.nixosModule "darwin/nix-homebrew")
+  ];
+
+  nix.settings.trusted-users = [
+    "${config.system.primaryUser}"
   ];
 
   # Useful tools.

@@ -7,27 +7,12 @@
 {
   imports = [
     (self.lib.nixosModule "darwin/workstation")
-    (self.lib.nixosModule "users/eford-pinterest")
+    (self.lib.nixosModule "users/eford")
   ];
   config = {
     rv32ima.machine.workstation.enable = true;
 
     services.tailscale.enable = lib.mkForce false;
-
-    nix.buildMachines = [
-      {
-        hostName = "golden-experience.home.t4t.net";
-        system = "x86_64-linux";
-        sshUser = "nix";
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1yL2oxQUp4Y2J6aGZzTjJpWjdjUW5Wem1Cc0pINkZjSnh2VDhlRVVvRUwK";
-        sshKey = "/etc/nix/builder_ed25519";
-        maxJobs = 32;
-        protocol = "ssh-ng";
-        supportedFeatures = [
-          "kvm"
-        ];
-      }
-    ];
 
     nix.settings.trusted-users = [
       "${config.system.primaryUser}"
