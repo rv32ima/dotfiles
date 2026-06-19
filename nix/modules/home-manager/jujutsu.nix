@@ -46,6 +46,10 @@
           ];
         };
 
+        remotes.origin = {
+          auto-track-bookmarks = "glob:'eford/*' & glob:'ellie/*'";
+        };
+
         revset-aliases = {
           "why_immutable(r)" = "(r & immutable()) | roots(r:: & immutable_heads())";
           "T" = "trunk()";
