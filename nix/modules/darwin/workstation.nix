@@ -14,6 +14,7 @@
     (self.lib.nixosModule "darwin/aerospace")
     (self.lib.nixosModule "darwin/ssh-askpass-gui")
     (self.lib.nixosModule "home-manager/common")
+    (self.lib.nixosModule "home-manager/fish")
     (self.lib.nixosModule "home-manager/ghostty")
     (self.lib.nixosModule "home-manager/neovim")
     (self.lib.nixosModule "home-manager/jujutsu")

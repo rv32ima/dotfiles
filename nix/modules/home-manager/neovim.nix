@@ -73,6 +73,7 @@
             claudecode-nvim
             conform-nvim
             flash-nvim
+            flatten-nvim
             friendly-snippets
             fzf-lua
             gitsigns-nvim

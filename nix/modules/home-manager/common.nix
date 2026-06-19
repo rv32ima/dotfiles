@@ -37,6 +37,21 @@
       };
     };
 
+    home.file.".ssh/config" = {
+      enable = true;
+      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/ssh/${config.home.username}.config";
+    };
+
+    home.file."bin" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/bin";
+      recursive = true;
+    };
+
+    home.sessionPath = [
+      "${config.home.homeDirectory}/bin"
+    ];
+
     home.packages = with pkgs; [
       # Programming Languages
       nodejs_latest
@@ -52,7 +67,7 @@
       gnupg
       diffedit3
       sccache
-      nixfmt-rfc-style
+      nixfmt
       packer
       buf
       graphviz

@@ -74,15 +74,10 @@ in
     };
 
     programs.jujutsu = {
-      enable = true;
       settings = {
         user = {
           name = "Ellie Ford";
           email = "me@ellie.fm";
-        };
-
-        ui = {
-          merge-editor = "vscode";
         };
       };
     };
@@ -93,24 +88,11 @@ in
       "SERIOUS_MODE_NO_FUNNY_BUSINESS" = "1";
     };
 
-    home.file.".ssh/config" = {
-      enable = true;
-      recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/ssh/ellie.config";
-    };
-
-    home.file."bin" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/bin";
-      recursive = true;
-    };
-
-    home.sessionPath = [
-      "${homeDirectory "ellie"}/bin"
-    ];
-
     home.username = "ellie";
     home.stateVersion = "26.05";
     home.packages = with pkgs; [
+      nix-search
+      nix-index
       p7zip-rar
       age
       sops
