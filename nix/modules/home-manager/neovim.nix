@@ -107,7 +107,16 @@
             nvim-ts-autotag
             persistence-nvim
             pkgs.rv32ima.jj-diffconflicts
-            pkgs.rv32ima.lazyjui-nvim
+
+            {
+              name = "lazyjui.nvim";
+              path = pkgs.rv32ima.lazyjui-nvim;
+            }
+
+            {
+              name = "sops.nvim";
+              path = pkgs.rv32ima.sops-nvim;
+            }
             plenary-nvim
             render-markdown-nvim
             snacks-nvim
@@ -124,7 +133,7 @@
               path = catppuccin-nvim;
             }
             {
-              name = "direnv";
+              name = "direnv.nvim";
               path = pkgs.rv32ima.direnv-nvim;
             }
             # keep-sorted end
