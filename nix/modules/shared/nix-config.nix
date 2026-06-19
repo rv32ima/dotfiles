@@ -3,10 +3,7 @@
   ...
 }:
 {
-  nix.package = pkgs.lixPackageSets.git.lix.overrideAttrs {
-    doCheck = false;
-    doInstallCheck = false;
-  };
+  nix.package = pkgs.lixPackageSets.latest.lix;
 
   nix.settings = {
     experimental-features = "nix-command flakes";

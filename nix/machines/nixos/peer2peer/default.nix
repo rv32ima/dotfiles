@@ -153,5 +153,6 @@ in
     services.zfs.autoScrub.interval = "weekly";
 
     networking.domain = "sea.t4t.net";
+    system.primaryUser = "ellie";
   };
 }

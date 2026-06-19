@@ -1,7 +1,12 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    (self.lib.nixosModule "home-manager/common")
+    (self.lib.nixosModule "home-manager/fish")
+    (self.lib.nixosModule "home-manager/ghostty")
+    (self.lib.nixosModule "home-manager/neovim")
+    (self.lib.nixosModule "home-manager/jujutsu")
   ];
 
   config = {

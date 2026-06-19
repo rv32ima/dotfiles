@@ -23,6 +23,7 @@
       enable = true;
       global.autoUpdate = false;
       casks = [
+        "ghostty"
         "1password-cli"
         "setapp"
         "orbstack"

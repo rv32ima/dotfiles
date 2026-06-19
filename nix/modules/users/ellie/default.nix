@@ -18,9 +18,6 @@ let
   canSetPassword = builtins.hasAttr "hashedPasswordFile" (options.users.users.type.getSubOptions { });
 in
 {
-  programs.fish.enable = true;
-  programs.fish.useBabelfish = true;
-
   sops.secrets."users/ellie/password" = lib.mkIf canSetPassword {
     neededForUsers = true;
     sopsFile = ./secrets/password.yaml;
@@ -57,18 +54,6 @@ in
         user = {
           name = "Ellie Ford";
           email = "me@ellie.fm";
-        };
-
-        "includeIf \"gitdir:~/work\"" = {
-          path = "~/work/.gitconfig";
-        };
-
-        http = {
-          cookiefile = "~/.gitcookies";
-        };
-
-        "url \"ssh://git@github.com/\"" = {
-          insteadOf = "https://github.com/";
         };
       };
     };

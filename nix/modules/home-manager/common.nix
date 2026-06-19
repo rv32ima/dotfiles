@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }:
 {
@@ -9,11 +8,6 @@
     programs = {
       home-manager.enable = true;
       zsh.enable = true;
-      fish = {
-        enable = true;
-        # TODO: don't do this anymore
-        shellInit = builtins.readFile ../../../fish/init.fish;
-      };
 
       starship = {
         enable = true;
