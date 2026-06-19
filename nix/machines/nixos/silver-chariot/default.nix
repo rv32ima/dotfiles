@@ -67,6 +67,7 @@ in
     networking.useNetworkd = true;
     networking.firewall.allowedTCPPorts = [ ];
 
+    system.primaryUser = "ellie";
     networking.domain = "sea.t4t.net";
   };
 }
