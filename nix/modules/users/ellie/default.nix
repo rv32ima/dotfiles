@@ -103,6 +103,8 @@ in
       awscli2
       fluxcd
       doctl
+      gh
+      python313
     ];
   };
 
