@@ -17,9 +17,6 @@ let
 
 in
 {
-  programs.fish.enable = true;
-  programs.fish.useBabelfish = true;
-
   users.users."eford" = {
     shell = pkgs.fish;
     home = homeDirectory "eford";
@@ -38,10 +35,6 @@ in
       };
 
   home-manager.users."eford" = {
-    imports = [
-      (self.lib.nixosModule "home-manager/common")
-    ];
-
     programs.git = {
       enable = true;
       settings = {
@@ -57,15 +50,10 @@ in
     };
 
     programs.jujutsu = {
-      enable = true;
       settings = {
         user = {
           name = "Ellie Ford";
           email = "eford@pinterest.com";
-        };
-
-        ui = {
-          merge-editor = "vscode";
         };
       };
     };
@@ -73,21 +61,6 @@ in
     home.sessionVariables = {
       "SERIOUS_MODE_NO_FUNNY_BUSINESS" = "1";
     };
-
-    home.file."bin" = {
-      source = "${inputs.self}/bin";
-      recursive = true;
-    };
-
-    home.file.".ssh/config" = {
-      enable = true;
-      recursive = true;
-      source = "${inputs.self}/ssh/eford-pinterest.config";
-    };
-
-    home.sessionPath = [
-      "${homeDirectory "eford"}/bin"
-    ];
 
     home.username = "eford";
     home.stateVersion = "25.11";

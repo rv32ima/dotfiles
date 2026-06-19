@@ -54,7 +54,6 @@
       #   extensions = [ "rust-src" ];
       # })
 
-      nixd
       git
       eza
       bat
@@ -70,6 +69,12 @@
       cargo-mommy
       tenv
       nix-your-shell
+      gh
+      python313
+      prek
+      keep-sorted
+      nix-search
+      nix-index
     ];
 
     home.file.".config/1Password/ssh/agent.toml" = {

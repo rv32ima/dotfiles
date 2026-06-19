@@ -76,9 +76,6 @@ in
     home.username = "ellie";
     home.stateVersion = "26.05";
     home.packages = with pkgs; [
-      nix-search
-      nix-index
-      p7zip-rar
       age
       sops
       typst
@@ -88,9 +85,6 @@ in
       awscli2
       fluxcd
       doctl
-      gh
-      python313
     ];
   };
-
 }
