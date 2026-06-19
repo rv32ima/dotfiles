@@ -10,6 +10,7 @@ check = [
 ]
 fetch = ["git", "fetch"]
 init = ["git", "init", "--colocate"]
+push = ["git", "push"]
 jj = []
 pr = ["util", "exec", "jj-pr"]
 rt = ["rebase", "-d", "trunk()"]
