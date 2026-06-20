@@ -85,6 +85,8 @@
   systemd.network.networks."home-wg" = {
     matchConfig.Name = "home-wg";
 
+    networkConfig.Tunnel = "home-sit";
+
     address = [
       "10.100.0.1/32"
     ];
@@ -94,10 +96,11 @@
     "sit"
   ];
 
-  systemd.network.netdevs."home-ipv6" = {
+  systemd.network.netdevs."home-sit" = {
     netdevConfig = {
       Kind = "sit";
-      Name = "home-ipv6";
+      Name = "home-sit";
+      MTUBytes = 1400;
     };
     tunnelConfig = {
       Local = "10.100.0.1";
@@ -106,8 +109,8 @@
     };
   };
 
-  systemd.network.networks."home-ipv6" = {
-    matchConfig.Name = "home-ipv6";
+  systemd.network.networks."home-sit" = {
+    matchConfig.Name = "home-sit";
     addresses = [
       {
         Address = "2620:c2:2000::2/64";
@@ -133,6 +136,6 @@
 
   networking.firewall.trustedInterfaces = [
     "home-wg"
-    "home-ipv6"
+    "home-sit"
   ];
 }
