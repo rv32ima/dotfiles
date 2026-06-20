@@ -90,6 +90,10 @@
     ];
   };
 
+  boot.kernelModules = [
+    "sit"
+  ];
+
   systemd.network.netdevs."home-ipv6" = {
     netdevConfig = {
       Kind = "sit";
