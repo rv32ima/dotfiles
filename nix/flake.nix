@@ -247,7 +247,17 @@
             system,
             ...
           }:
+          let
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = builtins.attrValues inputs.self.overlays;
+            };
+          in
           {
+            legacyPackages = {
+              inherit (pkgs) rv32ima;
+            };
+
             devShells.default = pkgs.mkShell {
               packages = [
                 colmena.packages.${system}.colmena
