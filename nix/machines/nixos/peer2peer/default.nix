@@ -18,6 +18,7 @@ in
     (self.lib.nixosModule "nixos/services/plex")
     (self.lib.nixosModule "nixos/services/rtorrent")
     (self.lib.nixosModule "nixos/services/radarr")
+    (self.lib.nixosModule "nixos/services/lidarr")
     (self.lib.nixosModule "nixos/services/sonarr")
     (self.lib.nixosModule "nixos/services/prowlarr")
     (self.lib.nixosModule "nixos/services/overseerr")
