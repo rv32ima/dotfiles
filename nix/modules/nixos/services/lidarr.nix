@@ -11,7 +11,7 @@
     ];
 
     services.lidarr.enable = true;
-    rv32ima.machine.tailscale.services.radarr = {
+    rv32ima.machine.tailscale.services.lidarr = {
       port = 8686;
     };
   };
