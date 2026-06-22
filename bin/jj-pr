@@ -61,8 +61,7 @@ def fetch_pr_name(branch: str) -> str:
     ]
     res = subprocess.run(pr_view, capture_output=True)
     if res.returncode != 0:
-        print("uh oh, looks like someone did a fucky wucky", file=sys.stderr)
-        return
+        raise Exception("PR does not exist")
     out = res.stdout.decode('utf-8')
     return out
 
@@ -100,8 +99,12 @@ def main():
     user = m.group(2)
 
     if len(candidate_remote_bookmarks) == 1:
-        fetch_and_copy_pr_name(bookmark)
-        return
+        try:
+            fetch_and_copy_pr_name(bookmark)
+            return
+        # We didn't find the PR, this isn't a big deal. Let's create it.
+        except Exception as e:
+            pass
         
     # make a pr!
     res = subprocess.call(["gh", "pr", "create", "--head", bookmark, *rest])
