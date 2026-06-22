@@ -6,3 +6,11 @@ ssh/known_hosts
 ssh/known_hosts.old
 nix/result
 .direnv
+
+# Ignore the vast majority of Claude Code configs
+claude/backups
+claude/cache
+claude/projects
+claude/session-env
+claude/sessions
+claude/history.jsonl
