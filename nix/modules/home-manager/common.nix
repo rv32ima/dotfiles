@@ -56,6 +56,7 @@
       #   extensions = [ "rust-src" ];
       # })
 
+      claude-code
       git
       eza
       bat
