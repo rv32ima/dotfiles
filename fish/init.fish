@@ -109,6 +109,20 @@ function ssh_age_key
     nix-shell -p ssh-to-age --run "ssh-keyscan -q $argv[1] | grep -oE 'ssh-ed25519.*' | ssh-to-age"
 end
 
+function _applepaste
+    osascript -e 'tell application "System Events" to keystroke "v" using command down'
+end
+
+function speedway
+    open "slack://channel?team=E06GPQDHE3D&id=C0AGDPQJ0FQ"
+    _applepaste
+end
+
+function nullspace
+    open "slack://channel?team=E06GPQDHE3D&id=C0AGDPT3HV4"
+    _applepaste
+end
+
 function idot
     set -l graph_input
     while read line
