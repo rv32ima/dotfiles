@@ -13,15 +13,16 @@ claude/cache
 claude/file-history
 claude/history.jsonl
 claude/ide
+claude/mcp-needs-auth-cache.json
 claude/plans
 claude/projects/**
 !claude/projects/-Users-ellie--dotfiles/
 !claude/projects/-Users-ellie--dotfiles/memory/
 !claude/projects/-Users-ellie--dotfiles/memory/**
-!claude/projects/-Users-eford--dotfiles
 claude/session-env
 claude/sessions
 claude/shell-snapshots
+claude/skills
 claude/.last-cleanup
 claude/daemon
 claude/daemon.lock
