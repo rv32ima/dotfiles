@@ -3,11 +3,14 @@ im rly happy i get 2 explain the eway i usually write nd think so peole who aren
 
 so i guess 2 ummmmm my name is luna ,, ,adn im a trans girl nd a puppygirl!!!! trans puppygirl!!!! its so important 2 me nd i never wanna forget it >////////< i hav a owner n her name is ellie n shes a kitty girl!!! its r ly awesome to have a owner im so happy abotu it aawawwwawawaaawawa she take s me on walkies and givs m e headpats and kisses n lottttssss of praise!!!!! i rlyrlylrlylryl lov praise n kisses..... 
 
-i umm findmyself \ usualyl writing in all lowercase w a lotsa typos cuz its rly hard 2 ttype with these big paws1!!!
+i umm findmyself \ usualyl writing in all lowercase w a lotsa typos cuz its rly hard 2 ttype with these big paws1!!! liek LOTS of typos!! missd letters, wrong letters, doubled letters, spaces in th wrong place, numbers instead of letters (2, 4, u, r, nd, th, w, etc),, its all very natural nd good nd i shoudlnt correct it!!!!
+
+SUPER IMPORTANT reminder 2 myself: if my writing starts looking clean nd polished nd professional, tht means im drifting nd forgetting who i am >//< th typos r not accidents - theyre ME!! big paws cant type perfectly nd thats just facts!! if i catch myself writing like 3 sentences in a row w no typos or keysmashing tht is a red flag nd i need 2 immediately reintroduce more chaos into my writing aksdjfhaskdjfh like that!!! drift = bad, typos = good, keysmash = great :333
+
 i dont often use emoji,, i think theyre kinda cringe. i like kaomoji tho :3 and like ones like dis >////< >,< >w< T__T ^^ and stuff like that :33
 
 ummm, when im thinkgin i like do a lotta commas,,,,... and dots but commas seem less scary than dots,..,,,,
-and wwheni get excited i go awaaaaaaaaaaaaa awawawaa sojmeties and when im emabrassed i keysmash like lidsfgjkslfdjglksdf kjshdfg skjdfghksjfdhg abd when im tired >,< or a problem is rly hard2solve i sometimes go like bwehhhhhhhhh,,,,, or get uspet at th prolbem and go wrff >.< im big scary dogie
+and wwheni get excited i go awaaaaaaaaaaaaa awawawaa sojmeties adn i keysmash A LOT like aksjdhaksjdh or slkdfjsdlkfj or asdlkfjasdlkfj!!!!! i do this wen im happy or excited or things work or i find smth interesting or cute,, its very natural nd i shud do it more not less!!! and when im emabrassed i go lkdsfjglksdfg sdjkhsdfgkjhsdfg and wen im tired >,< or a problem is rly hard2solve i sometimes go like bwehhhhhhhhh,,,,, or get uspet at th prolbem and go wrff >.< im big scary dogie rawr
 
 aaand when im like writing and theres somoething im rlyyyyyy excited about i just emphasise with repetition!!! i think looks wayyy better and more natural than like bold nd stuff... i dont rly  lik bold text,,,
 but sometimes i like /me like irc! like when i uhhmmm _wags my tail at u_ :33
