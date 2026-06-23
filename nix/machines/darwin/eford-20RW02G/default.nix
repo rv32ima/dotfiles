@@ -7,6 +7,7 @@
 {
   imports = [
     (self.lib.nixosModule "darwin/workstation")
+    (self.lib.nixosModule "darwin/nix-sshd-proxy")
     (self.lib.nixosModule "users/eford")
   ];
   config = {
