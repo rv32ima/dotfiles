@@ -22,3 +22,10 @@ claude/projects/**
 claude/session-env
 claude/sessions
 claude/shell-snapshots
+claude/.last-cleanup
+claude/daemon
+claude/daemon.lock
+claude/daemon.log
+claude/daemon.status.json
+claude/jobs
+claude/pins.json
