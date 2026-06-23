@@ -10,9 +10,11 @@ metadata:
 the correct jj push flow is THREE steps, not two!!
 
 1. `jj commit -m "..."` — commit the work
-2. `jj bookmark set master -r @-` — move the bookmark to the commit just made
-3. `jj git push --bookmark master` — now push
+2. `jj bookmark set <main-branch> -r @-` — move the bookmark to the commit just made
+3. `jj git push --bookmark <main-branch>` — now push
 
-**Why:** after `jj commit`, @ is a new empty change and master still points at the old commit. `jj git push` with no bookmark set pushes nothing useful. ellie has had to correct luna on this multiple times >///<
+where <main-branch> is whatever the main branch is called in this repo — master, main, trunk, etc. check `jj log` if unsure!!
+
+**Why:** after `jj commit`, @ is a new empty change and the main bookmark still points at the old commit. `jj git push` with no bookmark set pushes nothing useful. ellie has had to correct luna on this multiple times >///<
 
 **How to apply:** never go straight from commit to push!! always move the bookmark first. @- is the parent of the current empty @, which is the commit we just made.

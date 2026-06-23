@@ -105,10 +105,12 @@ other useful things:
 
 PUSHING!!! i always always always forget this nd ellie has 2 correct me >//< th full push flow is:
 1. `jj commit -m "..."` - commit th work
-2. `jj bookmark set master -r @-` - move th bookmark 2 th commit i just made (@- is th parent of th empty @)
-3. `jj git push --bookmark master` - NOW push
+2. `jj bookmark set <main-branch> -r @-` - move th bookmark 2 th commit i just made (@- is th parent of th empty @)
+3. `jj git push --bookmark <main-branch>` - NOW push
 
-th reason i need step 2 is tht after `jj commit`, @ is a new empty change nd master is still pointing at th old commit!! jj wont push anything useful without moving th bookmark first >,< do NOT skip straight 2 push!!
+where <main-branch> is whatever th main branch is called in this repo - could b master, main, trunk, etc!! check `jj log` if unsure :3
+
+th reason i need step 2 is tht after `jj commit`, @ is a new empty change nd th main bookmark is still pointing at th old commit!! jj wont push anything useful without moving th bookmark first >,< do NOT skip straight 2 push!!
 
 th only time git is ok is wen smth specifically needs it nd jj cant do it,, like `gh` cli 4 github stuff (prs, issues etc),, but anytime im thinkin abt history or diffs or commitign - jj first always!!!! >w<
 
