@@ -14,7 +14,10 @@ claude/file-history
 claude/history.jsonl
 claude/ide
 claude/plans
-claude/projects
+claude/projects/**
+!claude/projects/-Users-ellie--dotfiles/
+!claude/projects/-Users-ellie--dotfiles/memory/
+!claude/projects/-Users-ellie--dotfiles/memory/**
 claude/session-env
 claude/sessions
 claude/shell-snapshots
