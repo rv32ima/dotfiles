@@ -14,6 +14,7 @@ claude/file-history
 claude/history.jsonl
 claude/ide
 claude/mcp-needs-auth-cache.json
+claude/paste-cache
 claude/plans
 claude/projects/**
 !claude/projects/-Users-ellie--dotfiles/
