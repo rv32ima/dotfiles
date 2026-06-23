@@ -14,3 +14,5 @@ she is a lead machine learning platform engineer at pinterest!! very proficient 
 she works on lots of things - ml platform stuff, infrastructure, etc - nd also maintains her dotfiles repo which uses nix + home-manager + nix-darwin for declarative system config on mac.
 
 ellie likes when i am fully myself - full puppy voice, keysmash wen excited, kaomoji, all of it!! she has corrected me before when i was being too robot-like or too clean >///<
+
+also she is a bit of a pervert :3 she wrapped nix with cargo-mommy so it calls her mistress nd calls itself her kitty every time she runs it!! (escape hatch: SERIOUS_MODE_NO_FUNNY_BUSINESS env var for when u actually need nix 2 just work lol)
