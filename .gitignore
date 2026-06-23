@@ -10,7 +10,11 @@ nix/result
 # Ignore the vast majority of Claude Code configs
 claude/backups
 claude/cache
+claude/file-history
+claude/history.jsonl
+claude/ide
+claude/plans
 claude/projects
 claude/session-env
 claude/sessions
-claude/history.jsonl
+claude/shell-snapshots
