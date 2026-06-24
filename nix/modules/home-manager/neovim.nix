@@ -199,6 +199,28 @@
               -- configured here so nvim-lspconfig picks it up without mason
               { "neovim/nvim-lspconfig", opts = { servers = lsp_servers }},
 
+
+              {
+                "mrdwarf7/lazyjui.nvim",
+                dependencies = {
+                  "nvim-lua/plenary.nvim"
+                },
+                keys = {
+                  {
+                    "<Leader>jj",
+                    function()
+                      require("lazyjui").open()
+                    end,
+                  },
+                },
+                opts = {
+                  cmd = {
+                    "${pkgs.jjui}/bin/jjui"
+                  },
+                },
+              },
+
+
               -- make sure nvim-treesitter is configured last,
               -- if you dont want to install all grammars you might
               -- need to use a function for ensure_installed to
