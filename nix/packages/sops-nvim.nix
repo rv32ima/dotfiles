@@ -5,7 +5,7 @@
   lib,
 }:
 vimUtils.buildVimPlugin {
-  pname = "sops-nvim";
+  pname = "sops.nvim";
   version = "master";
 
   src = fetchFromGitHub {

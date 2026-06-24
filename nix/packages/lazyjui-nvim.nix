@@ -5,7 +5,7 @@
   lib,
 }:
 vimUtils.buildVimPlugin {
-  pname = "lazyjui";
+  pname = "lazyjui.nvim";
   version = "master";
 
   dependencies = [

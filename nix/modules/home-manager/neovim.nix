@@ -76,6 +76,7 @@
             bufferline-nvim
             claudecode-nvim
             conform-nvim
+            dressing-nvim
             flash-nvim
             flatten-nvim
             friendly-snippets
@@ -106,20 +107,17 @@
             nvim-treesitter-textobjects
             nvim-ts-autotag
             persistence-nvim
+            pkgs.rv32ima.direnv-nvim
             pkgs.rv32ima.jj-diffconflicts
-
-            {
-              name = "lazyjui.nvim";
-              path = pkgs.rv32ima.lazyjui-nvim;
-            }
-
-            {
-              name = "sops.nvim";
-              path = pkgs.rv32ima.sops-nvim;
-            }
+            pkgs.rv32ima.lazyjui-nvim
+            pkgs.rv32ima.sops-nvim
+            pkgs.rv32ima.telescope-terraform-doc-nvim
+            pkgs.rv32ima.telescope-terraform-nvim
             plenary-nvim
             render-markdown-nvim
             snacks-nvim
+            telescope-fzf-native-nvim
+            telescope-nvim
             todo-comments-nvim
             tokyonight-nvim
             trouble-nvim
@@ -131,10 +129,6 @@
             {
               name = "catppuccin";
               path = catppuccin-nvim;
-            }
-            {
-              name = "direnv.nvim";
-              path = pkgs.rv32ima.direnv-nvim;
             }
             # keep-sorted end
           ];
@@ -186,6 +180,7 @@
               { import = "lazyvim.plugins.extras.lang.python" },
               { import = "lazyvim.plugins.extras.lang.terraform" },
               { import = "lazyvim.plugins.extras.lang.zig" },
+              { import = "lazyvim.plugins.extras.editor.telescope" },
               -- { import = "lazyvim.plugins.extras.lang.nix" }, -- configure lsp/formatters/treesitter etc. for nix 
 
               -- disable mason.nvim, use programs.neovim.extraPackages
