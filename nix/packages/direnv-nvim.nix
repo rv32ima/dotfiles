@@ -5,7 +5,7 @@
   lib,
 }:
 vimUtils.buildVimPlugin {
-  pname = "direnv-nvim";
+  pname = "direnv.nvim";
   version = "main";
 
   nvimSkipModules = [
