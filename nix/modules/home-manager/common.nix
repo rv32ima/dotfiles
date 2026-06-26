@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  self,
   ...
 }:
 {
@@ -32,6 +33,8 @@
         ];
       };
     };
+
+    rv32ima.services.ssh-agent.enable = true;
 
     home.file.".ssh/config" = {
       enable = true;

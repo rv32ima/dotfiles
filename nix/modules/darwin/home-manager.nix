@@ -16,5 +16,8 @@
     home-manager.extraSpecialArgs = {
       inherit inputs;
     };
+    home-manager.sharedModules = [
+      (self.lib.nixosModule "home-manager/ssh-agent")
+    ];
   };
 }

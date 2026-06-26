@@ -172,12 +172,6 @@ function nix --description "Reproducible and declarative configuration managemen
     nix-your-shell fish nix -- $argv
 end
 
-# If we aren't already connected via SSH
-# then we should launch the SSH agent.
-if test -z "$SSH_CONNECTION"
-    { eval (ssh-agent -c) } &>/dev/null
-end
-
 if test -e "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
     source "$XDG_CONFIG_HOME/fish/iterm2_shell_integration.fish"
 end
