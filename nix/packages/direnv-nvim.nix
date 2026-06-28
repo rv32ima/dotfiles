@@ -6,15 +6,14 @@
 }:
 vimUtils.buildVimPlugin {
   pname = "direnv.nvim";
-  version = "main";
-
-  nvimSkipModules = [
-  ];
-
+  version = "0-unstable-2026-06-28";
   src = fetchFromGitHub {
-    owner = "rv32ima";
+    owner = "NotAShelf";
     repo = "direnv.nvim";
-    rev = "f09deee1f4f7a134de63317f3a3d980b82c7c7d1";
+    rev = "9258f9f10c4c729d8296fce0e3ecb12543daad06";
     hash = "sha256-b5PpmkYWaDGLNcu+36tRR5ycATHYBjs9WrV8/jfmooQ=";
   };
+  meta.homepage = "https://github.com/NotAShelf/direnv.nvim/";
+  meta.license = lib.licenses.mpl20;
+  meta.hydraPlatforms = [ ];
 }
