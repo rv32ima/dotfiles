@@ -12,9 +12,9 @@ vimUtils.buildVimPlugin {
   ];
 
   src = fetchFromGitHub {
-    owner = "NotAShelf";
+    owner = "rv32ima";
     repo = "direnv.nvim";
-    rev = "e623d3645152839cbe7e73e7b2aa6e31256020ea";
-    hash = "sha256-Bwdkf1ZHPsR3BUxdsGBNNNbzJ/CPOIlqb5EcQUUPuAk=";
+    rev = "f09deee1f4f7a134de63317f3a3d980b82c7c7d1";
+    hash = "sha256-b5PpmkYWaDGLNcu+36tRR5ycATHYBjs9WrV8/jfmooQ=";
   };
 }
