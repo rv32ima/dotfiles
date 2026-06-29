@@ -8,6 +8,7 @@
   imports = [
     (self.lib.nixosModule "darwin/workstation")
     (self.lib.nixosModule "darwin/nix-sshd-proxy")
+    (self.lib.nixosModule "darwin/linux-builder")
     (self.lib.nixosModule "users/eford")
   ];
   config = {
@@ -29,6 +30,17 @@
 
     nix.settings.max-jobs = 10;
     nix.distributedBuilds = true;
+    nix.buildMachines = [
+      {
+        hostName = "nix-build-x86-64-01.bongo-cat.ts.net";
+        sshUser = "nix";
+        sshKey = "/Users/${config.system.primaryUser}/code/ds/.keys/builder_ed25519";
+        protocol = "ssh-ng";
+        maxJobs = 16;
+        system = "x86_64-linux";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUVva0NJekFERWFOaXR2cENDNjhZNk9oOWhMUVJiVFRFSnV0c3k5ZlNNVk0K";
+      }
+    ];
 
     system.stateVersion = 6;
     system.primaryUser = "eford";
