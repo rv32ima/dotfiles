@@ -27,6 +27,8 @@
         # Claude Code
         claude-code
 
+        markdownlint-cli2
+
         # Language servers
         # Python
         python313Packages.python-lsp-server
