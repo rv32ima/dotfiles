@@ -1,5 +1,6 @@
 {
   self,
+  pkgs,
   ...
 }:
 {
@@ -9,6 +10,8 @@
 
     ./network.nix
     ./disk-config.nix
+    ./bgp.nix
+    ./switch.nix
   ];
 
   config = {
@@ -36,20 +39,7 @@
       "net.ifnames=0"
       "biosdevname=0"
     ];
-    boot.kernelPatches = [
-      {
-        name = "mlx-stuff";
-        patch = null;
-        extraConfig = ''
-          MELLANOX_PLATFORM y
-          MLXREG_HOTPLUG m
-          MLXREG_IO m
-          MLXREG_LC m
-          NVSW_SN2201 m
-          SENSORS_MLXREG_FAN m
-        '';
-      }
-    ];
+    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.rv32ima.mlx-kernel;
     boot.blacklistedKernelModules = [
       "i2c_mux_reg"
     ];
@@ -102,91 +92,6 @@
       "net.ipv6.neigh.default.gc_thresh3" = "8192";
     };
 
-    # services.gobgpd.enable = true;
-    # services.gobgpd.settings = {
-    #   global = {
-    #     config = {
-    #       as = 395388;
-    #       router-id = "199.255.18.181";
-    #     };
-    #   };
-
-    #   peer-groups = [
-    #     {
-    #       config = {
-    #         peer-group-name = "cofractal";
-    #         peer-as = 26073;
-    #       };
-    #       afi-safis = [
-    #         {
-    #           afi-safi-name = "ipv4-unicast";
-    #         }
-    #         {
-    #           afi-safi-name = "ipv6-unicast";
-    #         }
-    #       ];
-    #     }
-    #   ];
-
-    #   neighbors = [
-    #     {
-    #       config = {
-    #         neighbor-address = "2606:7940:32:3c::2";
-    #         peer-group = "cofractal";
-    #       };
-    #     }
-    #     {
-    #       config = {
-    #         neighbor-address = "2606:7940:32:3c::3";
-    #         peer-group = "cofractal";
-    #       };
-    #     }
-    #   ];
-    # };
-
-    services.frr.config = ''
-      frr defaults traditional
-      log syslog informational
-      ipv6 forwarding
-      service integrated-vtysh-config
-      router bgp 395388
-      bgp router-id 199.255.18.181
-      bgp ebgp-requires-policy
-      bgp default dynamic-capability
-      neighbor cofractal peer-group
-      neighbor cofractal remote-as 26073
-      neighbor 2606:7940:32:3c::2 peer-group cofractal
-      neighbor 2606:7940:32:3c::3 peer-group cofractal
-      !
-      address-family ipv4 unicast
-        redistribute connected
-        neighbor cofractal activate
-        neighbor cofractal send-nexthop-characteristics
-        neighbor cofractal capability extended-nexthop
-        neighbor cofractal route-map IMPORT in
-        neighbor cofractal route-map EXPORT out
-      exit-address-family
-      !
-      address-family ipv6
-        redistribute connected
-        neighbor cofractal activate
-        neighbor cofractal route-map IMPORT in
-        neighbor cofractal route-map EXPORT out
-      exit-address-family
-      !
-      route-map EXPORT deny 100
-      !
-      route-map EXPORT permit 1
-      match interface lo
-      set ipv6 next-hop global 2606:7940:32:3c::11
-      !
-      route-map IMPORT deny 1
-      !
-      line vty
-      !
-    '';
-    services.frr.bgpd.enable = true;
-
     services.tailscale.enable = true;
     services.tailscale.openFirewall = false;
     services.tailscale.interfaceName = "userspace-networking";
@@ -200,6 +105,7 @@
 
     services.prometheus.exporters.node.enable = true;
 
+    system.primaryUser = "root";
     networking.domain = "sea.t4t.net";
   };
 }

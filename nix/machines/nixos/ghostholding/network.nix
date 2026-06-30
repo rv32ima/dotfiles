@@ -2,13 +2,11 @@
 {
   networking.useDHCP = lib.mkDefault false;
   networking.useNetworkd = true;
-  services.resolved.enable = true;
-  services.resolved.fallbackDns = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
+  networking.nameservers = [
+    "1.1.1.1#one.one.one.one"
+    "1.0.0.1#one.one.one.one"
   ];
+  services.resolved.enable = false;
   networking.firewall.logRefusedConnections = false;
   networking.firewall.logRefusedPackets = false;
   networking.firewall.logRefusedUnicastsOnly = false;
@@ -75,66 +73,6 @@
       }
       {
         Address = "2606:7940:32:3c::11/120";
-      }
-    ];
-  };
-
-  systemd.network.networks."loopback" = {
-    matchConfig.Name = "lo";
-    addresses = [
-      {
-        Address = "23.190.72.0/24";
-      }
-      {
-        Address = "2620:C2:2000::1/48";
-      }
-    ];
-  };
-
-  systemd.network.netdevs."bond0".netdevConfig = {
-    Kind = "bond";
-    Name = "bond0";
-    MACAddress = "ec:0d:9a:f9:e4:ff";
-  };
-
-  systemd.network.netdevs."bond0".bondConfig = {
-    Mode = "802.3ad";
-    TransmitHashPolicy = "layer3+4";
-    LACPTransmitRate = "fast";
-  };
-
-  systemd.network.networks."bond0-swp3" = {
-    matchConfig.Name = "swp3";
-    networkConfig.Bond = "bond0";
-  };
-
-  systemd.network.networks."bond0-swp4" = {
-    matchConfig.Name = "swp4";
-    networkConfig.Bond = "bond0";
-  };
-
-  systemd.network.networks."bond0" = {
-    matchConfig.Name = "bond0";
-
-    routes = [
-      {
-        Destination = "23.190.72.1";
-      }
-      {
-        Destination = "2620:C2:2000::2";
-      }
-      {
-        Destination = "2620:C2:2000:1::/64";
-        Gateway = "2620:C2:2000::2";
-      }
-    ];
-
-    # Without this, IPv6 neighbor discovery fails, meaning that
-    # we appear unreachable to the other side. Don't ask me why this
-    # is the way it is.
-    addresses = [
-      {
-        Address = "2620:C2:2000::1/64";
       }
     ];
   };

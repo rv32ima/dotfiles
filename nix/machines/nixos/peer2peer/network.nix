@@ -35,27 +35,19 @@
   systemd.network.networks."bond0" = {
     matchConfig.Name = "bond0";
 
+    networkConfig = {
+      DHCP = true;
+      IPv6AcceptRA = true;
+    };
+
+    dhcpV6Config.WithoutRA = "solicit";
+
     routes = [
-      {
-        Destination = "23.190.72.0/32";
-      }
-      {
-        Gateway = "23.190.72.0";
-      }
       {
         Destination = "2620:C2:2000::1/64";
       }
       {
         Gateway = "2620:C2:2000::1";
-      }
-    ];
-
-    addresses = [
-      {
-        Address = "23.190.72.1/32";
-      }
-      {
-        Address = "2620:C2:2000::2/64";
       }
     ];
   };

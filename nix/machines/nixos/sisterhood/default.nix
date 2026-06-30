@@ -14,6 +14,8 @@ in
 {
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
+    (self.lib.nixosModule "nixos/home-manager")
+    (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
 
     (self.lib.nixosModule "users/root")

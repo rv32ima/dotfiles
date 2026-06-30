@@ -13,9 +13,12 @@ in
 {
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
+    (self.lib.nixosModule "nixos/home-manager")
+    (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/zfs-mirror")
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/services/tailscale")
+    (self.lib.nixosModule "nixos/services/hydra")
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
 
