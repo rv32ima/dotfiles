@@ -132,6 +132,13 @@
             }
           ];
 
+          routes = [
+            {
+              Destination = "2620:c2:2000:1::/64";
+              Gateway = "2620:c2:2000::10";
+            }
+          ];
+
         };
       };
 
@@ -196,11 +203,13 @@
             "undionly.kpxe"
             "tag:UEFI,ipxe.efi"
             "tag:UEFI64,ipxe.efi"
-            "tag:IPXE,http://23.190.72.80:8787/autoexec.ipxe"
+            # For some reason, using the DNS name of peer2peer doesn't work here
+            # for iPXE. So we just use the static IP. Gross.
+            "tag:IPXE,http://23.190.72.45:8787/autoexec.ipxe"
           ];
           dhcp-host = [
             "38:05:25:37:2b:d0,23.190.72.45" # peer2peer LACP bond
-            "38:05:25:37:2b:d0,[2620:C2:2000::2]" # peer2peer LACP bond
+            "38:05:25:37:2b:d0,[2620:C2:2000::10]" # peer2peer LACP bond
           ];
         };
       };

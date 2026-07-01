@@ -49,7 +49,7 @@ in
       }
     ];
 
-    rv32ima.machine.bootstrapTarget = "pawpatch";
+    rv32ima.machine.bootstrapTarget = "psychoboost";
 
     boot.loader.limine.enable = true;
     boot.loader.limine.secureBoot.enable = true;

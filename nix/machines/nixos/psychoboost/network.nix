@@ -7,7 +7,7 @@
   systemd.network.netdevs."bond0".netdevConfig = {
     Kind = "bond";
     Name = "bond0";
-    MACAddress = "0c:42:a1:71:61:06";
+    MACAddress = "0c:42:a1:71:6a:16";
   };
 
   systemd.network.netdevs."bond0".bondConfig = {
@@ -17,12 +17,12 @@
   };
 
   systemd.network.networks."bond0-p1" = {
-    matchConfig.PermanentMACAddress = "0c:42:a1:71:61:06";
+    matchConfig.PermanentMACAddress = "0c:42:a1:71:6a:16";
     networkConfig.Bond = "bond0";
   };
 
   systemd.network.networks."bond0-p2" = {
-    matchConfig.PermanentMACAddress = "0c:42:a1:71:61:07";
+    matchConfig.PermanentMACAddress = "0c:42:a1:71:6a:17";
     networkConfig.Bond = "bond0";
   };
 

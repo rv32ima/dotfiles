@@ -41,15 +41,6 @@
     };
 
     dhcpV6Config.WithoutRA = "solicit";
-
-    routes = [
-      {
-        Destination = "2620:C2:2000::1/64";
-      }
-      {
-        Gateway = "2620:C2:2000::1";
-      }
-    ];
   };
 
   systemd.network.netdevs."home-wg" = {
@@ -103,11 +94,6 @@
 
   systemd.network.networks."home-sit" = {
     matchConfig.Name = "home-sit";
-    addresses = [
-      {
-        Address = "2620:c2:2000::2/64";
-      }
-    ];
 
     linkConfig = {
       MTUBytes = 1400;
