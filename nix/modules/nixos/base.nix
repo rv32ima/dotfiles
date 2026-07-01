@@ -86,6 +86,14 @@
     # users in trusted group are trusted by the nix-daemon
     nix.settings.trusted-users = [ "@trusted" ];
 
+    nix.settings.substituters = [
+      "https://cache.t4t.net"
+    ];
+
+    nix.settings.trusted-public-keys = [
+      "cache.t4t.net-1:7NimrD/skv9tL7c3UjgwMxpup/RNcvzd7yrH0QNnlF0="
+    ];
+
     # Manage users atomically
     users.mutableUsers = false;
 
