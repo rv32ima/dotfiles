@@ -10,8 +10,14 @@
         }
         {
           ports = [
-            "swp4"
             "swp5"
+            "swp6"
+          ];
+        }
+        {
+          ports = [
+            "swp7"
+            "swp8"
           ];
         }
       ];
@@ -74,30 +80,31 @@
     {
       # mlxsw's ipv4_dhcp devlink trap doesn't fire correctly, so we use a TC
       # flower filter with action trap to force DHCP packets to the CPU via ASIC offload.
-      systemd.services."tc-dhcp-trap" =
-        let
-          # br-switch excluded — redirecting to itself would loop
-          allInterfaces = lib.flatten (map (b: b.ports) bonds) ++ builtins.attrNames bondNetdevs;
-        in
-        {
-          after = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
-          path = [ pkgs.iproute2 ];
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-          };
-          # action trap is not offloaded to HW on mlxsw (not_in_hw), so instead we
-          # use mirred ingress redirect to inject matched packets directly into
-          # br-switch's RX path. DHCP broadcasts reach the kernel on swp* via the
-          # ASIC's normal broadcast flooding, so the software filter catches them.
-          script = lib.concatMapStrings (iface: ''
-            tc qdisc add dev ${iface} clsact 2>/dev/null || true
-            tc filter delete dev ${iface} ingress
-            tc filter add dev ${iface} ingress protocol ip flower ip_proto udp dst_port 67 action mirred ingress redirect dev br-switch
-            tc filter add dev ${iface} ingress protocol ipv6 flower ip_proto udp dst_port 547 action mirred ingress redirect dev br-switch
-          '') allInterfaces;
-        };
+      #      systemd.services."tc-dhcp-trap" =
+      #        let
+      #          # br-switch excluded — redirecting to itself would loop
+      #          allInterfaces = lib.flatten (map (b: b.ports) bonds) ++ builtins.attrNames bondNetdevs;
+      #        in
+      #        {
+      #          after = [ "network-online.target" ];
+      #          wantedBy = [ "multi-user.target" ];
+      #          path = [ pkgs.iproute2 ];
+      #          serviceConfig = {
+      #            Type = "oneshot";
+      #            RemainAfterExit = true;
+      #          };
+      #          # action trap is not offloaded to HW on mlxsw (not_in_hw), so instead we
+      #          # use mirred ingress redirect to inject matched packets directly into
+      #          # br-switch's RX path. DHCP broadcasts reach the kernel on swp* via the
+      #          # ASIC's normal broadcast flooding, so the software filter catches them.
+      #          script = lib.concatMapStrings (iface: ''
+      #            tc qdisc add dev ${iface} clsact 2>/dev/null || true
+      #            tc filter delete dev ${iface} ingress
+      #            # tc filter add dev ${iface} ingress protocol ip flower ip_proto udp dst_port 67 action mirred ingress redirect dev br-switch
+      #            # tc filter add dev ${iface} ingress protocol ip flower ip_proto udp dst_port 69 action mirred ingress redirect dev br-switch
+      #            # tc filter add dev ${iface} ingress protocol ipv6 flower ip_proto udp dst_port 547 action mirred ingress redirect dev br-switch
+      #          '') allInterfaces;
+      #        };
 
       systemd.network.netdevs = bondNetdevs // {
         "br-switch".netdevConfig = {
@@ -118,7 +125,7 @@
           # is the way it is.
           addresses = [
             {
-              Address = "23.190.72.0/24";
+              Address = "23.190.72.1/24";
             }
             {
               Address = "2620:C2:2000::1/64";
@@ -130,6 +137,32 @@
 
       networking.firewall.trustedInterfaces = [ "br-switch" ];
 
+      services.atftpd = {
+        enable = true;
+        root =
+          let
+            bootScript = pkgs.writeTextFile {
+              name = "ipxe-autoexec";
+              text = ''
+                #!ipxe
+
+                dhcp
+                chain http://boot.ipxe.org/demo/boot.php
+              '';
+            };
+          in
+          "${pkgs.stdenv.mkDerivation {
+            name = "dnsmasq-tftp-root";
+            phases = [ "installPhase" ];
+            installPhase = ''
+              mkdir -p $out
+              cp ${pkgs.ipxe}/undionly.kpxe $out/undionly.kpxe
+              cp ${pkgs.ipxe}/ipxe.efi $out/ipxe.efi
+              cp ${bootScript} $out/autoexec.ipxe
+            '';
+          }}";
+      };
+
       services.dnsmasq = {
         enable = true;
         settings = {
@@ -138,6 +171,8 @@
           expand-hosts = true;
           enable-ra = true;
           dhcp-authoritative = true;
+          enable-tftp = false;
+
           log-dhcp = true;
           strict-order = true;
           server = [
@@ -147,14 +182,35 @@
             "2606:4700:4700::1001"
           ];
           dhcp-range = [
-            "23.190.72.1,23.190.72.254,255.255.255.0,24h"
+            "23.190.72.2,23.190.72.254,255.255.255.0,24h"
             "2620:c2:2000::10,2620:c2:2000::200,64,24h"
           ];
           dhcp-option = [
             "option:netmask,255.255.255.0"
-            "option:router,23.190.72.0"
-            "option:dns-server,23.190.72.0"
+            "option:router,23.190.72.1"
+            "option:dns-server,23.190.72.1"
             "option:domain-search,sea.t4t.net"
+            "option:tftp-server,23.190.72.1"
+          ];
+          dhcp-vendorclass = [
+            "set:BIOS,PXEClient:Arch:00000"
+            "set:UEFI32,PXEClient:Arch:00006"
+            "set:UEFI,PXEClient:Arch:00007"
+            "set:UEFI64,PXEClient:Arch:00009"
+          ];
+          dhcp-userclass = [
+            "set:IPXE,iPXE"
+          ];
+          # The order for this matters in a way that I don't really like.
+          dhcp-boot = [
+            "undionly.kpxe"
+            "tag:UEFI,ipxe.efi"
+            "tag:UEFI64,ipxe.efi"
+            "tag:IPXE,autoexec.ipxe"
+          ];
+          dhcp-host = [
+            "38:05:25:37:2b:d0,23.190.72.45" # peer2peer LACP bond
+            "38:05:25:37:2b:d0,[2620:C2:2000::2]" # peer2peer LACP bond
           ];
         };
       };

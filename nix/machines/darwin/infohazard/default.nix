@@ -42,7 +42,7 @@ in
     nix.settings.max-jobs = 10;
     nix.buildMachines = [
       # (self.lib.machineAsBuilder "peer2peer")
-      (self.lib.machineAsBuilder "silver-chariot")
+      # (self.lib.machineAsBuilder "silver-chariot")
       (self.lib.machineAsBuilder "unmusique")
     ];
 
