@@ -71,7 +71,7 @@
   "pawpatch" = {
     system = "x86_64-linux";
     stateVersion = "26.05";
-    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPz54HjkBeZLYPQMrIaKxl5UmIPcNbHh8L3kNmIgiVRx";
+    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPBFwz8SD8+Yg6BYpd1geNVUsTrFSpm9tVX1dpQtDrw9";
     deployment = {
       targetHost = "pawpatch.tail09d5b.ts.net";
       targetPort = 22;
@@ -90,7 +90,7 @@
   "psychoboost" = {
     system = "x86_64-linux";
     stateVersion = "26.05";
-    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPz54HjkBeZLYPQMrIaKxl5UmIPcNbHh8L3kNmIgiVRx";
+    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQP5dUoKULsDpiI73oZabny2hb0Cxw37Qfnnh7pM8QU";
     deployment = {
       targetHost = "psychoboost.tail09d5b.ts.net";
       targetPort = 22;
