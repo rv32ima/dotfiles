@@ -32,6 +32,14 @@
     tmux
   ];
 
+  nix.settings.substituters = [
+    "https://cache.t4t.net"
+  ];
+
+  nix.settings.trusted-public-keys = [
+    "cache.t4t.net-1:7NimrD/skv9tL7c3UjgwMxpup/RNcvzd7yrH0QNnlF0="
+  ];
+
   nixpkgs.overlays = builtins.attrValues self.overlays;
 
   # Where we are roughly:
