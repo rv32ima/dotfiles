@@ -23,6 +23,7 @@
         "wheel"
         "trusted"
       ];
+      isNormalUser = true;
       hashedPasswordFile = config.sops.secrets."users/chloe/password".path;
     };
   };
