@@ -35,38 +35,9 @@
 
     sops.secrets."services/hydra/nix-signing-key" = {
       sopsFile = ./secrets.yaml;
-      owner = "root";
-      group = "root";
+      owner = "hydra-queue-runner";
+      group = "nogroup";
     };
-
-    nix.settings.post-build-hook = lib.getExe (
-      pkgs.writeShellApplication {
-        name = "upload";
-        runtimeInputs = with pkgs; [
-          ts
-          nix
-          findutils
-        ];
-        text = ''
-          set -uf
-
-          export AWS_SHARED_CREDENTIALS_FILE=${
-            lib.escapeShellArg config.sops.secrets."services/hydra/r2".path
-          }
-
-          if [[ -n "''${OUT_PATHS:-}" ]]; then
-            export TS_MAXFINISHED=1000
-            export TS_SLOTS=10
-
-            echo "upload $OUT_PATHS"
-            printf "%s" "$OUT_PATHS" \
-            | xargs ts nix copy --to 's3://rv32ima-nix-store?secret-key=${
-              config.sops.secrets."services/hydra/nix-signing-key".path
-            }&endpoint=359f72dd5610ef51b6f186e0818ab188.r2.cloudflarestorage.com&region=auto&compression=zstd'
-          fi
-        '';
-      }
-    );
 
     services.hydra = {
       enable = true;
@@ -75,6 +46,11 @@
       buildMachinesFiles = [ "/etc/nix/machines" ];
       useSubstitutes = true;
       smtpHost = "smtp.fastmail.com";
+      extraConfig = ''
+        store_uri = s3://rv32ima-nix-store?secret-key=${
+          config.sops.secrets."services/hydra/nix-signing-key".path
+        }&endpoint=359f72dd5610ef51b6f186e0818ab188.r2.cloudflarestorage.com&region=auto&compression=zstd 
+      '';
     };
 
     sops.templates."services/hydra/smtp" = {
@@ -88,6 +64,10 @@
 
     systemd.services.hydra-notify = {
       serviceConfig.EnvironmentFile = "${config.sops.templates."services/hydra/smtp".path}";
+    };
+
+    systemd.services.hydra-queue-runner = {
+      serviceConfig.EnvironmentFile = "${config.sops.secrets."services/hydra/r2".path}";
     };
 
     rv32ima.machine.tailscale.services.hydra = {
