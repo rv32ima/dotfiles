@@ -46,6 +46,50 @@
     };
   };
 
+  disko.devices.disk.disk2 = {
+    type = "disk";
+    device = "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_MQ35W98904278";
+    content.type = "gpt";
+    content.partitions = {
+      ESP = {
+        size = "500M";
+        type = "EF00";
+        content = {
+          type = "mdraid";
+          name = "boot";
+        };
+      };
+      luks-swap = {
+        size = "32G";
+        content = {
+          type = "luks";
+          name = "disk2-luks-swap";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "swap";
+            discardPolicy = "both";
+          };
+        };
+      };
+      luks-zroot = {
+        size = "100%";
+        content = {
+          type = "luks";
+          name = "disk2-luks-zroot";
+          settings = {
+            allowDiscards = true;
+          };
+          content = {
+            type = "zfs";
+            pool = "zroot";
+          };
+        };
+      };
+    };
+  };
+
   disko.devices.disk.tank-disk1 = {
     type = "disk";
     device = "/dev/disk/by-id/nvme-Micron_9300_MTFDHAL3T8TDP_21032DAB8507";

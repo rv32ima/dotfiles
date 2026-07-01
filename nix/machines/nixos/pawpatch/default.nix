@@ -19,6 +19,7 @@ in
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
+    (self.lib.nixosModule "users/chloe")
 
     ./network.nix
     ./disk-config.nix
