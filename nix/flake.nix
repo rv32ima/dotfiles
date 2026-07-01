@@ -175,7 +175,7 @@
                   mkNetboot = machine: self.nixosConfigurations.${machine}.config.system.build.netboot;
                   machineAndInstaller = machine: {
                     "${machine}" = mkClosure machine;
-                    "${machine}-installer" = mkNetboot machine;
+                    "${machine}-installer" = mkNetboot "${machine}-installer";
                   };
                 in
                 lib.mergeAttrsList [
