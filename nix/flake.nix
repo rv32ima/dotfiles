@@ -168,7 +168,7 @@
               }) conf);
 
             hydraJobs = {
-              inherit (self) legacyPackages;
+              legacyPackages.x86_64-linux = self.legacyPackages.x86_64-linux;
             };
 
             lib = {
