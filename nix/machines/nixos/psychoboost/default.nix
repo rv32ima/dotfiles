@@ -17,6 +17,7 @@ in
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/services/tailscale")
+    (self.lib.nixosModule "nixos/services/hydra")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
@@ -69,6 +70,11 @@ in
     networking.useNetworkd = true;
     networking.firewall.allowedTCPPorts = [ ];
     networking.firewall.logRefusedConnections = false;
+
+    nix.buildMachines = [
+      (self.lib.machineAsBuilder "unmusique")
+      (self.lib.machineAsBuilder "peer2peer")
+    ];
 
     services.zfs.autoScrub.enable = true;
     services.zfs.autoScrub.interval = "weekly";

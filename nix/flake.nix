@@ -167,6 +167,10 @@
                 deployment = self.lib.vars.machines.${name}.deployment or { };
               }) conf);
 
+            hydraJobs = {
+              inherit (self) legacyPackages;
+            };
+
             lib = {
               vars = {
                 machines = import ./vars/machines.nix inputs;

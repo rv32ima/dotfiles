@@ -55,6 +55,7 @@ creation_rules:
     - age:
       - *1password
       - *silver-chariot
+      - *psychoboost
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:
