@@ -8,6 +8,7 @@ keys:
   - &ghostholding age1m6907s82txujxe36d8a7p6frmnw9ndqw0cu49dr5ut6qnk8htuks3du9js
   - &dreamflasher age19yfzje6pm8382xnzy6xj456c3753rvym0p2mp7jztsf62rjc83wskrdqpk
   - &peer2peer age1cp3quktrfdckjza222emh95rd758cvsj777259xqv66ke0l48qvqs7fp7a
+  - &pawpatch age1rfysgjptjhvqzmj37u646wp896jypl405g7r7285qc0s8g5r89aqr9rtez
 creation_rules:
   - path_regex: users/.*/secrets/.*$
     key_groups:
@@ -21,6 +22,7 @@ creation_rules:
       - *ghostholding
       - *dreamflasher
       - *peer2peer
+      - *pawpatch
   - path_regex: modules/nixos/services/grafana/.*$
     key_groups:
       - age:
