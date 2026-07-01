@@ -20,6 +20,8 @@ in
     (self.lib.nixosModule "nixos/services/plex")
     (self.lib.nixosModule "nixos/services/pawpatch/copyparty")
     (self.lib.nixosModule "nixos/services/pawpatch/soulseek")
+    (self.lib.nixosModule "nixos/services/pawpatch/vintagestory")
+    (self.lib.nixosModule "nixos/services/pawpatch/vintagestory-eval")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")

@@ -48,6 +48,28 @@
           chmod_d = "755";
         };
       };
+      "/vintagestory" = {
+        path = "/var/lib/vintagestory";
+        access = {
+          r = "*";
+          rwmd = [
+            "me@ellie.fm"
+            "chloeshfr@gmail.com"
+          ];
+        };
+        flags = {
+          e2d = true;
+          d2t = true;
+          fk = 4;
+          gid = config.users.groups.vintagestory.gid;
+          chmod_f = "775";
+          chmod_d = "775";
+        };
+      };
+    };
+
+    users.groups.vintagestory = {
+      members = [ "copyparty" ];
     };
 
     rv32ima.machine.tailscale.services.pawpatch-fs = {
