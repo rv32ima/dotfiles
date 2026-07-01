@@ -189,7 +189,7 @@
                     hostName = machineName;
                     publicHostKey = toBase64 vars'.sshPublicKey;
                     sshKey = "/etc/nix/builder_ed25519";
-                    protocol = "ssh-ng";
+                    protocol = "ssh";
                   }
                 else
                   lib.assertMsg false "machineAsBuilder must be called on a machine that has a build section";
