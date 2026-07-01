@@ -68,6 +68,25 @@
       ];
     };
   };
+  "pawpatch" = {
+    system = "x86_64-linux";
+    stateVersion = "26.05";
+    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPz54HjkBeZLYPQMrIaKxl5UmIPcNbHh8L3kNmIgiVRx";
+    deployment = {
+      targetHost = "pawpatch.tail09d5b.ts.net";
+      targetPort = 22;
+      targetUser = "root";
+    };
+    build = {
+      maxJobs = 24;
+      sshUser = "nix";
+      supportedFeatures = [
+        "kvm"
+        "benchmark"
+        "big-parallel"
+      ];
+    };
+  };
   "unmusique" = {
     system = "x86_64-linux";
     stateVersion = "25.11";

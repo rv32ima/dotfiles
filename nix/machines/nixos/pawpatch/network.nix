@@ -7,7 +7,7 @@
   systemd.network.netdevs."bond0".netdevConfig = {
     Kind = "bond";
     Name = "bond0";
-    MACAddress = "38:05:25:37:2b:d0";
+    MACAddress = "0c:42:a1:71:61:06";
   };
 
   systemd.network.netdevs."bond0".bondConfig = {
@@ -16,13 +16,13 @@
     LACPTransmitRate = "fast";
   };
 
-  systemd.network.networks."bond0-eno1np0" = {
-    matchConfig.Name = "eno1np0";
+  systemd.network.networks."bond0-p1" = {
+    matchConfig.PermanentMACAddress = "0c:42:a1:71:61:06";
     networkConfig.Bond = "bond0";
   };
 
-  systemd.network.networks."bond0-eno2np1" = {
-    matchConfig.Name = "eno2np1";
+  systemd.network.networks."bond0-p2" = {
+    matchConfig.PermanentMACAddress = "0c:42:a1:71:61:07";
     networkConfig.Bond = "bond0";
   };
 

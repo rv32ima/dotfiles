@@ -139,35 +139,25 @@
 
       services.atftpd = {
         enable = true;
-        root =
-          let
-            bootScript = pkgs.writeTextFile {
-              name = "ipxe-autoexec";
-              text = ''
-                #!ipxe
-
-                dhcp
-                chain http://boot.ipxe.org/demo/boot.php
-              '';
-            };
-          in
-          "${pkgs.stdenv.mkDerivation {
-            name = "dnsmasq-tftp-root";
-            phases = [ "installPhase" ];
-            installPhase = ''
-              mkdir -p $out
-              cp ${pkgs.ipxe}/undionly.kpxe $out/undionly.kpxe
-              cp ${pkgs.ipxe}/ipxe.efi $out/ipxe.efi
-              cp ${bootScript} $out/autoexec.ipxe
-            '';
-          }}";
+        root = "${pkgs.stdenv.mkDerivation {
+          name = "dnsmasq-tftp-root";
+          phases = [ "installPhase" ];
+          installPhase = ''
+            mkdir -p $out
+            cp ${pkgs.ipxe}/undionly.kpxe $out/undionly.kpxe
+            cp ${pkgs.ipxe}/ipxe.efi $out/ipxe.efi
+          '';
+        }}";
       };
 
       services.dnsmasq = {
         enable = true;
         settings = {
           domain = "sea.t4t.net";
-          interface = "br-switch";
+          interface = [
+            "uplink"
+            "br-switch"
+          ];
           expand-hosts = true;
           enable-ra = true;
           dhcp-authoritative = true;
@@ -206,7 +196,7 @@
             "undionly.kpxe"
             "tag:UEFI,ipxe.efi"
             "tag:UEFI64,ipxe.efi"
-            "tag:IPXE,autoexec.ipxe"
+            "tag:IPXE,http://23.190.72.80:8787/autoexec.ipxe"
           ];
           dhcp-host = [
             "38:05:25:37:2b:d0,23.190.72.45" # peer2peer LACP bond
@@ -214,5 +204,8 @@
           ];
         };
       };
+
+      # Expose dnsmasq to the world. This is probably safe.
+      networking.firewall.allowedUDPPorts = [ 53 ];
     };
 }

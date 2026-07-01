@@ -16,6 +16,7 @@ in
     (self.lib.nixosModule "nixos/home-manager")
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/bootstrapper")
     (self.lib.nixosModule "nixos/services/soulseek")
     (self.lib.nixosModule "nixos/services/plex")
     (self.lib.nixosModule "nixos/services/rtorrent")
@@ -47,6 +48,8 @@ in
         group = "root";
       }
     ];
+
+    rv32ima.machine.bootstrapTarget = "pawpatch";
 
     boot.loader.limine.enable = true;
     boot.loader.limine.secureBoot.enable = true;

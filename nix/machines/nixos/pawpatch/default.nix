@@ -53,9 +53,7 @@ in
     boot.extraModulePackages = [ ];
 
     # head -c4 /dev/urandom | od -A none -t x4
-    networking.hostId = "a41ae525";
-
-    rv32ima.machine.tailscale.enable = true;
+    networking.hostId = "93db2077";
 
     services.prometheus.exporters.node.enable = true;
 
