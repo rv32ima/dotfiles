@@ -77,15 +77,6 @@
       targetPort = 22;
       targetUser = "root";
     };
-    build = {
-      maxJobs = 24;
-      sshUser = "nix";
-      supportedFeatures = [
-        "kvm"
-        "benchmark"
-        "big-parallel"
-      ];
-    };
   };
   "psychoboost" = {
     system = "x86_64-linux";
@@ -97,7 +88,7 @@
       targetUser = "root";
     };
     build = {
-      maxJobs = 24;
+      maxJobs = 64;
       sshUser = "nix";
       supportedFeatures = [
         "kvm"

@@ -44,6 +44,7 @@ in
       # (self.lib.machineAsBuilder "peer2peer")
       # (self.lib.machineAsBuilder "silver-chariot")
       (self.lib.machineAsBuilder "unmusique")
+      (self.lib.machineAsBuilder "psychoboost")
     ];
 
     system.stateVersion = 6;
