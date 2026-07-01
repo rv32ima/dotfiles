@@ -32,6 +32,7 @@ in
   ];
 
   config = {
+
     rv32ima.machine.impermanence.enable = true;
     rv32ima.machine.impermanence.extraPersistDirectories = [
       {
