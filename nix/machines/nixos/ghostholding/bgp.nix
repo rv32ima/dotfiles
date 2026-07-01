@@ -38,6 +38,20 @@ in
             default-export-policy = "reject-route";
           };
         }
+        {
+          config = {
+            peer-group-name = "bgp-tools";
+            peer-as = 212232;
+          };
+          afi-safis = [
+            { config.afi-safi-name = "ipv4-unicast"; }
+            { config.afi-safi-name = "ipv6-unicast"; }
+          ];
+          apply-policy.config = {
+            default-import-policy = "reject-route";
+            default-export-policy = "accept-route";
+          };
+        }
       ];
 
       neighbors = [
@@ -51,6 +65,15 @@ in
           config = {
             neighbor-address = "2606:7940:32:3c::3";
             peer-group = "cofractal";
+          };
+        }
+        {
+          config = {
+            neighbor-address = "185.230.223.73";
+            peer-group = "bgp-tools";
+          };
+          ebgp-multihop.config = {
+            enabled = true;
           };
         }
       ];
