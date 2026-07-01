@@ -16,6 +16,7 @@ in
     (self.lib.nixosModule "nixos/home-manager")
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/services/tailscale")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
@@ -55,6 +56,8 @@ in
 
     # head -c4 /dev/urandom | od -A none -t x4
     networking.hostId = "93db2077";
+
+    rv32ima.machine.tailscale.enable = true;
 
     services.prometheus.exporters.node.enable = true;
 
