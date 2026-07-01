@@ -169,6 +169,22 @@
 
             hydraJobs = {
               legacyPackages.x86_64-linux = self.legacyPackages.x86_64-linux;
+              nixos =
+                let
+                  mkClosure = machine: self.nixosConfigurations.${machine}.config.system.build.toplevel;
+                  mkNetboot = machine: self.nixosConfigurations.${machine}.config.system.build.netboot;
+                  machineAndInstaller = machine: {
+                    "${machine}" = mkClosure machine;
+                    "${machine}-installer" = mkNetboot machine;
+                  };
+                in
+                lib.mergeAttrsList [
+                  (machineAndInstaller "peer2peer")
+                  (machineAndInstaller "ghostholding")
+                  (machineAndInstaller "pawpatch")
+                  (machineAndInstaller "psychoboost")
+                  (machineAndInstaller "unmusique")
+                ];
             };
 
             lib = {
