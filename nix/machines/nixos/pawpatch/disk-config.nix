@@ -224,11 +224,6 @@
         mountpoint = "/nix";
         options.mountpoint = "legacy";
       };
-      media = {
-        type = "zfs_fs";
-        mountpoint = "/media";
-        options.mountpoint = "legacy";
-      };
     };
   };
 
