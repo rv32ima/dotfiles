@@ -31,27 +31,10 @@
     };
 
     services.copyparty.volumes = {
-      "/music" = {
-        path = "/media/music";
+      "/media" = {
+        path = "/media";
         access = {
           r = "*";
-          rwmd = [
-            "me@ellie.fm"
-            "chloeshfr@gmail.com"
-          ];
-        };
-        flags = {
-          e2d = true;
-          d2t = true;
-          fk = 4;
-          chmod_f = "755";
-          chmod_d = "755";
-        };
-      };
-      "/dropbox" = {
-        path = "/media/downloads/copyparty";
-        access = {
-          wG = "*";
           rwmd = [
             "me@ellie.fm"
             "chloeshfr@gmail.com"

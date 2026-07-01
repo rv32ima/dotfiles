@@ -18,6 +18,8 @@ in
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/services/tailscale")
     (self.lib.nixosModule "nixos/services/plex")
+    (self.lib.nixosModule "nixos/services/pawpatch/copyparty")
+    (self.lib.nixosModule "nixos/services/pawpatch/soulseek")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")

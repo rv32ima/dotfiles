@@ -25,6 +25,11 @@ creation_rules:
       - *peer2peer
       - *pawpatch
       - *psychoboost
+  - path_regex: modules/nixos/services/pawpatch/.*$
+    key_groups:
+      - age:
+        - *1password
+        - *pawpatch
   - path_regex: modules/nixos/services/grafana/.*$
     key_groups:
       - age:
