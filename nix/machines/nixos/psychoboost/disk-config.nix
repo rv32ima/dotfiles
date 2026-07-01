@@ -4,7 +4,7 @@
 {
   disko.devices.disk.disk1 = {
     type = "disk";
-    device = "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_A20251111N301TB01404";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANL0L421784X";
     content.type = "gpt";
     content.partitions = {
       ESP = {
@@ -48,7 +48,7 @@
 
   disko.devices.disk.disk2 = {
     type = "disk";
-    device = "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_MQ35W98904278";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANL0L422636Z";
     content.type = "gpt";
     content.partitions = {
       ESP = {
