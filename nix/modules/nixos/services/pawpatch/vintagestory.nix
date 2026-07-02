@@ -355,7 +355,7 @@ let
     Upnp = false;
     VerifyPlayerAuth = true;
     VhIdentifier = null;
-    WelcomeMessage = "Welcome {0}, may you survive well and prosper";
+    WelcomeMessage = "{0} is a faggot";
     WhitelistMode = 0;
     WorldConfig = {
       AllowCreativeMode = true;
@@ -370,6 +370,72 @@ let
       WorldConfiguration = null;
       WorldName = "A new world";
       WorldType = "standard";
+  "gameMode": "survival",
+  "playerlives": "-1",
+  "startingClimate": "temperate",
+  "spawnRadius": "50",
+  "graceTimer": "0",
+  "deathPunishment": "drop",
+  "droppedItemsTimer": "600",
+  "seasons": "enabled",
+  "daysPerMonth": "9",
+  "harshWinters": "true",
+  "blockGravity": "sandgravel",
+  "caveIns": "off",
+  "allowFallingBlocks": true,
+  "allowFireSpread": true,
+  "lightningFires": false,
+  "allowUndergroundFarming": false,
+  "noLiquidSourceTransport": false,
+  "playerHealthPoints": "15",
+  "playerHealthRegenSpeed": "1",
+  "playerHungerSpeed": "1",
+  "lungCapacity": "40000",
+  "bodyTemperatureResistance": "0",
+  "playerMoveSpeed": "1.5",
+  "creatureHostility": "aggressive",
+  "creatureStrength": "1",
+  "creatureSwimSpeed": "2",
+  "foodSpoilSpeed": "1",
+  "saplingGrowthRate": "1",
+  "toolDurability": "1",
+  "toolMiningSpeed": "1",
+  "propickNodeSearchRadius": "6",
+  "microblockChiseling": "stonewood",
+  "allowCoordinateHud": true,
+  "allowMap": true,
+  "colorAccurateWorldmap": false,
+  "loreContent": true,
+  "clutterObtainable": "ifrepaired",
+  "temporalStability": true,
+  "temporalStorms": "sometimes",
+  "tempstormDurationMul": "1",
+  "temporalRifts": "visible",
+  "temporalGearRespawnUses": "20",
+  "temporalStormSleeping": "0",
+  "worldClimate": "realistic",
+  "landcover": "0.975",
+  "oceanscale": "5",
+  "upheavelCommonness": "0.3",
+  "geologicActivity": "0.05",
+  "landformScale": "1.0",
+  "worldWidth": "1024000",
+  "worldLength": "1024000",
+  "worldEdge": "traversable",
+  "polarEquatorDistance": "100000",
+  "storyStructuresDistScaling": "1",
+  "globalTemperature": "1",
+  "globalPrecipitation": "1",
+  "globalForestation": "0",
+  "globalDepositSpawnRate": "1",
+  "surfaceCopperDeposits": "0.12",
+  "surfaceTinDeposits": "0.007",
+  "snowAccum": "true",
+  "allowLandClaiming": true,
+  "classExclusiveRecipes": true,
+  "auctionHouse": true,
+  "playstyle": "surviveandbuild",
+  "worldHeight": 384
     };
   };
 in
