@@ -1,6 +1,15 @@
 { pkgs, ... }:
 {
   config = {
+    rv32ima.machine.impermanence.extraPersistDirectories = [
+      {
+        path = /var/lib/nzbget;
+        mode = "0700";
+        owner = "nzbget";
+        group = "nzbget";
+      }
+    ];
+
     services.nzbget.enable = true;
     services.nzbget.settings = {
       MainDir = "/media/downloads/nzbget";
