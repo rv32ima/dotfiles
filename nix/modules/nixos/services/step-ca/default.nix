@@ -2,7 +2,6 @@
   pkgs,
   config,
   self,
-  lib,
   ...
 }:
 let
@@ -183,9 +182,9 @@ in
                   roots = [
                     (builtins.readFile "${rootCA}")
                   ];
-                  rootsStr = lib.strings.concatStrings roots;
+                  rootsStr = pkgs.lib.strings.concatStrings roots;
                 in
-                lib.toBase64 rootsStr;
+                pkgs.lib.toBase64 rootsStr;
               claims = {
                 maxTLSCertDuration = "8h";
                 defaultTLSCertDuration = "2h";
