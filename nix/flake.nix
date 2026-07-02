@@ -157,17 +157,14 @@
                   (lib.strings.hasSuffix "-installer" name) == false && (builtins.elem name blacklistedNodes) == false
                 ) inputs.self.nixosConfigurations;
               in
-              {
+              builtins.mapAttrs (name: value: {
                 meta = {
-                  nixpkgs = import nixpkgs { system = "x86_64-linux"; };
-                  nodeSpecialArgs = builtins.mapAttrs (_: value: value._module.specialArgs) conf;
-                  nodeNixpkgs = builtins.mapAttrs (_: value: value.pkgs) conf;
+                  nodeSpecialArgs = value._module.specialArgs;
+                  # nodeNixpkgs = value.pkgs;
                 };
-              }
-              // (builtins.mapAttrs (name: value: {
                 imports = value._module.args.modules;
                 deployment = self.lib.vars.machines.${name}.deployment or { };
-              }) conf);
+              }) conf;
 
             hydraJobs = {
               legacyPackages.x86_64-linux = self.legacyPackages.x86_64-linux;
