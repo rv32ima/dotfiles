@@ -367,75 +367,76 @@ let
       RepairMode = false;
       SaveFileLocation = "/var/lib/vintagestory/Saves/default.vcdbs";
       Seed = null;
-      WorldConfiguration = null;
+      WorldConfiguration = {
+        allowCoordinateHud = true;
+        allowFallingBlocks = true;
+        allowFireSpread = true;
+        allowLandClaiming = true;
+        allowMap = true;
+        allowUndergroundFarming = false;
+        auctionHouse = true;
+        blockGravity = "sandgravel";
+        bodyTemperatureResistance = "0";
+        caveIns = "off";
+        classExclusiveRecipes = true;
+        clutterObtainable = "ifrepaired";
+        colorAccurateWorldmap = false;
+        creatureHostility = "aggressive";
+        creatureStrength = "1";
+        creatureSwimSpeed = "2";
+        daysPerMonth = "9";
+        deathPunishment = "drop";
+        droppedItemsTimer = "600";
+        foodSpoilSpeed = "1";
+        gameMode = "survival";
+        geologicActivity = "0.05";
+        globalDepositSpawnRate = "1";
+        globalForestation = "0";
+        globalPrecipitation = "1";
+        globalTemperature = "1";
+        graceTimer = "0";
+        harshWinters = "true";
+        landcover = "0.975";
+        landformScale = "1.0";
+        lightningFires = false;
+        loreContent = true;
+        lungCapacity = "40000";
+        microblockChiseling = "stonewood";
+        noLiquidSourceTransport = false;
+        oceanscale = "5";
+        playerHealthPoints = "15";
+        playerHealthRegenSpeed = "1";
+        playerHungerSpeed = "1";
+        playerMoveSpeed = "1.5";
+        playerlives = "-1";
+        playstyle = "surviveandbuild";
+        polarEquatorDistance = "100000";
+        propickNodeSearchRadius = "6";
+        saplingGrowthRate = "1";
+        seasons = "enabled";
+        snowAccum = "true";
+        spawnRadius = "50";
+        startingClimate = "temperate";
+        storyStructuresDistScaling = "1";
+        surfaceCopperDeposits = "0.12";
+        surfaceTinDeposits = "0.007";
+        temporalGearRespawnUses = "20";
+        temporalRifts = "visible";
+        temporalStability = true;
+        temporalStormSleeping = "0";
+        temporalStorms = "sometimes";
+        tempstormDurationMul = "1";
+        toolDurability = "1";
+        toolMiningSpeed = "1";
+        upheavelCommonness = "0.3";
+        worldClimate = "realistic";
+        worldEdge = "traversable";
+        worldHeight = 384;
+        worldLength = "1024000";
+        worldWidth = "1024000";
+      };
       WorldName = "A new world";
       WorldType = "standard";
-  "gameMode": "survival",
-  "playerlives": "-1",
-  "startingClimate": "temperate",
-  "spawnRadius": "50",
-  "graceTimer": "0",
-  "deathPunishment": "drop",
-  "droppedItemsTimer": "600",
-  "seasons": "enabled",
-  "daysPerMonth": "9",
-  "harshWinters": "true",
-  "blockGravity": "sandgravel",
-  "caveIns": "off",
-  "allowFallingBlocks": true,
-  "allowFireSpread": true,
-  "lightningFires": false,
-  "allowUndergroundFarming": false,
-  "noLiquidSourceTransport": false,
-  "playerHealthPoints": "15",
-  "playerHealthRegenSpeed": "1",
-  "playerHungerSpeed": "1",
-  "lungCapacity": "40000",
-  "bodyTemperatureResistance": "0",
-  "playerMoveSpeed": "1.5",
-  "creatureHostility": "aggressive",
-  "creatureStrength": "1",
-  "creatureSwimSpeed": "2",
-  "foodSpoilSpeed": "1",
-  "saplingGrowthRate": "1",
-  "toolDurability": "1",
-  "toolMiningSpeed": "1",
-  "propickNodeSearchRadius": "6",
-  "microblockChiseling": "stonewood",
-  "allowCoordinateHud": true,
-  "allowMap": true,
-  "colorAccurateWorldmap": false,
-  "loreContent": true,
-  "clutterObtainable": "ifrepaired",
-  "temporalStability": true,
-  "temporalStorms": "sometimes",
-  "tempstormDurationMul": "1",
-  "temporalRifts": "visible",
-  "temporalGearRespawnUses": "20",
-  "temporalStormSleeping": "0",
-  "worldClimate": "realistic",
-  "landcover": "0.975",
-  "oceanscale": "5",
-  "upheavelCommonness": "0.3",
-  "geologicActivity": "0.05",
-  "landformScale": "1.0",
-  "worldWidth": "1024000",
-  "worldLength": "1024000",
-  "worldEdge": "traversable",
-  "polarEquatorDistance": "100000",
-  "storyStructuresDistScaling": "1",
-  "globalTemperature": "1",
-  "globalPrecipitation": "1",
-  "globalForestation": "0",
-  "globalDepositSpawnRate": "1",
-  "surfaceCopperDeposits": "0.12",
-  "surfaceTinDeposits": "0.007",
-  "snowAccum": "true",
-  "allowLandClaiming": true,
-  "classExclusiveRecipes": true,
-  "auctionHouse": true,
-  "playstyle": "surviveandbuild",
-  "worldHeight": 384
     };
   };
 in
