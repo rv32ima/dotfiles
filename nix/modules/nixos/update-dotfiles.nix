@@ -18,7 +18,7 @@
         fi
         pushd $DOTFILES_DIR
         git fetch --all
-        git reset --hard origin/master
+        git reset --hard origin/main
       '';
       environment = {
         GIT_CONFIG_GLOBAL = "/dev/null";

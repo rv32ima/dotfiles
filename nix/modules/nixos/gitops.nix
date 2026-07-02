@@ -59,10 +59,9 @@
       enable = config.gitops.enable;
       remotes = [
         {
-          name = "origin";
-          url = config.gitops.repo;
-          poller.period = config.gitops.interval;
-          branches.main.name = config.gitops.ref;
+          name = "local";
+          url = "/home/ellie/.dotfiles";
+          poller.period = 2;
         }
       ];
       machineId = vars'.machineID;
