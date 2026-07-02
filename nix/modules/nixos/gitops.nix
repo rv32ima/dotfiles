@@ -50,7 +50,7 @@
     gitops = {
       repo = "https://github.com/rv32ima/dotfiles.git";
       subdir = "nix";
-      ref = "master";
+      ref = "main";
       # This should be enough time to allow Hydra to kick off a build for our machine
       delay = 300;
     };
