@@ -1,8 +1,13 @@
 { ipxe, writeText, ... }:
 ipxe.override {
+  additionalTargets = {
+    "bin-x86_64-efi/ipxe.iso" = "ipxe-efi.iso";
+  };
+
   embedScript = writeText "embed.ipxe" ''
     #!ipxe
     dhcp || goto no_dhcp
+    set dns 1.1.1.1 
     goto boot
 
     :no_dhcp
@@ -19,12 +24,10 @@ ipxe.override {
     read mask
     echo Gateway:
     read gw
-    echo DNS server:
-    read dns_server
     set ''${iface}/ip ''${ip}
     set ''${iface}/netmask ''${mask}
     set ''${iface}/gateway ''${gw}
-    set dns ''${dns_server}
+    set dns 1.1.1.1 
 
     :boot
     chain http://peer2peer.sea.t4t.net:8787/autoexec.ipxe
