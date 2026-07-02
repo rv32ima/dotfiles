@@ -286,6 +286,7 @@
             devShells.default = pkgs.mkShell {
               packages = [
                 colmena.packages.${system}.colmena
+                pkgs.openbao
               ];
             };
           };

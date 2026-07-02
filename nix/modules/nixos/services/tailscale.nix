@@ -18,10 +18,35 @@
                 type = lib.types.str;
                 default = config._module.args.name;
               };
+              listenTypes = lib.mkOption {
+                type = lib.types.listOf (
+                  lib.types.submodule {
+                    options = {
+                      type = lib.mkOption {
+                        type = lib.types.str;
+                      };
+                      port = lib.mkOption {
+                        type = lib.types.port;
+                      };
+                      targetPort = lib.mkOption {
+                        type = lib.types.port;
+                      };
+                    };
+                  }
+                );
+                default = [
+                  {
+                    type = "https";
+                    port = 443;
+                    targetPort = config.port;
+                  }
+                ];
+              };
               tag = lib.mkOption {
                 type = lib.types.str;
                 default = config.name;
               };
+              # Kept for backwards compatibility
               port = lib.mkOption {
                 type = lib.types.port;
               };
@@ -52,41 +77,48 @@
     services.tailscale.extraSetFlags = [ "--accept-routes" ];
     networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
-    systemd.services = lib.mapAttrs' (
+    systemd.services = lib.concatMapAttrs (
       _:
       {
         name,
         tag,
-        port,
         targetUnit,
+        listenTypes,
+        # Ignore the port argument we get
+        ...
       }:
-      lib.nameValuePair "${name}-serve" {
-        wantedBy = [ targetUnit ];
-        after = [
-          targetUnit
-          "tailscaled.service"
-        ];
-        wants = [
-          "tailscaled.service"
-        ];
-        unitConfig = {
-          BindsTo = [ targetUnit ];
-        };
-        path = [
-          config.services.tailscale.package
-        ];
-        serviceConfig = {
-          RemainAfterExit = "yes";
-          Type = "oneshot";
-          ExecStart = pkgs.writeShellScript "${name}-serve" ''
-            tailscale wait
-            ${pkgs.flock}/bin/flock /tmp/tailscale-serve.lock -c "tailscale serve --service=svc:${tag} --https=443 ${builtins.toString port}"
-          '';
-          ExecStop = pkgs.writeShellScript "${name}-serve-clear" ''
-            tailscale serve clear svc:${tag}
-          '';
-        };
-      }
+      builtins.listToAttrs (
+        map (
+          x:
+          lib.nameValuePair "${name}-serve-${toString x.targetPort}" {
+            wantedBy = [ targetUnit ];
+            after = [
+              targetUnit
+              "tailscaled.service"
+            ];
+            wants = [
+              "tailscaled.service"
+            ];
+            unitConfig = {
+              BindsTo = [ targetUnit ];
+            };
+            path = [
+              config.services.tailscale.package
+            ];
+            serviceConfig = {
+              RemainAfterExit = "yes";
+              Type = "oneshot";
+              ExecStart = pkgs.writeShellScript "${name}-serve" ''
+                tailscale wait
+                ${pkgs.flock}/bin/flock /tmp/tailscale-serve.lock -c "tailscale serve --service=svc:${tag} --${x.type}=${toString x.port} ${builtins.toString x.targetPort}"
+              '';
+              ExecStop = pkgs.writeShellScript "${name}-serve-clear" ''
+                ${pkgs.flock}/bin/flock /tmp/tailscale-serve.lock -c "tailscale serve --service=svc:${tag} --${x.type}=${toString x.port} off"
+              '';
+            };
+          }
+        ) listenTypes
+      )
     ) config.rv32ima.machine.tailscale.services;
   };
 }

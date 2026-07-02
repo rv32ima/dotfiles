@@ -26,7 +26,6 @@ in
       email = "ellie@t4t.net";
       server = "https://ca.t4t.net/acme/acme/directory";
       listenHTTP = ":80";
-      group = "nginx";
     };
 
     networking.firewall.allowedTCPPorts = [ 80 ];

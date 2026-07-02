@@ -17,11 +17,13 @@ in
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/zfs-mirror")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/machine-certificate")
     (self.lib.nixosModule "nixos/services/tailscale")
     (self.lib.nixosModule "nixos/services/grafana")
     (self.lib.nixosModule "nixos/services/tailscalesd")
     (self.lib.nixosModule "nixos/services/tsidp")
     (self.lib.nixosModule "nixos/services/victoria-metrics")
+    (self.lib.nixosModule "nixos/services/openbao")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")

@@ -21,6 +21,12 @@
       group = config.users.users.grafana.group;
     };
 
+    sops.secrets."services/grafana/secret_key" = {
+      sopsFile = ./secrets.yaml;
+      owner = config.users.users.grafana.name;
+      group = config.users.users.grafana.group;
+    };
+
     services.grafana.enable = true;
     services.grafana.settings = {
       server = {
@@ -29,6 +35,8 @@
         enforce_domain = true;
         enable_gzip = true;
       };
+
+      security.secret_key = "$__file{${config.sops.secrets."services/grafana/secret_key".path}}";
 
       "auth.generic_oauth" = {
         enabled = true;
@@ -74,6 +82,5 @@
         ensureDBOwnership = true;
       }
     ];
-
   };
 }

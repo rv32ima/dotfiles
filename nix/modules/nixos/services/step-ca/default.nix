@@ -146,8 +146,8 @@ in
               name = "acme";
               forceCN = true;
               claims = {
-                maxTLSCertDuration = "87600h";
-                defaultTLSCertDuration = "87600h";
+                maxTLSCertDuration = "8760h";
+                defaultTLSCertDuration = "8760h";
               };
               termsOfService = "";
               website = "";
@@ -203,7 +203,9 @@ in
             x509 = {
               allow = {
                 dns = [
+                  "*.t4t.net"
                   "*.sea.t4t.net"
+                  "*.tail09d5b.ts.net"
                 ];
               };
               allowWildcardNames = true;
