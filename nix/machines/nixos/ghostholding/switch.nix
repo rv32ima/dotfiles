@@ -146,15 +146,7 @@
 
       services.atftpd = {
         enable = true;
-        root = "${pkgs.stdenv.mkDerivation {
-          name = "dnsmasq-tftp-root";
-          phases = [ "installPhase" ];
-          installPhase = ''
-            mkdir -p $out
-            cp ${pkgs.ipxe}/undionly.kpxe $out/undionly.kpxe
-            cp ${pkgs.ipxe}/ipxe.efi $out/ipxe.efi
-          '';
-        }}";
+        root = "${pkgs.rv32ima.ipxe-bootstrap}";
       };
 
       services.dnsmasq = {
@@ -200,12 +192,9 @@
           ];
           # The order for this matters in a way that I don't really like.
           dhcp-boot = [
-            "undionly.kpxe"
-            "tag:UEFI,ipxe.efi"
-            "tag:UEFI64,ipxe.efi"
-            # For some reason, using the DNS name of peer2peer doesn't work here
-            # for iPXE. So we just use the static IP. Gross.
-            "tag:IPXE,http://23.190.72.45:8787/autoexec.ipxe"
+            "bin/undionly.kpxe"
+            "tag:UEFI,bin-x86_64-efi/ipxe.efi"
+            "tag:UEFI64,bin-x86_64-efi/ipxe.efi"
           ];
           dhcp-host = [
             "38:05:25:37:2b:d0,23.190.72.45" # peer2peer LACP bond
