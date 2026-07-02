@@ -10,7 +10,7 @@ let
     BlockTickChunkRange = 5;
     BlockTickInterval = 300;
     ChatRateLimitMs = 1000;
-    ClientConnectionTimeout = 150;
+    ClientConnectionTimeout = 1000;
     CompressPackets = true;
     ConfigVersion = "1.7";
     CorruptionProtection = true;
