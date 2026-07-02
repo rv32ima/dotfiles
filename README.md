@@ -94,6 +94,7 @@ Now it's time to enroll the secure boot keys. Assuming the system is in setup mo
 
 ```
 nixos-enter
+mkdir -p /var/lib/sbctl
 mount --bind /persist/var/lib/sbctl /var/lib/sbctl
 sbctl create-keys
 sbctl enroll-keys --microsoft
@@ -111,4 +112,3 @@ reboot
 ```
 
 Ta-da! You've bootstrapped a new machine. Pat yourself on the back.
-
