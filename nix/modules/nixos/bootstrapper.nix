@@ -26,14 +26,17 @@ let
   netbootServer = pkgs.writeScript "netboot-server" ''
     #!${pkgs.python3}/bin/python3
     import json
+    import os
+    import shutil
     import subprocess
     import urllib.request
-    from http.server import HTTPServer, BaseHTTPRequestHandler
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
     from pathlib import Path
 
     HYDRA_URL = "${hydraUrl}"
     BASE_URL = "${cfg.baseUrl}"
     NIX_STORE = "${pkgs.nix}/bin/nix-store"
+    GC_ROOTS_DIR = "/nix/var/nix/gcroots/netboot-server"
     store_path_cache = {}
 
     def get_store_path(machine):
@@ -41,10 +44,11 @@ let
             return store_path_cache[machine]
         url = f"{HYDRA_URL}/job/dotfiles/master/nixos.{machine}-installer/latest-finished"
         req = urllib.request.Request(url, headers={"Accept": "application/json"})
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.load(resp)
         path = data["buildoutputs"]["out"]["path"]
-        subprocess.run([NIX_STORE, "--realise", path], check=True)
+        gc_root = os.path.join(GC_ROOTS_DIR, machine)
+        subprocess.run([NIX_STORE, "--add-root", gc_root, "--realise", path], check=True)
         store_path_cache[machine] = path
         return path
 
@@ -80,17 +84,21 @@ let
                 script = script.replace("kernel bzImage", f"kernel {base}/bzImage")
                 script = script.replace("initrd initrd", f"initrd {base}/initrd")
                 data = script.encode()
+                self.send_response(200)
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
             else:
-                data = file_path.read_bytes()
-            self.send_response(200)
-            self.send_header("Content-Length", str(len(data)))
-            self.end_headers()
-            self.wfile.write(data)
+                self.send_response(200)
+                self.send_header("Content-Length", str(file_path.stat().st_size))
+                self.end_headers()
+                with open(file_path, "rb") as f:
+                    shutil.copyfileobj(f, self.wfile)
 
         def log_message(self, fmt, *args):
             print(fmt % args, flush=True)
 
-    HTTPServer(("", 8787), NetbootHandler).serve_forever()
+    ThreadingHTTPServer(("", 8787), NetbootHandler).serve_forever()
   '';
 in
 {
@@ -110,6 +118,10 @@ in
     users.groups.netboot-server = { };
 
     nix.settings.trusted-users = [ "netboot-server" ];
+
+    systemd.tmpfiles.rules = [
+      "d /nix/var/nix/gcroots/netboot-server 0755 netboot-server netboot-server -"
+    ];
 
     systemd.services.netboot-server = {
       description = "netboot file server (hydra-backed)";

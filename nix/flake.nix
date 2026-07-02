@@ -184,6 +184,7 @@
                   (machineAndInstaller "pawpatch")
                   (machineAndInstaller "psychoboost")
                   (machineAndInstaller "unmusique")
+                  (machineAndInstaller "fadeoutz")
                 ];
             };
 
