@@ -16,6 +16,7 @@ in
     (self.lib.nixosModule "nixos/home-manager")
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
+    (self.lib.nixosModule "nixos/gitops")
     (self.lib.nixosModule "nixos/services/tailscale")
     (self.lib.nixosModule "nixos/services/plex")
     (self.lib.nixosModule "nixos/services/pawpatch/copyparty")
@@ -42,6 +43,8 @@ in
         group = "root";
       }
     ];
+
+    gitops.enable = true;
 
     boot.loader.limine.enable = true;
     boot.loader.limine.secureBoot.enable = true;
