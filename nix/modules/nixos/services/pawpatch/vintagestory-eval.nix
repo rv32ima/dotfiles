@@ -123,7 +123,9 @@ in
     };
     bindsTo = [ "vintagestory.service" ];
     after = [ "vintagestory.service" ];
-    wantedBy = [ "multi-user.target" ];
+    wants = [
+      "vintagestory.service"
+    ];
   };
 
   rv32ima.machine.tailscale.services.pawpatch-vs-eval = {
