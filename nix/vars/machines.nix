@@ -116,4 +116,23 @@
       ];
     };
   };
+  "fadeoutz" = {
+    system = "x86_64-linux";
+    stateVersion = "26.05";
+    sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEqPYLS8MYB5YCS03ID7sHxqnfkoe2yhZ1KeL3lr+quz";
+    deployment = {
+      targetHost = "fadeoutz.tail09d5b.ts.net";
+      targetPort = 22;
+      targetUser = "root";
+    };
+    build = {
+      maxJobs = 40;
+      sshUser = "nix";
+      supportedFeatures = [
+        "kvm"
+        "benchmark"
+        "big-parallel"
+      ];
+    };
+  };
 }
