@@ -123,9 +123,7 @@ in
     };
     bindsTo = [ "vintagestory.service" ];
     after = [ "vintagestory.service" ];
-    wants = [
-      "vintagestory.service"
-    ];
+    wantedBy = [ "vintagestory.service" ];
   };
 
   rv32ima.machine.tailscale.services.pawpatch-vs-eval = {
