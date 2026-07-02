@@ -16,7 +16,6 @@
     inputs.sops-nix.nixosModules.sops
     (self.lib.nixosModule "shared/nix-config")
     (self.lib.nixosModule "shared/nixpkgs")
-    (self.lib.nixosModule "nixos/tags")
   ];
 
   options = {
