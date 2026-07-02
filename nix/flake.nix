@@ -71,6 +71,8 @@
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     copyparty.url = "github:9001/copyparty";
     copyparty.inputs.nixpkgs.follows = "nixpkgs";
+    comin.url = "github:nlewo/comin";
+    comin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

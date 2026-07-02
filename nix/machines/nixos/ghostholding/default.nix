@@ -7,6 +7,7 @@
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "users/root")
+    (self.lib.nixosModule "nixos/gitops")
 
     ./network.nix
     ./disk-config.nix
@@ -16,6 +17,7 @@
 
   config = {
     rv32ima.machine.impermanence.enable = true;
+    gitops.enable = true;
 
     services.getty.autologinUser = "root";
 

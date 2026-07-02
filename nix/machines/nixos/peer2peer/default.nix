@@ -17,6 +17,7 @@ in
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/bootstrapper")
+    (self.lib.nixosModule "nixos/gitops")
     (self.lib.nixosModule "nixos/services/soulseek")
     (self.lib.nixosModule "nixos/services/plex")
     (self.lib.nixosModule "nixos/services/rtorrent")
@@ -49,6 +50,7 @@ in
       }
     ];
 
+    gitops.enable = true;
     rv32ima.machine.bootstrapper.baseUrl = "http://peer2peer.sea.t4t.net:8787";
 
     boot.loader.limine.enable = true;

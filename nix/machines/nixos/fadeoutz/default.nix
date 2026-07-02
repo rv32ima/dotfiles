@@ -17,6 +17,7 @@ in
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/services/tailscale")
+    (self.lib.nixosModule "nixos/gitops")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")
@@ -35,6 +36,8 @@ in
         group = "root";
       }
     ];
+
+    gitops.enable = true;
 
     boot.loader.limine.enable = true;
     boot.loader.limine.secureBoot.enable = true;
