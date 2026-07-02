@@ -17,12 +17,6 @@ in
   config = {
     rv32ima.machine.impermanence.extraPersistDirectories = [
       {
-        path = /var/lib/step-ca;
-        mode = "0700";
-        owner = "step-ca";
-        group = "step-ca";
-      }
-      {
         path = /var/lib/postgresql;
         mode = "0700";
         owner = "postgres";
@@ -51,6 +45,8 @@ in
         EnvironmentFile = config.sops.secrets."services/step-ca/environment".path;
         WorkingDirectory = ""; # override upstream
         ReadWritePaths = ""; # override upstream
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
 
         ExecStart = [
           "" # override upstream
@@ -67,7 +63,7 @@ in
     };
 
     users.users.step-ca = {
-      home = "/var/lib/step-ca";
+      home = "/var/lib/private/step-ca";
       group = "step-ca";
       isSystemUser = true;
     };
@@ -181,6 +177,7 @@ in
                 let
                   roots = [
                     (builtins.readFile "${rootCA}")
+                    (builtins.readFile "${intermediateCA}")
                   ];
                   rootsStr = pkgs.lib.strings.concatStrings roots;
                 in
@@ -215,7 +212,7 @@ in
         };
         crt = "${intermediateCA}";
         db = {
-          dataSource = "postgresql://step-ca@127.0.0.1:5432/";
+          dataSource = "postgresql://step-ca?host=/run/postgresql";
           database = "step-ca";
           type = "postgresql";
         };
