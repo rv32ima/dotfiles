@@ -16,6 +16,25 @@ let
 in
 {
   config = {
+    rv32ima.machine.impermanence.extraPersistDirectories = [
+      {
+        path = /var/lib/step-ca;
+        mode = "0700";
+        owner = "step-ca";
+        group = "step-ca";
+      }
+      {
+        path = /var/lib/postgresql;
+        mode = "0700";
+        owner = "postgres";
+        group = "postgres";
+      }
+    ];
+
+    sops.secrets."services/step-ca/environment" = {
+      sopsFile = ./secrets.yaml;
+    };
+
     # configuration file indirection is needed to support reloading
     environment.etc."smallstep/ca.json".source = configFile;
 
@@ -30,6 +49,7 @@ in
         Group = "step-ca";
         UMask = "0077";
         Environment = "HOME=%S/step-ca";
+        EnvironmentFile = config.sops.secrets."services/step-ca/environment".path;
         WorkingDirectory = ""; # override upstream
         ReadWritePaths = ""; # override upstream
 
@@ -107,7 +127,6 @@ in
         '';
       in
       {
-        address = ":443";
         authority = {
           provisioners = [
             {
@@ -197,8 +216,8 @@ in
         };
         crt = "${intermediateCA}";
         db = {
-          dataSource = "postgresql://step:oN4zb92aJv2cfMeo@ca-db20251103213835147500000001.ch2ea4oae4ax.us-west-2.rds.amazonaws.com:5432/";
-          database = "step";
+          dataSource = "postgresql://step-ca@127.0.0.1:5432/";
+          database = "step-ca";
           type = "postgresql";
         };
         dnsNames = [ "ca.t4t.net" ];
@@ -227,6 +246,15 @@ in
           renegotiation = false;
         };
       };
+
+    services.postgresql.enable = true;
+    services.postgresql.ensureDatabases = [ "step-ca" ];
+    services.postgresql.ensureUsers = [
+      {
+        name = "step-ca";
+        ensureDBOwnership = true;
+      }
+    ];
 
     networking.firewall.allowedTCPPorts = [
       config.services.step-ca.port

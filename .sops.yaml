@@ -56,6 +56,11 @@ creation_rules:
       - *1password
       - *silver-chariot
       - *psychoboost
+  - path_regex: modules/nixos/services/step-ca/.*$
+    key_groups:
+    - age:
+      - *1password
+      - *fadeoutz
   - path_regex: machines/fadeoutz/secrets/.*$
     key_groups:
     - age:

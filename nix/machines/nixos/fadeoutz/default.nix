@@ -17,6 +17,7 @@ in
     (self.lib.nixosModule "nixos/update-dotfiles")
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/services/tailscale")
+    (self.lib.nixosModule "nixos/services/step-ca")
     (self.lib.nixosModule "nixos/gitops")
 
     (self.lib.nixosModule "users/root")
