@@ -25,6 +25,21 @@ jobs:
           fetch-depth: 1
           filter: "blob:none"
 
+      - name: Notify Discord (in progress)
+        shell: bash
+        run: |
+          PAYLOAD=$(jq -n \
+            --arg sha "${{ github.sha }}" \
+            --arg run_url "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{embeds: [{title: "autodeploy in progress...", color: 16776960, fields: [
+              {name: "commit", value: $sha, inline: true},
+              {name: "run", value: "[view logs](\($run_url))", inline: true}
+            ]}]}')
+
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD"
+
       - name: Connect to Tailscale
         uses: tailscale/github-action@v4
         with:
