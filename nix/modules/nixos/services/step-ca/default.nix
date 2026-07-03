@@ -74,31 +74,8 @@ in
     services.step-ca.address = "0.0.0.0";
     services.step-ca.settings =
       let
-        rootCA = pkgs.writeText "root_ca.crt" ''
-          -----BEGIN CERTIFICATE-----
-          MIIBdzCCAR6gAwIBAgIRAOt62aP/10qbOJLfV2a55YcwCgYIKoZIzj0EAwIwGjEY
-          MBYGA1UEAxMPdDR0Lm5ldCBSb290IENBMB4XDTI1MTEwMzIwMTU0MFoXDTM1MTEw
-          MTIwMTU0MFowGjEYMBYGA1UEAxMPdDR0Lm5ldCBSb290IENBMFkwEwYHKoZIzj0C
-          AQYIKoZIzj0DAQcDQgAE5q+OxRCMJTMZHxK5Q2ktNqo5Q8c1TqHTRpRNmRQUIUTD
-          IQRj7tanAJ6xFQ5HGhFQubu99PkuTN84Zi8vwuh0qqNFMEMwDgYDVR0PAQH/BAQD
-          AgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYEFNTCJY/o65snwb2moOfQ
-          byid3HyZMAoGCCqGSM49BAMCA0cAMEQCIAtDhcwAJIMU+GwRHE7ontjyldmtCPJy
-          wgj7Kqknh2j9AiACrmmlXkcbFsqEo2SdJ5r1vD7uzYBSF5ONseGRFHJwqQ==
-          -----END CERTIFICATE-----
-        '';
-        intermediateCA = pkgs.writeText "intermediate_ca.crt" ''
-          -----BEGIN CERTIFICATE-----
-          MIIBoDCCAUagAwIBAgIQSeRtJ8AbFbciT7MTwdK0NTAKBggqhkjOPQQDAjAaMRgw
-          FgYDVQQDEw90NHQubmV0IFJvb3QgQ0EwHhcNMjUxMTAzMjAxNzI3WhcNMzUxMTAx
-          MjAxNzI3WjAiMSAwHgYDVQQDExd0NHQubmV0IEludGVybWVkaWF0ZSBDQTBZMBMG
-          ByqGSM49AgEGCCqGSM49AwEHA0IABE+T/PrnqPurM3mi18EEhE460CzqZrFTMuOQ
-          gPtF7Stydt+E6Dz1QZ1xg8rvjcmQ8F3llvxcJYtA3SaY3TKKA1SjZjBkMA4GA1Ud
-          DwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBQB6QdaeLjt
-          Q59g32jkcI+5P/5+LDAfBgNVHSMEGDAWgBTUwiWP6OubJ8G9pqDn0G8ondx8mTAK
-          BggqhkjOPQQDAgNIADBFAiEA71xPfgSJUw/vwacXka2CqLeAl0GEuy3Pmt56xAZG
-          YOQCIBxhnnLfeErShNxNxfTK8PZxpljXBtE6nQBoLP4VgYoY
-          -----END CERTIFICATE-----
-        '';
+        rootCA = ../../../../../certificates/root-ca.crt;
+        intermediateCA = ../../../../../certificates/intermediate-ca.crt;
         x509Template = pkgs.writeText "x509.tpl" ''
           {
               "subject": {{ toJson .Subject }},
