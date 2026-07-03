@@ -4,12 +4,13 @@ let
 in
 {
   config = {
-    security.pki.certificates = [
-      ''
-        ca.t4t.net
-        =========
-        ${builtins.readFile ../../../certificates/root-ca.crt}
-      ''
+    rv32ima.machine.impermanence.extraPersistDirectories = [
+      {
+        path = /var/lib/acme;
+        mode = "0755";
+        owner = "acme";
+        group = "acme";
+      }
     ];
 
     security.acme.acceptTerms = true;
