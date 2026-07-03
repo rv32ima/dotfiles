@@ -73,8 +73,20 @@
 
     # Since impermanence currently screws up machine-id, manually override it to
     # whatever is in vars:
-    environment.etc = lib.optionalAttrs (vars' ? machineID) { machine-id.text = vars'.machineID; };
+    environment.etc =
+      (lib.optionalAttrs (vars' ? machineID) { machine-id.text = vars'.machineID; })
+      // {
+        "ca.t4t.net.crt".text = builtins.readFile ../../../certificates/root-ca.crt;
+      };
     boot.kernelParams = lib.optional (vars' ? machineID) "systemd.machine_id=${vars'.machineID}";
+
+    security.pki.certificates = [
+      ''
+        ca.t4t.net
+        =========
+        ${builtins.readFile ../../../certificates/root-ca.crt}
+      ''
+    ];
 
     # Enable node-exporter by default for Prometheus monitoring.
     services.prometheus.exporters.node = {
