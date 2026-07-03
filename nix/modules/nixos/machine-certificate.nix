@@ -104,6 +104,7 @@ in
 
     systemd.services."machine-ssh-certificate-renew" = {
       description = "Renew SSH host certificate via SSHPOP";
+      unitConfig.ConditionPathExists = "${sshHostKeyPath}-cert.pub";
       serviceConfig = {
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "machine-ssh-certificate-renew" ''
