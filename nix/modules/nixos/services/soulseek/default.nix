@@ -49,6 +49,7 @@
     };
     services.slskd.domain = "slskd.tail09d5b.ts.net";
     services.slskd.environmentFile = config.sops.secrets."services/soulseek/environment".path;
+    services.slskd.nginx.listenAddresses = [ "127.0.0.1" ];
 
     rv32ima.machine.tailscale.services.slskd = {
       port = 5030;

@@ -26,10 +26,16 @@ in
     security.acme.certs.${fqdn} = {
       email = "ellie@t4t.net";
       server = "https://ca.t4t.net/acme/acme/directory";
-      listenHTTP = ":80";
+      # When nginx owns port 80, step aside to a high port and let nginx proxy the challenge.
+      listenHTTP = if config.services.nginx.enable then ":1360" else ":80";
     };
 
     networking.firewall.allowedTCPPorts = [ 80 ];
+
+    # Proxy the ACME HTTP-01 challenge through nginx when it's present.
+    services.nginx.virtualHosts.${fqdn} = lib.mkIf config.services.nginx.enable {
+      locations."/.well-known/acme-challenge/".proxyPass = "http://127.0.0.1:1360";
+    };
 
     # Trust t4t.net SSH host certificates for all users on this machine.
     programs.ssh.knownHosts."t4t.net-ssh-ca" = {
