@@ -54,6 +54,7 @@
     build = {
       maxJobs = 24;
       sshUser = "nix";
+      speedFactor = 10;
       supportedFeatures = [
         "kvm"
         "benchmark"
@@ -87,6 +88,7 @@
     build = {
       maxJobs = 64;
       sshUser = "nix";
+      speedFactor = 10;
       supportedFeatures = [
         "kvm"
         "benchmark"
@@ -107,6 +109,7 @@
     build = {
       maxJobs = 40;
       sshUser = "nix";
+      speedFactor = 1;
       supportedFeatures = [
         "kvm"
         "benchmark"
@@ -128,6 +131,7 @@
     build = {
       maxJobs = 48;
       sshUser = "nix";
+      speedFactor = 1;
       supportedFeatures = [
         "kvm"
         "benchmark"

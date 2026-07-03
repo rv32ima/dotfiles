@@ -226,14 +226,18 @@
                 in
                 if vars' ? build then
                   {
-                    inherit (vars'.build) maxJobs sshUser supportedFeatures;
+                    inherit (vars'.build)
+                      maxJobs
+                      sshUser
+                      supportedFeatures
+                      speedFactor
+                      ;
                     inherit (vars') system;
                     hostName = machineName;
                     publicHostKey = toBase64 vars'.sshPublicKey;
                     sshKey = "/etc/nix/builder_ed25519";
                     protocol = "ssh";
                     mandatoryFeatures = [ ];
-                    speedFactor = 1;
                   }
                 else
                   lib.assertMsg false "machineAsBuilder must be called on a machine that has a build section";
