@@ -49,6 +49,8 @@ jobs:
 
       # Get into our Nix shell :D
       - uses: nicknovitski/nix-develop@v1
+        with:
+          arguments: "./nix"
 
       - name: Deploy with Colmena
         shell: bash
