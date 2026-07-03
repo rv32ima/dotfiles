@@ -14,6 +14,8 @@ in
     n: v: if prev.system != "x86_64-linux" && n == "mlx-kernel" then false else true
   ) packagesDir;
 
+  colmena = inputs.colmena.packages.${prev.system}.colmena;
+
   lib = prev.lib // {
     toBase64 = final.callPackage ../lib/toBase64.nix { };
   };

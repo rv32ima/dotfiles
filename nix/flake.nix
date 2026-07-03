@@ -184,6 +184,16 @@
 
             hydraJobs = {
               legacyPackages.x86_64-linux = self.legacyPackages.x86_64-linux;
+              packages.x86_64-linux =
+                let
+                  pkgs = import inputs.nixpkgs {
+                    system = "x86_64-linux";
+                    overlays = builtins.attrValues inputs.self.overlays;
+                  };
+                in
+                {
+                  inherit (pkgs) colmena;
+                };
               nixos =
                 let
                   mkClosure = machine: self.nixosConfigurations.${machine}.config.system.build.toplevel;
@@ -297,9 +307,9 @@
             };
 
             devShells.default = pkgs.mkShell {
-              packages = [
-                colmena.packages.${system}.colmena
-                pkgs.openbao
+              packages = with pkgs; [
+                openbao
+                colmena
               ];
             };
           };
