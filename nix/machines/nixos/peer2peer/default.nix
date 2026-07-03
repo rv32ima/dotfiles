@@ -50,7 +50,6 @@ in
       }
     ];
 
-    gitops.enable = true;
     rv32ima.machine.bootstrapper.baseUrl = "http://peer2peer.sea.t4t.net:8787";
 
     boot.loader.limine.enable = true;

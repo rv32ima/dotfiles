@@ -17,7 +17,6 @@
 
   config = {
     rv32ima.machine.impermanence.enable = true;
-    gitops.enable = true;
 
     services.getty.autologinUser = "root";
 

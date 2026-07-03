@@ -38,8 +38,6 @@ in
       }
     ];
 
-    gitops.enable = true;
-
     boot.loader.limine.enable = true;
     boot.loader.limine.secureBoot.enable = true;
     boot.loader.limine.efiInstallAsRemovable = true;
