@@ -34,7 +34,10 @@ in
 
     # Proxy the ACME HTTP-01 challenge through nginx when it's present.
     services.nginx.virtualHosts.${fqdn} = lib.mkIf config.services.nginx.enable {
-      locations."/.well-known/acme-challenge/".proxyPass = "http://127.0.0.1:1360";
+      locations."/.well-known/acme-challenge/" = {
+        proxyPass = "http://127.0.0.1:1360";
+        extraConfig = "proxy_set_header Host $host;";
+      };
     };
 
     # Trust t4t.net SSH host certificates for all users on this machine.
