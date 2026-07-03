@@ -18,7 +18,6 @@ in
     (self.lib.nixosModule "nixos/remote-builder")
     (self.lib.nixosModule "nixos/bootstrapper")
     (self.lib.nixosModule "nixos/machine-certificate")
-    (self.lib.nixosModule "nixos/gitops")
     (self.lib.nixosModule "nixos/services/soulseek")
     (self.lib.nixosModule "nixos/services/plex")
     (self.lib.nixosModule "nixos/services/rtorrent")
