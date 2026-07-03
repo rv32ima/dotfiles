@@ -8,6 +8,7 @@
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "nixos/machine-certificate")
+    (self.lib.nixosModule "nixos/deploy")
 
     ./network.nix
     ./disk-config.nix

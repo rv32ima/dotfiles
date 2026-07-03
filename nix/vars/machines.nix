@@ -18,7 +18,7 @@
     deployment = {
       targetHost = "ghostholding.tail09d5b.ts.net";
       targetPort = 22;
-      targetUser = "root";
+      targetUser = "deploy";
     };
   };
   "silver-chariot" = {
@@ -48,7 +48,7 @@
     deployment = {
       targetHost = "peer2peer.tail09d5b.ts.net";
       targetPort = 22;
-      targetUser = "root";
+      targetUser = "deploy";
       tags = [ "auto-deploy" ];
     };
     build = {
@@ -70,7 +70,7 @@
     deployment = {
       targetHost = "pawpatch.tail09d5b.ts.net";
       targetPort = 22;
-      targetUser = "root";
+      targetUser = "deploy";
       tags = [ "auto-deploy" ];
     };
   };
@@ -82,7 +82,7 @@
     deployment = {
       targetHost = "psychoboost.tail09d5b.ts.net";
       targetPort = 22;
-      targetUser = "root";
+      targetUser = "deploy";
       tags = [ "auto-deploy" ];
     };
     build = {
@@ -103,7 +103,7 @@
     deployment = {
       targetHost = "unmusique.tail09d5b.ts.net";
       targetPort = 22;
-      targetUser = "root";
+      targetUser = "deploy";
       tags = [ "auto-deploy" ];
     };
     build = {
@@ -125,7 +125,7 @@
     deployment = {
       targetHost = "fadeoutz.tail09d5b.ts.net";
       targetPort = 22;
-      targetUser = "root";
+      targetUser = "deploy";
       tags = [ "auto-deploy" ];
     };
     build = {
