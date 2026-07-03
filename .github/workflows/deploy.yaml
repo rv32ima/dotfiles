@@ -85,6 +85,33 @@ jobs:
           ssh-private-key: ${{ secrets.NIX_DEPLOY_SSH_KEY }}
 
       - name: Deploy with Colmena
+        id: deploy
         shell: bash
         run: |
           colmena apply --on @auto-deploy -f ./nix/flake.nix
+
+      - name: Notify Discord
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ steps.deploy.outcome }}" = "success" ]; then
+            COLOR=3066993
+            STATUS="autodeploy succeeded :3"
+          else
+            COLOR=15158332
+            STATUS="autodeploy failed >//< (${{ steps.deploy.outcome }})"
+          fi
+
+          PAYLOAD=$(jq -n \
+            --argjson color "$COLOR" \
+            --arg status "$STATUS" \
+            --arg sha "${{ github.sha }}" \
+            --arg run_url "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{embeds: [{title: $status, color: $color, fields: [
+              {name: "commit", value: $sha, inline: true},
+              {name: "run", value: "[view logs](\($run_url))", inline: true}
+            ]}]}')
+
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD"
