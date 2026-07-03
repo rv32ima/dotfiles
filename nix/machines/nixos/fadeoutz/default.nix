@@ -19,7 +19,6 @@ in
     (self.lib.nixosModule "nixos/machine-certificate")
     (self.lib.nixosModule "nixos/services/tailscale")
     (self.lib.nixosModule "nixos/services/step-ca")
-    (self.lib.nixosModule "nixos/gitops")
 
     (self.lib.nixosModule "users/root")
     (self.lib.nixosModule "users/ellie")

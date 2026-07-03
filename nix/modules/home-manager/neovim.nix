@@ -35,6 +35,8 @@
         python313Packages.python-lsp-black
         # Lua
         lua-language-server
+        # Yaml
+        yaml-language-server
         # Nix
         nixd
         nixfmt

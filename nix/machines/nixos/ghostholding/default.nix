@@ -7,7 +7,6 @@
   imports = [
     (self.lib.nixosModule "nixos/impermanence")
     (self.lib.nixosModule "users/root")
-    (self.lib.nixosModule "nixos/gitops")
     (self.lib.nixosModule "nixos/machine-certificate")
 
     ./network.nix
