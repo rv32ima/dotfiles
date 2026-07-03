@@ -80,7 +80,6 @@
       self,
       nixpkgs,
       flake-parts,
-      colmena,
       nix-darwin,
       ...
     }:
@@ -290,12 +289,12 @@
 
             overlays = {
               default = import ./overlays/default.nix { inherit inputs; };
+              colmena = inputs.colmena.overlays.default;
             };
           };
 
         perSystem =
           {
-            pkgs,
             system,
             ...
           }:
