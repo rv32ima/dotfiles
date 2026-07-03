@@ -9,6 +9,11 @@ permissions:
   contents: read
   id-token: write
 
+# Only allow one deploy to be in flight at a time.
+concurrency:
+  group: auto-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Deploy
