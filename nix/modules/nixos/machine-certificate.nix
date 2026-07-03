@@ -1,6 +1,12 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   fqdn = "${config.networking.hostName}.${config.networking.domain}";
+  tailnetFqdn = "${config.networking.hostName}.tail09d5b.ts.net";
   certDir = "/var/lib/acme/${fqdn}";
   rootCA = ../../../certificates/root-ca.crt;
   sshUserCA = ../../../certificates/ssh-user-ca.pub;
@@ -26,6 +32,9 @@ in
     security.acme.certs.${fqdn} = {
       email = "ellie@t4t.net";
       server = "https://ca.t4t.net/acme/acme/directory";
+      extraDomainNames = [
+        tailnetFqdn
+      ];
       # When nginx owns port 80, step aside to a high port and let nginx proxy the challenge.
       listenHTTP = if config.services.nginx.enable then ":1360" else ":80";
     };
@@ -44,9 +53,7 @@ in
     programs.ssh.knownHosts."t4t.net-ssh-ca" = {
       certAuthority = true;
       hostNames = [
-        "*.t4t.net"
-        "*.sea.t4t.net"
-        "*.tail09d5b.ts.net"
+        "*"
       ];
       publicKey = lib.fileContents ../../../certificates/ssh-host-ca.pub;
     };
@@ -80,6 +87,9 @@ in
             --x5c-key=${certDir}/key.pem \
             --ca-url=${caURL} \
             --root=${rootCA} \
+            --principal=${fqdn} \
+            --principal=${config.networking.hostName} \
+            --principal=${tailnetFqdn} \
             --force \
             ${fqdn} \
             ${sshHostKeyPath}.pub
