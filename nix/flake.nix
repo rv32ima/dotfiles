@@ -144,6 +144,17 @@
               )
             );
 
+            ciBuilders =
+              let
+                mkNixBuilders = import ./lib/mkNixMachines.nix { inherit lib; };
+              in
+              mkNixBuilders [
+                (self.lib.machineAsBuilder "unmusique")
+                (self.lib.machineAsBuilder "peer2peer")
+                (self.lib.machineAsBuilder "psychoboost")
+                (self.lib.machineAsBuilder "fadeoutz")
+              ];
+
             colmenaHive = colmena.lib.makeHive self.outputs.colmena;
 
             colmena =
@@ -211,6 +222,8 @@
                     publicHostKey = toBase64 vars'.sshPublicKey;
                     sshKey = "/etc/nix/builder_ed25519";
                     protocol = "ssh";
+                    mandatoryFeatures = [ ];
+                    speedFactor = 1;
                   }
                 else
                   lib.assertMsg false "machineAsBuilder must be called on a machine that has a build section";

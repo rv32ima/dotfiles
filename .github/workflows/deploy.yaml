@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          filter: "blob:none"
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          audience: ${{ secrets.TS_AUDIENCE }}
+          tags: tag:ci
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v30
+        with:
+          nix_conf: |
+            keep-env-derivations = true
+            keep-outputs = true
+            substituters = https://cache.t4t.net/ https://cache.nixos.org/
+            trusted-public-keys = cache.t4t.net-1:7NimrD/skv9tL7c3UjgwMxpup/RNcvzd7yrH0QNnlF0= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - name: Write CI builder SSH key
+        shell: bash
+        run: |
+          echo "${{ secrets.NIX_CI_BUILD_SSH_KEY }}" | sudo tee /etc/nix/builder_ed25519
+
+      - name: Write CI builders
+        shell: bash
+        run: |
+          nix eval --raw ./nix#ciBuilders | sudo tee /etc/nix/machines
+
+      # Get into our Nix shell :D
+      - uses: nicknovitski/nix-develop@v1
+
+      - name: Deploy with Colmena
+        shell: bash
+        run: |
+          colmena apply --on @auto-deploy

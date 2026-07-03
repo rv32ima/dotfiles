@@ -49,6 +49,7 @@
       targetHost = "peer2peer.tail09d5b.ts.net";
       targetPort = 22;
       targetUser = "root";
+      tags = [ "auto-deploy" ];
     };
     build = {
       maxJobs = 24;
@@ -69,6 +70,7 @@
       targetHost = "pawpatch.tail09d5b.ts.net";
       targetPort = 22;
       targetUser = "root";
+      tags = [ "auto-deploy" ];
     };
   };
   "psychoboost" = {
@@ -80,6 +82,7 @@
       targetHost = "psychoboost.tail09d5b.ts.net";
       targetPort = 22;
       targetUser = "root";
+      tags = [ "auto-deploy" ];
     };
     build = {
       maxJobs = 64;
@@ -99,6 +102,7 @@
       targetHost = "unmusique.tail09d5b.ts.net";
       targetPort = 22;
       targetUser = "root";
+      tags = [ "auto-deploy" ];
     };
     build = {
       maxJobs = 40;
@@ -119,6 +123,7 @@
       targetHost = "fadeoutz.tail09d5b.ts.net";
       targetPort = 22;
       targetUser = "root";
+      tags = [ "auto-deploy" ];
     };
     build = {
       maxJobs = 48;
