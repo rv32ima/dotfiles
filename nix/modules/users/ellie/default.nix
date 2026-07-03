@@ -49,6 +49,17 @@ in
     };
 
     home-manager.users."ellie" = { config, ... }: {
+      home.file.".ssh/t4t-ca".text = ''
+        @cert-authority *.t4t.net,*.sea.t4t.net,*.tail09d5b.ts.net ${lib.fileContents ../../../../certificates/ssh-host-ca.pub}
+      '';
+
+      programs.ssh = {
+        enable = true;
+        extraConfig = ''
+          UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/t4t-ca
+        '';
+      };
+
       programs.git = {
         enable = true;
         settings = {
