@@ -60,4 +60,4 @@ jobs:
       - name: Deploy with Colmena
         shell: bash
         run: |
-          colmena apply --on @auto-deploy
+          colmena apply --on @auto-deploy -f ./nix/flake.nix
