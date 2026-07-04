@@ -134,7 +134,7 @@ jobs:
             --cacert "$GITHUB_WORKSPACE/certificates/root-ca.crt" \
             -X POST "${CA_URL}/1.0/ssh/sign" \
             -H "Content-Type: application/json" \
-            -d "{\"public_key\":\"$PUBKEY_BLOB\",\"ott\":\"$TOKEN\",\"certType\":\"user\"}" \
+            -d "{\"publicKey\":\"$PUBKEY_BLOB\",\"ott\":\"$TOKEN\",\"certType\":\"user\"}" \
             | jq -r .crt)
           echo "$CERT" > /tmp/ci_deploy_key-cert.pub
           ssh-add /tmp/ci_deploy_key
