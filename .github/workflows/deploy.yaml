@@ -95,9 +95,32 @@ jobs:
         with:
           arguments: "./nix"
 
-      - uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555
-        with:
-          ssh-private-key: ${{ secrets.NIX_DEPLOY_SSH_KEY }}
+      - name: Get deploy SSH certificate via OIDC
+        shell: bash
+        run: |
+          # Generate an ephemeral deploy key
+          ssh-keygen -t ed25519 -f /tmp/ci_deploy_key -N "" -q
+
+          # Fetch a GitHub OIDC token scoped to our step-ca
+          TOKEN=$(curl -sSf \
+            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://ca.t4t.net" \
+            | jq -r .value)
+
+          # Exchange the OIDC token for a short-lived SSH certificate
+          step ssh certificate \
+            --provisioner=github-actions \
+            --token="$TOKEN" \
+            --ca-url=https://ca.t4t.net \
+            --root="${GITHUB_WORKSPACE}/certificates/root-ca.crt" \
+            --force \
+            ci-deploy /tmp/ci_deploy_key
+
+          # Load key + cert into a fresh SSH agent for subsequent steps
+          eval "$(ssh-agent -s)"
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
+          ssh-add /tmp/ci_deploy_key
 
       - name: Deploy with Colmena
         id: deploy

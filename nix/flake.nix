@@ -313,6 +313,7 @@
               packages = with pkgs; [
                 openbao
                 colmena
+                step-cli
               ];
             };
           };
