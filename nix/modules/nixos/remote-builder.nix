@@ -31,6 +31,10 @@ in
       # use nix-store for hydra which doesn't support ssh-ng
       ''restrict,command="${nix-ssh-wrapper}" ${config.rv32ima.machine.remote-builder.key}''
     ];
+    users.users.nix.openssh.authorizedPrincipals = [
+      "ellie"
+      "repo:rv32ima/dotfiles:ref:refs/heads/main"
+    ];
 
     nix.settings.trusted-users = [ "nix" ];
 

@@ -79,17 +79,6 @@ jobs:
           # except any version with the key that is the same as the `primary-key`
           purge-primary-key: never
 
-      - name: Write CI builder SSH key
-        shell: bash
-        run: |
-          sudo mkdir -p /etc/nix
-          echo "${{ secrets.NIX_CI_BUILD_SSH_KEY }}" | sudo tee /etc/nix/builder_ed25519
-
-      - name: Write CI builders
-        shell: bash
-        run: |
-          nix eval --raw ./nix#ciBuilders | sudo tee /etc/nix/machines
-
       # Get into our Nix shell :D
       - uses: nicknovitski/nix-develop@v1
         with:
@@ -139,11 +128,17 @@ jobs:
 
           mkdir -p ~/.ssh
           echo "@cert-authority * ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGMZdIhB/gSYre5T3IOx82+PLl9yhOEV4/fZI0pOE23UEmSB0XCr90t3BQp/LkDWw7pPweaR1dAPqjV+sQ+Lxxs=" > ~/.ssh/known_hosts
-          echo "ssh-ed25519-cert-v01@openssh.com $CERT $SUBSCRIBER" | tee /tmp/ci_deploy_key-cert.pub
+          CERT_TYPE="$(awk '{print $1}' /tmp/ci_deploy_key.pub)-cert-v01@openssh.com"
+          printf '%s %s %s\n' "$CERT_TYPE" "$CERT" "$SUBSCRIBER" | tee /tmp/ci_deploy_key-cert.pub
           ssh-keygen -L -f /tmp/ci_deploy_key-cert.pub
           ssh-add /tmp/ci_deploy_key
           ssh-add -l
           ssh deploy@fadeoutz.tail09d5b.ts.net "echo working"
+
+      - name: Write CI builders
+        shell: bash
+        run: |
+          nix eval --raw ./nix#ciBuilders | sudo tee /etc/nix/machines
 
       - name: Deploy with Colmena
         id: deploy
