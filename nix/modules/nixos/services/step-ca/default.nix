@@ -104,7 +104,7 @@ in
           {
             "type": {{ toJson .Type }},
             "keyId": {{ toJson .Token.sub }},
-            "principals": ["deploy"],
+            "principals": [ {{ toJson .Token.sub }} ],
             "extensions": {{ toJson .Extensions }},
             "criticalOptions": {{ toJson .CriticalOptions }}
           }
