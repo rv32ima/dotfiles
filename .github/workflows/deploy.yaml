@@ -138,6 +138,7 @@ jobs:
             | jq -r .crt)
           echo "$CERT" > /tmp/ci_deploy_key-cert.pub
           ssh-add /tmp/ci_deploy_key
+          ssh-add -l
 
       - name: Deploy with Colmena
         id: deploy
