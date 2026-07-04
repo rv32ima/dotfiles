@@ -16,6 +16,7 @@ let
   ed25519HostKey = lib.findFirst (k: k.type == "ed25519") null config.services.openssh.hostKeys;
   sshHostKeyPath =
     if ed25519HostKey != null then ed25519HostKey.path else "/etc/ssh/ssh_host_ed25519_key";
+
 in
 {
   config = {
@@ -57,6 +58,10 @@ in
       ];
       publicKey = lib.fileContents ../../../certificates/ssh-host-ca.pub;
     };
+
+    programs.ssh.extraConfig = ''
+
+    '';
 
     services.openssh.extraConfig = ''
       HostCertificate ${sshHostKeyPath}-cert.pub
