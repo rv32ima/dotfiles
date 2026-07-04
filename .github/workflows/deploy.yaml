@@ -104,6 +104,8 @@ jobs:
 
       - name: Get deploy SSH certificate via OIDC
         shell: bash
+        env:
+          STEPDEBUG: 1
         run: |
           # Fetch a GitHub OIDC token scoped to our step-ca
           TOKEN=$(curl -sSf \
@@ -118,7 +120,6 @@ jobs:
           step ssh certificate \
             --provisioner=github-actions \
             --token="$TOKEN" \
-            --force \
             ci-deploy /tmp/ci_deploy_key
 
       - name: Deploy with Colmena
