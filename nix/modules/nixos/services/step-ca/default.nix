@@ -97,6 +97,18 @@ in
             "criticalOptions": {{ toJson .CriticalOptions }}
           }
         '';
+        githubActionsSSHTemplate = pkgs.writeText "github-actions-ssh.tpl" ''
+          {{- if not (eq .Token.sub "repo:rv32ima/dotfiles:ref:refs/heads/main") -}}
+          {{- fail "unauthorized: only rv32ima/dotfiles main branch is allowed" -}}
+          {{- end -}}
+          {
+            "type": {{ toJson .Type }},
+            "keyId": {{ toJson .Token.sub }},
+            "principals": ["deploy"],
+            "extensions": {{ toJson .Extensions }},
+            "criticalOptions": {{ toJson .CriticalOptions }}
+          }
+        '';
       in
       {
         authority = {
@@ -171,6 +183,23 @@ in
                 };
                 ssh = {
                   templateFile = "${sshTemplate}";
+                };
+              };
+            }
+            {
+              type = "OIDC";
+              name = "github-actions";
+              clientID = "https://ca.t4t.net";
+              configurationEndpoint = "https://token.actions.githubusercontent.com/.well-known/openid-configuration";
+              claims = {
+                enableSSHCA = true;
+                maxTLSCertDuration = "1h";
+                defaultTLSCertDuration = "1h";
+                disableRenewal = true;
+              };
+              options = {
+                ssh = {
+                  templateFile = "${githubActionsSSHTemplate}";
                 };
               };
             }
