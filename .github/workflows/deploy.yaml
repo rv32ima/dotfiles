@@ -136,6 +136,8 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"publicKey\":\"$PUBKEY_BLOB\",\"ott\":\"$TOKEN\",\"certType\":\"user\"}" \
             | jq -r .crt)
+
+          mkdir -p ~/.ssh
           echo "@cert-authority * ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGMZdIhB/gSYre5T3IOx82+PLl9yhOEV4/fZI0pOE23UEmSB0XCr90t3BQp/LkDWw7pPweaR1dAPqjV+sQ+Lxxs=" | tee ~/.ssh/known_hosts
           echo "$CERT" | tee /tmp/ci_deploy_key-cert.pub
           ssh-keygen -L -f /tmp/ci_deploy_key-cert.pub
