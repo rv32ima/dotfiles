@@ -123,12 +123,21 @@ jobs:
 
           SUBSCRIBER=$(echo $TOKEN | step crypto jwt inspect --insecure | jq -r .payload.sub)
 
-          # Exchange the OIDC token for a short-lived SSH certificate
-          step ssh certificate \
-            --provisioner=github-actions \
-            --token="$TOKEN" \
-            --not-after=1h \
-            ${SUBSCRIBER} /tmp/ci_deploy_key
+          # Generate ephemeral deploy key
+          ssh-keygen -t ed25519 -f /tmp/ci_deploy_key -N "" -q
+
+          # step-cli's --token flag for OIDC JWTs has a bug where it tries to look up
+          # the JWT kid in step-ca's root store, which fails because GitHub's OIDC
+          # signing key isn't there. call the step-ca REST API directly instead.
+          PUBKEY_BLOB=$(awk '{print $2}' /tmp/ci_deploy_key.pub)
+          CERT=$(curl -sSf \
+            --cacert "$GITHUB_WORKSPACE/certificates/root-ca.crt" \
+            -X POST "${CA_URL}/1.0/ssh/sign" \
+            -H "Content-Type: application/json" \
+            -d "{\"public_key\":\"$PUBKEY_BLOB\",\"ott\":\"$TOKEN\",\"certType\":\"user\"}" \
+            | jq -r .crt)
+          echo "$CERT" > /tmp/ci_deploy_key-cert.pub
+          ssh-add /tmp/ci_deploy_key
 
       - name: Deploy with Colmena
         id: deploy
