@@ -138,8 +138,8 @@ jobs:
             | jq -r .crt)
 
           mkdir -p ~/.ssh
-          echo "@cert-authority * ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGMZdIhB/gSYre5T3IOx82+PLl9yhOEV4/fZI0pOE23UEmSB0XCr90t3BQp/LkDWw7pPweaR1dAPqjV+sQ+Lxxs=" | tee ~/.ssh/known_hosts
-          echo "$CERT" | tee /tmp/ci_deploy_key-cert.pub
+          echo "@cert-authority * ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGMZdIhB/gSYre5T3IOx82+PLl9yhOEV4/fZI0pOE23UEmSB0XCr90t3BQp/LkDWw7pPweaR1dAPqjV+sQ+Lxxs=" > ~/.ssh/known_hosts
+          echo "ssh-ed25519-cert-v01@openssh.com $CERT $SUBSCRIBER" | tee /tmp/ci_deploy_key-cert.pub
           ssh-keygen -L -f /tmp/ci_deploy_key-cert.pub
           ssh-add /tmp/ci_deploy_key
           ssh-add -l
