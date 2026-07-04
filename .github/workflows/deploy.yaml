@@ -106,6 +106,8 @@ jobs:
         shell: bash
         env:
           STEPDEBUG: 1
+          CA_URL: https://ca.t4t.net
+          CA_FINGERPRINT: 43c891ed6cbf41cec282e972df5e567ab1593a5cb69ac6a8f25304895fd71b31
         run: |
           # Fetch a GitHub OIDC token scoped to our step-ca
           TOKEN=$(curl -sSf \
@@ -113,14 +115,20 @@ jobs:
             "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://ca.t4t.net" \
             | jq -r .value)
 
-          # Bootstrap our step-ca client
-          step ca bootstrap --ca-url https://ca.t4t.net --fingerprint 43c891ed6cbf41cec282e972df5e567ab1593a5cb69ac6a8f25304895fd71b31
+          curl -sLO https://token.actions.githubusercontent.com/.well-known/jwks
+          echo $TOKEN | step crypto jwt verify \
+            --jwks jwks \
+            --aud https://ca.t4t.net \
+            --iss "https://token.actions.githubusercontent.com"
+
+          SUBSCRIBER=$(echo $TOKEN | step crypto jwt inspect --insecure | jq -r .payload.sub)
 
           # Exchange the OIDC token for a short-lived SSH certificate
           step ssh certificate \
             --provisioner=github-actions \
             --token="$TOKEN" \
-            ci-deploy /tmp/ci_deploy_key
+            --not-after=1h \
+            ${SUBSCRIBER} /tmp/ci_deploy_key
 
       - name: Deploy with Colmena
         id: deploy
