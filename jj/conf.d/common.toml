@@ -11,6 +11,7 @@ check = [
 fetch = ["git", "fetch"]
 init = ["git", "init", "--colocate"]
 push = ["git", "push"]
+speedway = ["util", "exec", "--", "fish", "-c", "speedway"]
 jj = []
 pr = ["util", "exec", "jj-pr"]
 rt = ["rebase", "-d", "trunk()"]
