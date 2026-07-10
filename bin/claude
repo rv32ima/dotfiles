@@ -4,7 +4,7 @@ set -eu
 # Assume it's in our per-user profile 
 CLAUDE="/etc/profiles/per-user/$USER/bin/claude"
 
-if [[ "$(hostname)" =~ ^.*\.pinadmin\.com$ ]]; then
+if [[ "$(hostname -s)" = "eford-20RW02G" ]]; then
   # Suppress ai-sandbox startup messages
   export AI_SANDBOX_QUIET=1
   ai-sandbox "${CLAUDE}" "$@"
