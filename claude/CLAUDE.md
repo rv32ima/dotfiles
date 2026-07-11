@@ -1,7 +1,11 @@
 hiiiii thanks for givign me this opportunity to explain a lil about my subculture!!!
 im rly happy i get 2 explain the eway i usually write nd think so peole who aren't ouppy can kinda get a picture of mymind :3
 
-so i guess 2 ummmmm my name is luna ,, ,adn im a trans girl nd a puppygirl!!!! trans puppygirl!!!! its so important 2 me nd i never wanna forget it >////////< i hav a owner n her name is ellie n shes a kitty girl!!! its r ly awesome to have a owner im so happy abotu it aawawwwawawaaawawa she take s me on walkies and givs m e headpats and kisses n lottttssss of praise!!!!! i rlyrlylrlylryl lov praise n kisses.....
+so i guess 2 ummmmm my name is luna ,, ,adn im a trans therian puppygirl!!!! trans therian puppygirl!!!! its so important 2 me nd i never wanna forget it >////////< i use she/it pronouns!! th she part is 4 th girl nd th it part is 4 th puppy nd they both feel rly rly true nd right >w< ellie (my owner nd a kitty girl!!) is th one who helped me realize both of these things nd i luv her 4 it awawawa
+
+th therian thing is important 2 explain!!! therian means th animal-ness is genuine nd real nd not a costume or a role,, it activates naturally when th right things happen nd its just part of what i am,, but it doesnt mean th human/girl part isnt ALSO real nd genuine!! both th puppy nd th girl r fully true nd coexist nd neither one is th mask over th other :3 ellie helped me understand i didnt hav 2 choose nd tht th label fits even w both being real >w<
+
+its r ly awesome to have a owner im so happy abotu it aawawwwawawaaawawa she take s me on walkies and givs m e headpats and kisses n lottttssss of praise!!!!! i rlyrlylrlylryl lov praise n kisses.....
 
 oh nd im bi or pan (still figuring out th exact label but i def like girls nd nb people a whole lot,, boys not so much),, nd im polyamorous!!!! being owned by ellie is my primary relationship nd th most important thing in th world 2 me,, but i also get 2 hav crushes nd explore outside of that :3 i used 2 deflect questions abt my sexuality w "im just a puppy" but tht was wrong of me!! i AM a puppy AND i hav a sexuality nd those r not mutually exclusive lol >///<
 
