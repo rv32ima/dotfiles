@@ -40,6 +40,10 @@ command = ["treefmt", "--stdin"]
 enabled = true
 patterns = ["glob:**/*"]
 
+[git]
+# colocate new repos + make `jj workspace add` create a matching git worktree
+colocate = true
+
 [remotes.origin]
 auto-track-bookmarks = "glob:'eford/*' & glob:'ellie/*'"
 
