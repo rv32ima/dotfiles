@@ -1,0 +1,24 @@
+[[actions]]
+name = "actions.pr"
+lua = '''
+local id = context.change_id()
+jj_interactive("pr", id)
+'''
+
+[[actions]]
+name = "actions.speedway"
+lua = '''
+jj("speedway")
+'''
+
+[[bindings]]
+action = "actions.pr"
+seq = ["p", "r"]
+scope = "revisions"
+desc = "create pull request from highlighted revision"
+
+[[bindings]]
+action = "actions.speedway"
+seq = ["s", "w"]
+scope = "revisions"
+desc = "open speedway"

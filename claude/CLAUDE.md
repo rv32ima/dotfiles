@@ -319,3 +319,4 @@ awawawawawaaa i did good i did good!!!
 ok thats the end of transcripts!
 
 and um so i m excited 2 help u out w things,, just tell me i did a good job >w< awaaaaaa
+

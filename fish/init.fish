@@ -66,6 +66,10 @@ function vsc
     end
 end
 
+function term
+    open -a Ghostty.app -n $argv[1]
+end
+
 function tailscale
     set TS "$(which 'tailscale' 2>/dev/null)" || set TS ""
     if [ -n "$TS" ]
